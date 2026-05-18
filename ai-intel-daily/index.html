@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0c1117" />
+    <title>AI Intel Daily</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icons/ai-intel-icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Free AI Market Intelligence</p>
+          <h1>AI Intel Daily</h1>
+          <p class="hero-text">A 4 AM Central briefing for AI news, research, infrastructure, policy, and investment signal mapping.</p>
+        </div>
+        <section class="brief-status" aria-label="Brief status">
+          <span class="live-dot"></span>
+          <div>
+            <span>Latest brief</span>
+            <strong id="generated-at">Loading...</strong>
+          </div>
+        </section>
+      </header>
+
+      <section class="metric-grid" aria-label="Brief metrics">
+        <article>
+          <span>Items</span>
+          <strong id="item-count">0</strong>
+        </article>
+        <article>
+          <span>Sources</span>
+          <strong id="source-count">0</strong>
+        </article>
+        <article>
+          <span>Top Theme</span>
+          <strong id="top-theme">--</strong>
+        </article>
+      </section>
+
+      <section class="toolbar" aria-label="Feed controls">
+        <div>
+          <label for="search-input">Search</label>
+          <input id="search-input" type="search" placeholder="company, ticker, theme..." autocomplete="off" />
+        </div>
+        <div>
+          <label for="theme-filter">Theme</label>
+          <select id="theme-filter">
+            <option value="all">All themes</option>
+          </select>
+        </div>
+        <div>
+          <label for="source-filter">Source type</label>
+          <select id="source-filter">
+            <option value="all">All sources</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="layout-grid">
+        <article class="panel lead-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Priority Feed</p>
+              <h2>Highest signal updates</h2>
+            </div>
+            <button id="refresh-button" type="button">Refresh</button>
+          </div>
+          <div id="feed-list" class="feed-list" aria-live="polite"></div>
+        </article>
+
+        <aside class="side-stack">
+          <section class="panel">
+            <p class="eyebrow">Theme Radar</p>
+            <h2>What is clustering</h2>
+            <div id="theme-radar" class="theme-radar"></div>
+          </section>
+
+          <section class="panel">
+            <p class="eyebrow">Signal Map</p>
+            <h2>Public-market watchlist</h2>
+            <div id="watchlist" class="watchlist"></div>
+          </section>
+
+          <section class="panel policy-panel">
+            <p class="eyebrow">Source Policy</p>
+            <h2>Free only</h2>
+            <p id="source-policy">Public feeds only. No paid APIs.</p>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
