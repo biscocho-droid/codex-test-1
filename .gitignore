@@ -5,3 +5,7 @@ __pycache__/
 data/*.sqlite3
 reports/*.html
 config.yaml
+sp500-value-dashboard/node_modules/
+sp500-value-dashboard/dist/
+sp500-value-dashboard/*.log
+sp500-value-dashboard/*.err
