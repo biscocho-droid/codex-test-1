@@ -1,0 +1,17 @@
+{
+  "name": "S&P 500 Value Finder",
+  "short_name": "Value Finder",
+  "start_url": "/codex-test-1/",
+  "scope": "/codex-test-1/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/codex-test-1/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
