@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monthly Budget</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">F</span>
+          <div>
+            <strong>Finance OS</strong>
+            <small>2026 budget</small>
+          </div>
+        </div>
+        <nav class="nav" aria-label="Dashboard views">
+          <button class="nav-btn active" data-view="overview">Monthly Budget</button>
+          <button class="nav-btn" data-view="paychecks">Paycheck Split</button>
+          <button class="nav-btn" data-view="categories">Categories</button>
+          <button class="nav-btn" data-view="calendar">Bills Calendar</button>
+          <button class="nav-btn" data-view="goals">Savings Goals</button>
+          <button class="nav-btn" data-view="planner">Planner</button>
+        </nav>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Personal budget command center</p>
+            <h1 id="viewTitle">Monthly Budget</h1>
+          </div>
+          <div class="top-actions">
+            <button id="resetBtn" class="ghost-btn">Reset Edits</button>
+            <span class="plan-pill">Monthly Plan</span>
+          </div>
+        </header>
+
+        <section class="view active" id="overview">
+          <section class="command-strip" aria-label="Financial command summary">
+            <div class="command-main">
+              <p class="eyebrow">Monthly net cash</p>
+              <h2 id="commandHeadline">$0</h2>
+              <span id="commandSubtext"></span>
+            </div>
+            <div class="command-metric">
+              <span>Routed</span>
+              <strong id="commandAllocated">$0</strong>
+            </div>
+            <div class="command-icon" aria-hidden="true">
+              <span>$</span>
+            </div>
+          </section>
+
+          <section class="allocation-rail" id="monthRail" aria-label="Monthly allocation summary"></section>
+
+          <div class="kpi-grid">
+            <article class="kpi accent-green">
+              <span>Take-home</span>
+              <strong id="takeHome">$0</strong>
+              <small>Monthly baseline from your sheet</small>
+            </article>
+            <article class="kpi accent-red">
+              <span>Planned spend</span>
+              <strong id="plannedSpend">$0</strong>
+              <small id="spendNote">Budgeted lines for selected month</small>
+            </article>
+            <article class="kpi accent-blue">
+              <span>Cash left</span>
+              <strong id="cashLeft">$0</strong>
+              <small id="cashNote">After planned spending</small>
+            </article>
+            <article class="kpi accent-gold">
+              <span>Budget score</span>
+              <strong id="budgetScore">0</strong>
+              <small>Blend of cash left and savings</small>
+            </article>
+          </div>
+
+          <div class="content-grid">
+            <div class="main-stack">
+              <article class="panel wide">
+                <div class="panel-head">
+                  <div>
+                    <p class="eyebrow">Cash-flow bridge</p>
+                    <h2>Take-Home to Net Cash</h2>
+                  </div>
+                  <div class="legend">
+                    <span><i class="dot green"></i>Start</span>
+                    <span><i class="dot red"></i>Outflow</span>
+                    <span><i class="dot gold"></i>End</span>
+                  </div>
+                </div>
+                <canvas id="trendChart"></canvas>
+              </article>
+
+              <article class="panel wide">
+                <div class="panel-head">
+                  <div>
+                    <p class="eyebrow">Budget mix</p>
+                    <h2>Category Breakdown</h2>
+                  </div>
+                </div>
+                <canvas id="categoryChart"></canvas>
+              </article>
+            </div>
+
+            <div class="side-stack">
+              <article class="panel">
+                <div class="panel-head">
+                  <div>
+                    <p class="eyebrow">This month</p>
+                    <h2>Smart Notes</h2>
+                  </div>
+                </div>
+                <div id="insights" class="stack"></div>
+              </article>
+
+              <article class="panel">
+                <div class="panel-head">
+                  <div>
+                    <p class="eyebrow">What-if</p>
+                    <h2>Quick Scenario</h2>
+                  </div>
+                </div>
+                <div class="scenario">
+                  <label>
+                    Extra monthly spending
+                    <input id="scenarioSpend" type="range" min="0" max="1500" step="25" value="0" />
+                  </label>
+                  <div class="scenario-total">
+                    <span id="scenarioLabel">$0 extra</span>
+                    <strong id="scenarioCash">$0 left</strong>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="categories">
+          <div class="split-grid">
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Category totals</p>
+                  <h2 id="categoryTitle">Monthly categories</h2>
+                </div>
+              </div>
+              <div id="categoryCards" class="category-cards"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Line items</p>
+                  <h2>Budget Detail</h2>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Line</th>
+                      <th class="num">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody id="lineItems"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="paychecks">
+          <div class="paycheck-grid">
+            <article class="panel paycheck-hero">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Two-check plan</p>
+                  <h2>Split Monthly Take-Home</h2>
+                </div>
+              </div>
+              <div id="paycheckSummary" class="paycheck-summary"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Coverage</p>
+                  <h2>Paycheck Allocation</h2>
+                </div>
+                <button id="paycheckEditBtn" class="ghost-btn" type="button">Edit Assignments</button>
+              </div>
+              <div id="paycheckCards" class="paycheck-cards"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="calendar">
+          <div class="calendar-layout">
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Bill timing</p>
+                  <h2 id="calendarTitle">Monthly bills</h2>
+                </div>
+              </div>
+              <div id="billCalendar" class="bill-calendar"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Due soon</p>
+                  <h2>Bill List</h2>
+                </div>
+              </div>
+              <div id="billList" class="stack"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="goals">
+          <div class="split-grid">
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Savings progress</p>
+                  <h2>Goal Tracker</h2>
+                </div>
+                <span class="save-pill">Editable</span>
+              </div>
+              <div id="goalCards" class="goal-grid"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Monthly capacity</p>
+                  <h2>Goal Funding Plan</h2>
+                </div>
+              </div>
+              <div id="goalPlan" class="stack"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="planner">
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Editable planning layer</p>
+                <h2>Adjust This Month</h2>
+              </div>
+              <span class="save-pill">Saved in browser</span>
+            </div>
+            <div id="plannerRows" class="planner-rows"></div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
