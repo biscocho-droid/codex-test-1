@@ -3,16 +3,156 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>S&P 500 Value Finder</title>
-    <meta name="theme-color" content="#0f172a" />
-    <meta name="apple-mobile-web-app-title" content="Value Finder" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="apple-touch-icon" href="/codex-test-1/icons/apple-touch-icon.png" />
-    <link rel="manifest" href="/codex-test-1/manifest.json" />
-    <script type="module" crossorigin src="/codex-test-1/assets/index-BSZ9Bqwg.js"></script>
-    <link rel="stylesheet" crossorigin href="/codex-test-1/assets/index-Dh-oAV23.css">
+    <title>Codex Apps</title>
+    <style>
+      :root {
+        --bg: #070809;
+        --panel: #101216;
+        --line: rgba(255, 255, 255, 0.1);
+        --text: #f4f6f8;
+        --muted: #9aa4af;
+        --green: #54c776;
+        --gold: #f4c96a;
+        --blue: #7ab8ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 12% 8%, rgba(84, 199, 118, 0.12), transparent 24%),
+          radial-gradient(circle at 88% 12%, rgba(122, 184, 255, 0.12), transparent 20%),
+          linear-gradient(180deg, #070809, #0b0d10);
+        color: var(--text);
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: min(1080px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: 2rem 0;
+      }
+
+      header {
+        margin-bottom: 1rem;
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 0.25rem 0 0;
+        font-size: clamp(2rem, 5vw, 4rem);
+      }
+
+      .app-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .app-card {
+        display: grid;
+        gap: 0.8rem;
+        min-height: 220px;
+        padding: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: linear-gradient(180deg, #12151a, var(--panel));
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .app-card:hover {
+        border-color: rgba(255, 255, 255, 0.22);
+      }
+
+      .app-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        font-weight: 900;
+        color: #07100a;
+      }
+
+      .portfolio {
+        background: linear-gradient(135deg, var(--green), var(--gold));
+      }
+
+      .budget {
+        background: linear-gradient(135deg, var(--blue), var(--green));
+      }
+
+      .value {
+        background: linear-gradient(135deg, var(--gold), var(--blue));
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1.15rem;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .path {
+        margin-top: auto;
+        color: var(--text);
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.82rem;
+      }
+
+      @media (max-width: 800px) {
+        .app-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <main>
+      <header>
+        <p class="eyebrow">GitHub Pages</p>
+        <h1>Codex Apps</h1>
+      </header>
+
+      <section class="app-grid" aria-label="Hosted apps">
+        <a class="app-card" href="portfolio-command-center/">
+          <span class="app-icon portfolio">P</span>
+          <h2>Portfolio Command Center</h2>
+          <p>Personal portfolio tracker for brokerage, 401(k), Solana, holdings sheet, allocation, and performance views.</p>
+          <span class="path">/portfolio-command-center/</span>
+        </a>
+
+        <a class="app-card" href="monthly-budget/">
+          <span class="app-icon budget">B</span>
+          <h2>Monthly Budget</h2>
+          <p>Finance OS budget dashboard for paychecks, categories, calendar, savings goals, and planning.</p>
+          <span class="path">/monthly-budget/</span>
+        </a>
+
+        <a class="app-card" href="sp500-value-finder/">
+          <span class="app-icon value">S</span>
+          <h2>S&amp;P 500 Value Finder</h2>
+          <p>Stock market dashboard for screening and reviewing S&amp;P 500 value opportunities.</p>
+          <span class="path">/sp500-value-finder/</span>
+        </a>
+      </section>
+    </main>
   </body>
 </html>
