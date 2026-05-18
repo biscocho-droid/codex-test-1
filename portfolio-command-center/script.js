@@ -268,7 +268,6 @@ const els = {
   pricingStamp: document.getElementById("pricing-stamp"),
   chartCaption: document.getElementById("chart-caption"),
   chart: document.getElementById("portfolio-chart"),
-  refreshView: document.getElementById("refresh-view"),
   accountPills: [...document.querySelectorAll(".account-pill")],
   rangePills: [...document.querySelectorAll(".range-pill")],
   promptPills: [...document.querySelectorAll(".prompt-pill")],
@@ -843,11 +842,6 @@ els.promptPills.forEach((pill) => {
 els.runOverlay.addEventListener("click", () => {
   const model = aggregateState();
   els.overlayResponse.textContent = runOverlayResponse(els.strategyInput.value, model);
-});
-
-els.refreshView.addEventListener("click", () => {
-  saveState();
-  renderAll();
 });
 
 renderAll();
