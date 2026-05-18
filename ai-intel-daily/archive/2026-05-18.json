@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-18T23:34:39+00:00",
+  "generatedAt": "2026-05-18T23:42:23+00:00",
   "sourcePolicy": "Free public RSS/Atom/news feeds only. No paid feeds and no API keys.",
   "itemCount": 80,
   "sourceCount": 11,
@@ -2252,7 +2252,7 @@
     {
       "source": "Azure AI",
       "url": "https://techcommunity.microsoft.com/t5/azure-ai-services-blog/bg-p/AzureAIBlog/rss",
-      "error": "not well-formed (invalid token): line 13, column 73"
+      "error": "not well-formed (invalid token): line 13, column 71"
     },
     {
       "source": "Stanford HAI",
