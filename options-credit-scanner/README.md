@@ -25,3 +25,7 @@ Generate a live scan:
 ```bash
 python3 options-credit-scanner/scanner.py
 ```
+
+The scanner output includes broker-check fields such as suggested limit credit,
+minimum acceptable credit, breakeven, max profit/loss, per-leg bid/ask/mid,
+open interest, volume, and the delta source.

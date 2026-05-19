@@ -12,12 +12,32 @@ const money = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 2,
 });
 
+function formatMoney(value) {
+  if (value === null || value === undefined || Number.isNaN(Number(value))) return "--";
+  return money.format(value);
+}
+
 function pct(value) {
   return `${(Number(value) * 100).toFixed(1)}%`;
 }
 
+function optionalPct(value) {
+  if (value === null || value === undefined) return "--";
+  return pct(value);
+}
+
 function formatDelta(value) {
   return Number(value).toFixed(2);
+}
+
+function formatNumber(value) {
+  if (value === null || value === undefined) return "--";
+  return Number(value).toLocaleString("en-US");
+}
+
+function compactSource(value) {
+  if (!value) return "unknown";
+  return value.replaceAll("_", " ");
 }
 
 function byId(id) {
@@ -42,7 +62,8 @@ function render() {
 
 function renderSummary() {
   const data = state.data;
-  byId("scan-status").textContent = `Last scan ${data.scan.local_time} CT | ${data.scan.mode}`;
+  const status = data.scan.market_status ? ` | market ${data.scan.market_status}` : "";
+  byId("scan-status").textContent = `Last scan ${data.scan.local_time} CT | ${data.scan.mode}${status}`;
   byId("ticker-count").textContent = data.summary.ticker_count;
   byId("candidate-count").textContent = data.summary.candidate_count;
   byId("skipped-count").textContent = data.summary.skipped_for_earnings;
@@ -111,6 +132,11 @@ function candidateCard(candidate, index) {
         </div>
         <div class="rank-pill">#${index + 1}</div>
       </div>
+      <div class="quality-row">
+        <span>${candidate.quality.bid_ask} quotes</span>
+        <span>${candidate.quality.open_interest} OI</span>
+        <span>limit ${formatMoney(candidate.suggested_limit_credit || candidate.credit)}</span>
+      </div>
       <div class="candidate-metrics">
         <div>
           <span class="metric-label">credit</span>
@@ -131,16 +157,29 @@ function candidateCard(candidate, index) {
 
 function showDetail(candidate) {
   if (!candidate) return;
+  const shortLeg = candidate.legs?.short || {};
+  const longLeg = candidate.legs?.long || {};
+  const source = state.data?.scan?.data_source || "Yahoo Finance via yfinance";
   byId("detail-title").textContent = `${candidate.ticker} ${candidate.short_put} / ${candidate.long_put} Put`;
   byId("detail-body").innerHTML = `
+    <div class="broker-check">
+      <div>
+        <span>Try limit</span>
+        <strong>${formatMoney(candidate.suggested_limit_credit || candidate.credit)}</strong>
+      </div>
+      <div>
+        <span>Do not chase below</span>
+        <strong>${formatMoney(candidate.minimum_acceptable_credit || candidate.credit)}</strong>
+      </div>
+    </div>
     <div class="detail-grid">
       <div class="detail-item">
         <span>Credit</span>
-        <strong>${money.format(candidate.credit)}</strong>
+        <strong>${formatMoney(candidate.credit)}</strong>
       </div>
       <div class="detail-item">
         <span>Max risk</span>
-        <strong>${money.format(candidate.max_risk)}</strong>
+        <strong>${formatMoney(candidate.max_risk)}</strong>
       </div>
       <div class="detail-item">
         <span>Short delta</span>
@@ -150,12 +189,63 @@ function showDetail(candidate) {
         <span>Score</span>
         <strong>${pct(candidate.credit_to_risk)}</strong>
       </div>
+      <div class="detail-item">
+        <span>Breakeven</span>
+        <strong>${formatMoney(candidate.breakeven)}</strong>
+      </div>
+      <div class="detail-item">
+        <span>Underlying</span>
+        <strong>${formatMoney(candidate.underlying_price)}</strong>
+      </div>
+      <div class="detail-item">
+        <span>Max profit / loss</span>
+        <strong>${formatMoney(candidate.max_profit_dollars)} / ${formatMoney(candidate.max_loss_dollars)}</strong>
+      </div>
+      <div class="detail-item">
+        <span>Delta source</span>
+        <strong>${compactSource(candidate.delta_source)}</strong>
+      </div>
+    </div>
+    <div class="leg-table-wrap">
+      <table class="leg-table">
+        <thead>
+          <tr>
+            <th>Leg</th>
+            <th>Bid</th>
+            <th>Ask</th>
+            <th>Mid</th>
+            <th>OI</th>
+            <th>Vol</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sell ${candidate.short_put}P</td>
+            <td>${formatMoney(shortLeg.bid)}</td>
+            <td>${formatMoney(shortLeg.ask)}</td>
+            <td>${formatMoney(shortLeg.mid)}</td>
+            <td>${formatNumber(shortLeg.open_interest)}</td>
+            <td>${formatNumber(shortLeg.volume)}</td>
+          </tr>
+          <tr>
+            <td>Buy ${candidate.long_put}P</td>
+            <td>${formatMoney(longLeg.bid)}</td>
+            <td>${formatMoney(longLeg.ask)}</td>
+            <td>${formatMoney(longLeg.mid)}</td>
+            <td>${formatNumber(longLeg.open_interest)}</td>
+            <td>${formatNumber(longLeg.volume)}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <ul class="quality-list">
       <li><span>Bid/ask quality</span><strong>${candidate.quality.bid_ask}</strong></li>
-      <li><span>Open interest</span><strong>${candidate.quality.open_interest}</strong></li>
-      <li><span>Volume</span><strong>${candidate.quality.volume}</strong></li>
+      <li><span>Short bid/ask width</span><strong>${optionalPct(shortLeg.bid_ask_width_pct)}</strong></li>
+      <li><span>Long bid/ask width</span><strong>${optionalPct(longLeg.bid_ask_width_pct)}</strong></li>
+      <li><span>Minimum open interest</span><strong>${formatNumber(candidate.liquidity?.min_open_interest)}</strong></li>
+      <li><span>Minimum volume</span><strong>${formatNumber(candidate.liquidity?.min_volume)}</strong></li>
       <li><span>Earnings</span><strong>${candidate.quality.earnings}</strong></li>
+      <li><span>Data source</span><strong>${source}</strong></li>
     </ul>
   `;
   byId("detail-panel").hidden = false;

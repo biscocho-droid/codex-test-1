@@ -283,6 +283,22 @@ select {
   margin-top: 13px;
 }
 
+.quality-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.quality-row span {
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
 .metric-label {
   display: block;
   color: #7a8494;
@@ -309,6 +325,8 @@ select {
   left: 12px;
   z-index: 10;
   max-width: 720px;
+  max-height: min(760px, calc(100vh - 24px));
+  overflow: auto;
   margin: 0 auto;
   padding: 16px;
   box-shadow: var(--shadow);
@@ -318,6 +336,34 @@ select {
   display: grid;
   gap: 12px;
   margin-top: 14px;
+}
+
+.broker-check {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.broker-check div {
+  border: 1px solid #cdeedd;
+  border-radius: 8px;
+  background: var(--green-soft);
+  padding: 12px;
+}
+
+.broker-check span {
+  display: block;
+  color: #24604b;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.broker-check strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--green);
+  font-size: 19px;
 }
 
 .detail-grid {
@@ -361,6 +407,45 @@ select {
 
 .quality-list strong {
   color: var(--ink);
+  text-align: right;
+}
+
+.leg-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.leg-table {
+  width: 100%;
+  min-width: 430px;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+.leg-table th,
+.leg-table td {
+  border-bottom: 1px solid #edf1f5;
+  padding: 9px 8px;
+  color: #334155;
+  font-size: 12px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.leg-table th:first-child,
+.leg-table td:first-child {
+  text-align: left;
+}
+
+.leg-table th {
+  color: #64748b;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.leg-table tr:last-child td {
+  border-bottom: 0;
 }
 
 .notes-panel {
@@ -516,5 +601,16 @@ select {
   .market-badge {
     min-height: 30px;
     font-size: 11px;
+  }
+}
+
+@media (max-width: 430px) {
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-actions {
+    justify-content: space-between;
   }
 }

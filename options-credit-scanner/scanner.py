@@ -123,33 +123,67 @@ def earnings_is_blocked(earnings_date: date | None, today: date) -> bool:
     return -3 <= delta <= 7
 
 
-def bid_ask_quality(row: pd.Series, mid: float | None, rules: ScanRules) -> tuple[str, bool]:
+def bid_ask_quality(row: pd.Series, mid: float | None, rules: ScanRules) -> tuple[str, bool, float | None]:
     bid = safe_float(row.get("bid"))
     ask = safe_float(row.get("ask"))
     if bid is None or ask is None or bid <= 0 or ask <= 0 or ask < bid or mid is None or mid <= 0:
-        return "unknown", True
+        return "unknown", True, None
     width_pct = (ask - bid) / mid
     if width_pct <= 0.12:
-        return "tight", True
+        return "tight", True, width_pct
     if width_pct <= rules.max_bid_ask_pct_of_mid:
-        return "good", True
-    return "wide", False
+        return "good", True, width_pct
+    return "wide", False, width_pct
 
 
-def liquidity_quality(short_row: pd.Series, long_row: pd.Series, rules: ScanRules) -> tuple[str, bool]:
+def liquidity_quality(short_row: pd.Series, long_row: pd.Series, rules: ScanRules) -> tuple[str, bool, dict[str, int]]:
     short_oi = safe_int(short_row.get("openInterest"))
     long_oi = safe_int(long_row.get("openInterest"))
     short_vol = safe_int(short_row.get("volume"))
     long_vol = safe_int(long_row.get("volume"))
     min_oi = min(short_oi, long_oi)
     min_vol = min(short_vol, long_vol)
+    detail = {
+        "short_open_interest": short_oi,
+        "long_open_interest": long_oi,
+        "short_volume": short_vol,
+        "long_volume": long_vol,
+        "min_open_interest": min_oi,
+        "min_volume": min_vol,
+    }
 
     passes = min_oi >= rules.min_open_interest
     if min_oi >= 500 and min_vol >= 50:
-        return "strong", passes
+        return "strong", passes, detail
     if min_oi >= rules.min_open_interest:
-        return "good", passes
-    return "thin", False
+        return "good", passes, detail
+    return "thin", False, detail
+
+
+def contract_snapshot(row: pd.Series, mid: float | None, quality: str, width_pct: float | None) -> dict[str, Any]:
+    return {
+        "contract_symbol": str(row.get("contractSymbol", "")),
+        "strike": safe_float(row.get("strike")),
+        "bid": safe_float(row.get("bid")),
+        "ask": safe_float(row.get("ask")),
+        "mid": mid,
+        "last": safe_float(row.get("lastPrice")),
+        "volume": safe_int(row.get("volume")),
+        "open_interest": safe_int(row.get("openInterest")),
+        "implied_volatility": safe_float(row.get("impliedVolatility")),
+        "bid_ask_quality": quality,
+        "bid_ask_width_pct": round(width_pct, 4) if width_pct is not None else None,
+    }
+
+
+def market_status(now_ct: datetime) -> str:
+    if now_ct.weekday() >= 5:
+        return "closed"
+    open_time = now_ct.replace(hour=8, minute=30, second=0, microsecond=0)
+    close_time = now_ct.replace(hour=15, minute=0, second=0, microsecond=0)
+    if open_time <= now_ct <= close_time:
+        return "open"
+    return "closed"
 
 
 def scan_ticker(symbol: str, rules: ScanRules, today: date) -> tuple[list[dict[str, Any]], list[str]]:
@@ -224,11 +258,13 @@ def scan_ticker(symbol: str, rules: ScanRules, today: date) -> tuple[list[dict[s
             if max_risk <= 0:
                 continue
 
-            short_ba, short_ba_pass = bid_ask_quality(short_row, short_mid, rules)
-            long_ba, long_ba_pass = bid_ask_quality(long_row, long_mid, rules)
-            liquidity, liquidity_pass = liquidity_quality(short_row, long_row, rules)
+            short_ba, short_ba_pass, short_ba_width = bid_ask_quality(short_row, short_mid, rules)
+            long_ba, long_ba_pass, long_ba_width = bid_ask_quality(long_row, long_mid, rules)
+            liquidity, liquidity_pass, liquidity_detail = liquidity_quality(short_row, long_row, rules)
             if not (short_ba_pass and long_ba_pass and liquidity_pass):
                 continue
+            combined_bid_ask = "tight" if short_ba == "tight" and long_ba == "tight" else "good"
+            min_acceptable_credit = max(rules.min_credit, credit - 0.10)
 
             candidates.append(
                 {
@@ -244,11 +280,21 @@ def scan_ticker(symbol: str, rules: ScanRules, today: date) -> tuple[list[dict[s
                     "credit": credit,
                     "max_risk": max_risk,
                     "credit_to_risk": round(credit / max_risk, 4),
+                    "breakeven": round(short_strike - credit, 2),
+                    "max_profit_dollars": round(credit * 100, 2),
+                    "max_loss_dollars": round(max_risk * 100, 2),
+                    "suggested_limit_credit": credit,
+                    "minimum_acceptable_credit": round(min_acceptable_credit, 2),
                     "short_mid": short_mid,
                     "long_mid": long_mid,
                     "earnings_date": earnings_date.isoformat() if earnings_date else None,
+                    "legs": {
+                        "short": contract_snapshot(short_row, short_mid, short_ba, short_ba_width),
+                        "long": contract_snapshot(long_row, long_mid, long_ba, long_ba_width),
+                    },
+                    "liquidity": liquidity_detail,
                     "quality": {
-                        "bid_ask": "tight" if short_ba == "tight" and long_ba == "tight" else "good",
+                        "bid_ask": combined_bid_ask,
                         "open_interest": liquidity,
                         "volume": liquidity,
                         "earnings": "ETF" if symbol in {"SPY", "QQQ", "IWM"} else ("clear" if earnings_date else "unknown"),
@@ -281,6 +327,8 @@ def build_payload(tickers: list[str], rules: ScanRules) -> dict[str, Any]:
             "generated_at": now_ct.isoformat(timespec="seconds"),
             "local_time": now_ct.strftime("%-I:%M %p"),
             "timezone": "America/Chicago",
+            "market_status": market_status(now_ct),
+            "data_source": "Yahoo Finance via yfinance",
         },
         "rules": asdict(rules),
         "summary": {
