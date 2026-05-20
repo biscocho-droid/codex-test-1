@@ -1,8 +1,8 @@
 {
   "scan": {
     "mode": "live yfinance",
-    "generated_at": "2026-05-19T22:08:45-05:00",
-    "local_time": "10:08 PM",
+    "generated_at": "2026-05-19T22:10:33-05:00",
+    "local_time": "10:10 PM",
     "timezone": "America/Chicago",
     "market_status": "closed",
     "data_source": "Yahoo Finance via yfinance"
@@ -20,9 +20,9 @@
   },
   "summary": {
     "ticker_count": 8,
-    "candidate_count": 47,
-    "skipped_for_earnings": 1,
-    "warning_count": 1
+    "candidate_count": 51,
+    "skipped_for_earnings": 0,
+    "warning_count": 0
   },
   "tickers": [
     "SPY",
@@ -60,7 +60,7 @@
       "minimum_acceptable_credit": 1.55,
       "short_mid": 15.175,
       "long_mid": 13.525,
-      "earnings_date": "2026-04-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -103,7 +103,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -186,6 +186,156 @@
       ]
     },
     {
+      "id": "NVDA-2026-07-17-205-200-P",
+      "ticker": "NVDA",
+      "strategy": "put_credit_spread",
+      "strategy_label": "Sell put spread",
+      "bias": "bullish",
+      "bias_label": "Bullish",
+      "desired_move": "Underlying stays above the short put or moves higher",
+      "underlying_price": 220.61,
+      "expiration": "2026-07-17",
+      "dte": 59,
+      "short_put": 205.0,
+      "long_put": 200.0,
+      "short_delta": -0.285,
+      "delta_source": "black_scholes_estimate",
+      "credit": 1.52,
+      "max_risk": 3.48,
+      "credit_to_risk": 0.4368,
+      "breakeven": 203.48,
+      "max_profit_dollars": 152.0,
+      "max_loss_dollars": 348.0,
+      "suggested_limit_credit": 1.52,
+      "minimum_acceptable_credit": 1.42,
+      "short_mid": 7.6,
+      "long_mid": 6.075,
+      "earnings_date": null,
+      "rules_pass": true,
+      "status": "Valid",
+      "legs": {
+        "short": {
+          "contract_symbol": "NVDA260717P00205000",
+          "strike": 205.0,
+          "bid": 7.55,
+          "ask": 7.65,
+          "mid": 7.6,
+          "last": 7.6,
+          "volume": 600,
+          "open_interest": 7753,
+          "implied_volatility": 0.4138242211914062,
+          "bid_ask_quality": "tight",
+          "bid_ask_width_pct": 0.0132
+        },
+        "long": {
+          "contract_symbol": "NVDA260717P00200000",
+          "strike": 200.0,
+          "bid": 6.0,
+          "ask": 6.15,
+          "mid": 6.075,
+          "last": 6.15,
+          "volume": 1189,
+          "open_interest": 15703,
+          "implied_volatility": 0.41968353759765625,
+          "bid_ask_quality": "tight",
+          "bid_ask_width_pct": 0.0247
+        }
+      },
+      "liquidity": {
+        "short_open_interest": 7753,
+        "long_open_interest": 15703,
+        "short_volume": 600,
+        "long_volume": 1189,
+        "min_open_interest": 7753,
+        "min_volume": 600
+      },
+      "quality": {
+        "bid_ask": "tight",
+        "open_interest": "strong",
+        "volume": "strong",
+        "earnings": "unknown"
+      },
+      "nearby_spreads": [
+        {
+          "short_put": 220.0,
+          "long_put": 215.0,
+          "short_delta": -0.4431,
+          "credit": 2.4,
+          "max_risk": 2.6,
+          "credit_to_risk": 0.9231,
+          "status": "Too aggressive",
+          "selected": false,
+          "rules_pass": false
+        },
+        {
+          "short_put": 215.0,
+          "long_put": 210.0,
+          "short_delta": -0.3883,
+          "credit": 2.1,
+          "max_risk": 2.9,
+          "credit_to_risk": 0.7241,
+          "status": "Too aggressive",
+          "selected": false,
+          "rules_pass": false
+        },
+        {
+          "short_put": 210.0,
+          "long_put": 205.0,
+          "short_delta": -0.3351,
+          "credit": 1.8,
+          "max_risk": 3.2,
+          "credit_to_risk": 0.5625,
+          "status": "Too aggressive",
+          "selected": false,
+          "rules_pass": false
+        },
+        {
+          "short_put": 205.0,
+          "long_put": 200.0,
+          "short_delta": -0.285,
+          "credit": 1.52,
+          "max_risk": 3.48,
+          "credit_to_risk": 0.4368,
+          "status": "Selected",
+          "selected": true,
+          "rules_pass": true
+        },
+        {
+          "short_put": 200.0,
+          "long_put": 195.0,
+          "short_delta": -0.2392,
+          "credit": 1.28,
+          "max_risk": 3.72,
+          "credit_to_risk": 0.3441,
+          "status": "Valid",
+          "selected": false,
+          "rules_pass": true
+        },
+        {
+          "short_put": 195.0,
+          "long_put": 190.0,
+          "short_delta": -0.1973,
+          "credit": 1.0,
+          "max_risk": 4.0,
+          "credit_to_risk": 0.25,
+          "status": "Valid",
+          "selected": false,
+          "rules_pass": true
+        },
+        {
+          "short_put": 190.0,
+          "long_put": 185.0,
+          "short_delta": -0.1618,
+          "credit": 0.84,
+          "max_risk": 4.16,
+          "credit_to_risk": 0.2019,
+          "status": "Valid",
+          "selected": false,
+          "rules_pass": true
+        }
+      ]
+    },
+    {
       "id": "MSFT-2026-07-17-395-390-P",
       "ticker": "MSFT",
       "strategy": "put_credit_spread",
@@ -210,7 +360,7 @@
       "minimum_acceptable_credit": 1.35,
       "short_mid": 9.4,
       "long_mid": 7.95,
-      "earnings_date": "2026-04-29",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -253,7 +403,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -360,7 +510,7 @@
       "minimum_acceptable_credit": 1.35,
       "short_mid": 13.525,
       "long_mid": 12.075,
-      "earnings_date": "2026-04-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -403,7 +553,7 @@
         "bid_ask": "tight",
         "open_interest": "good",
         "volume": "good",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -510,7 +660,7 @@
       "minimum_acceptable_credit": 1.25,
       "short_mid": 6.075,
       "long_mid": 4.725,
-      "earnings_date": "2026-04-29",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -553,7 +703,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -660,7 +810,7 @@
       "minimum_acceptable_credit": 1.2,
       "short_mid": 12.075,
       "long_mid": 10.775,
-      "earnings_date": "2026-04-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -703,7 +853,7 @@
         "bid_ask": "tight",
         "open_interest": "good",
         "volume": "good",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -782,6 +932,156 @@
           "status": "Valid",
           "selected": false,
           "rules_pass": true
+        }
+      ]
+    },
+    {
+      "id": "NVDA-2026-07-17-200-195-P",
+      "ticker": "NVDA",
+      "strategy": "put_credit_spread",
+      "strategy_label": "Sell put spread",
+      "bias": "bullish",
+      "bias_label": "Bullish",
+      "desired_move": "Underlying stays above the short put or moves higher",
+      "underlying_price": 220.61,
+      "expiration": "2026-07-17",
+      "dte": 59,
+      "short_put": 200.0,
+      "long_put": 195.0,
+      "short_delta": -0.2392,
+      "delta_source": "black_scholes_estimate",
+      "credit": 1.28,
+      "max_risk": 3.72,
+      "credit_to_risk": 0.3441,
+      "breakeven": 198.72,
+      "max_profit_dollars": 128.0,
+      "max_loss_dollars": 372.0,
+      "suggested_limit_credit": 1.28,
+      "minimum_acceptable_credit": 1.18,
+      "short_mid": 6.075,
+      "long_mid": 4.8,
+      "earnings_date": null,
+      "rules_pass": true,
+      "status": "Valid",
+      "legs": {
+        "short": {
+          "contract_symbol": "NVDA260717P00200000",
+          "strike": 200.0,
+          "bid": 6.0,
+          "ask": 6.15,
+          "mid": 6.075,
+          "last": 6.15,
+          "volume": 1189,
+          "open_interest": 15703,
+          "implied_volatility": 0.41968353759765625,
+          "bid_ask_quality": "tight",
+          "bid_ask_width_pct": 0.0247
+        },
+        "long": {
+          "contract_symbol": "NVDA260717P00195000",
+          "strike": 195.0,
+          "bid": 4.75,
+          "ask": 4.85,
+          "mid": 4.8,
+          "last": 5.0,
+          "volume": 823,
+          "open_interest": 10141,
+          "implied_volatility": 0.42438319763183596,
+          "bid_ask_quality": "tight",
+          "bid_ask_width_pct": 0.0208
+        }
+      },
+      "liquidity": {
+        "short_open_interest": 15703,
+        "long_open_interest": 10141,
+        "short_volume": 1189,
+        "long_volume": 823,
+        "min_open_interest": 10141,
+        "min_volume": 823
+      },
+      "quality": {
+        "bid_ask": "tight",
+        "open_interest": "strong",
+        "volume": "strong",
+        "earnings": "unknown"
+      },
+      "nearby_spreads": [
+        {
+          "short_put": 215.0,
+          "long_put": 210.0,
+          "short_delta": -0.3883,
+          "credit": 2.1,
+          "max_risk": 2.9,
+          "credit_to_risk": 0.7241,
+          "status": "Too aggressive",
+          "selected": false,
+          "rules_pass": false
+        },
+        {
+          "short_put": 210.0,
+          "long_put": 205.0,
+          "short_delta": -0.3351,
+          "credit": 1.8,
+          "max_risk": 3.2,
+          "credit_to_risk": 0.5625,
+          "status": "Too aggressive",
+          "selected": false,
+          "rules_pass": false
+        },
+        {
+          "short_put": 205.0,
+          "long_put": 200.0,
+          "short_delta": -0.285,
+          "credit": 1.52,
+          "max_risk": 3.48,
+          "credit_to_risk": 0.4368,
+          "status": "Valid",
+          "selected": false,
+          "rules_pass": true
+        },
+        {
+          "short_put": 200.0,
+          "long_put": 195.0,
+          "short_delta": -0.2392,
+          "credit": 1.28,
+          "max_risk": 3.72,
+          "credit_to_risk": 0.3441,
+          "status": "Selected",
+          "selected": true,
+          "rules_pass": true
+        },
+        {
+          "short_put": 195.0,
+          "long_put": 190.0,
+          "short_delta": -0.1973,
+          "credit": 1.0,
+          "max_risk": 4.0,
+          "credit_to_risk": 0.25,
+          "status": "Valid",
+          "selected": false,
+          "rules_pass": true
+        },
+        {
+          "short_put": 190.0,
+          "long_put": 185.0,
+          "short_delta": -0.1618,
+          "credit": 0.84,
+          "max_risk": 4.16,
+          "credit_to_risk": 0.2019,
+          "status": "Valid",
+          "selected": false,
+          "rules_pass": true
+        },
+        {
+          "short_put": 185.0,
+          "long_put": 180.0,
+          "short_delta": -0.1299,
+          "credit": 0.66,
+          "max_risk": 4.34,
+          "credit_to_risk": 0.1521,
+          "status": "Too low delta",
+          "selected": false,
+          "rules_pass": false
         }
       ]
     },
@@ -960,7 +1260,7 @@
       "minimum_acceptable_credit": 1.15,
       "short_mid": 7.95,
       "long_mid": 6.7,
-      "earnings_date": "2026-04-29",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -1003,7 +1303,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -1560,7 +1860,7 @@
       "minimum_acceptable_credit": 1.1,
       "short_mid": 10.775,
       "long_mid": 9.575,
-      "earnings_date": "2026-04-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -1603,7 +1903,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -1710,7 +2010,7 @@
       "minimum_acceptable_credit": 1.07,
       "short_mid": 5.225,
       "long_mid": 4.05,
-      "earnings_date": "2026-04-30",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -1753,7 +2053,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -2160,7 +2460,7 @@
       "minimum_acceptable_credit": 1.0,
       "short_mid": 6.7,
       "long_mid": 5.6,
-      "earnings_date": "2026-04-29",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -2203,7 +2503,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -2310,7 +2610,7 @@
       "minimum_acceptable_credit": 1.0,
       "short_mid": 9.575,
       "long_mid": 8.475,
-      "earnings_date": "2026-04-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -2353,7 +2653,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -2910,7 +3210,7 @@
       "minimum_acceptable_credit": 0.92,
       "short_mid": 4.725,
       "long_mid": 3.7,
-      "earnings_date": "2026-04-29",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -2953,7 +3253,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -3186,6 +3486,156 @@
       ]
     },
     {
+      "id": "NVDA-2026-07-17-195-190-P",
+      "ticker": "NVDA",
+      "strategy": "put_credit_spread",
+      "strategy_label": "Sell put spread",
+      "bias": "bullish",
+      "bias_label": "Bullish",
+      "desired_move": "Underlying stays above the short put or moves higher",
+      "underlying_price": 220.61,
+      "expiration": "2026-07-17",
+      "dte": 59,
+      "short_put": 195.0,
+      "long_put": 190.0,
+      "short_delta": -0.1973,
+      "delta_source": "black_scholes_estimate",
+      "credit": 1.0,
+      "max_risk": 4.0,
+      "credit_to_risk": 0.25,
+      "breakeven": 194.0,
+      "max_profit_dollars": 100.0,
+      "max_loss_dollars": 400.0,
+      "suggested_limit_credit": 1.0,
+      "minimum_acceptable_credit": 0.9,
+      "short_mid": 4.8,
+      "long_mid": 3.8,
+      "earnings_date": null,
+      "rules_pass": true,
+      "status": "Valid",
+      "legs": {
+        "short": {
+          "contract_symbol": "NVDA260717P00195000",
+          "strike": 195.0,
+          "bid": 4.75,
+          "ask": 4.85,
+          "mid": 4.8,
+          "last": 5.0,
+          "volume": 823,
+          "open_interest": 10141,
+          "implied_volatility": 0.42438319763183596,
+          "bid_ask_quality": "tight",
+          "bid_ask_width_pct": 0.0208
+        },
+        "long": {
+          "contract_symbol": "NVDA260717P00190000",
+          "strike": 190.0,
+          "bid": 3.75,
+          "ask": 3.85,
+          "mid": 3.8,
+          "last": 3.8,
+          "volume": 1479,
+          "open_interest": 17139,
+          "implied_volatility": 0.43286699951171875,
+          "bid_ask_quality": "tight",
+          "bid_ask_width_pct": 0.0263
+        }
+      },
+      "liquidity": {
+        "short_open_interest": 10141,
+        "long_open_interest": 17139,
+        "short_volume": 823,
+        "long_volume": 1479,
+        "min_open_interest": 10141,
+        "min_volume": 823
+      },
+      "quality": {
+        "bid_ask": "tight",
+        "open_interest": "strong",
+        "volume": "strong",
+        "earnings": "unknown"
+      },
+      "nearby_spreads": [
+        {
+          "short_put": 210.0,
+          "long_put": 205.0,
+          "short_delta": -0.3351,
+          "credit": 1.8,
+          "max_risk": 3.2,
+          "credit_to_risk": 0.5625,
+          "status": "Too aggressive",
+          "selected": false,
+          "rules_pass": false
+        },
+        {
+          "short_put": 205.0,
+          "long_put": 200.0,
+          "short_delta": -0.285,
+          "credit": 1.52,
+          "max_risk": 3.48,
+          "credit_to_risk": 0.4368,
+          "status": "Valid",
+          "selected": false,
+          "rules_pass": true
+        },
+        {
+          "short_put": 200.0,
+          "long_put": 195.0,
+          "short_delta": -0.2392,
+          "credit": 1.28,
+          "max_risk": 3.72,
+          "credit_to_risk": 0.3441,
+          "status": "Valid",
+          "selected": false,
+          "rules_pass": true
+        },
+        {
+          "short_put": 195.0,
+          "long_put": 190.0,
+          "short_delta": -0.1973,
+          "credit": 1.0,
+          "max_risk": 4.0,
+          "credit_to_risk": 0.25,
+          "status": "Selected",
+          "selected": true,
+          "rules_pass": true
+        },
+        {
+          "short_put": 190.0,
+          "long_put": 185.0,
+          "short_delta": -0.1618,
+          "credit": 0.84,
+          "max_risk": 4.16,
+          "credit_to_risk": 0.2019,
+          "status": "Valid",
+          "selected": false,
+          "rules_pass": true
+        },
+        {
+          "short_put": 185.0,
+          "long_put": 180.0,
+          "short_delta": -0.1299,
+          "credit": 0.66,
+          "max_risk": 4.34,
+          "credit_to_risk": 0.1521,
+          "status": "Too low delta",
+          "selected": false,
+          "rules_pass": false
+        },
+        {
+          "short_put": 180.0,
+          "long_put": 175.0,
+          "short_delta": -0.104,
+          "credit": 0.5,
+          "max_risk": 4.5,
+          "credit_to_risk": 0.1111,
+          "status": "Too low delta",
+          "selected": false,
+          "rules_pass": false
+        }
+      ]
+    },
+    {
       "id": "TSLA-2026-07-17-350-345-P",
       "ticker": "TSLA",
       "strategy": "put_credit_spread",
@@ -3210,7 +3660,7 @@
       "minimum_acceptable_credit": 0.85,
       "short_mid": 8.475,
       "long_mid": 7.525,
-      "earnings_date": "2026-04-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -3253,7 +3703,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -3810,7 +4260,7 @@
       "minimum_acceptable_credit": 0.78,
       "short_mid": 5.6,
       "long_mid": 4.725,
-      "earnings_date": "2026-04-29",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -3853,7 +4303,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -4260,7 +4710,7 @@
       "minimum_acceptable_credit": 0.75,
       "short_mid": 7.525,
       "long_mid": 6.675,
-      "earnings_date": "2026-04-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -4303,7 +4753,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -4532,6 +4982,156 @@
           "status": "Valid",
           "selected": false,
           "rules_pass": true
+        }
+      ]
+    },
+    {
+      "id": "NVDA-2026-07-17-190-185-P",
+      "ticker": "NVDA",
+      "strategy": "put_credit_spread",
+      "strategy_label": "Sell put spread",
+      "bias": "bullish",
+      "bias_label": "Bullish",
+      "desired_move": "Underlying stays above the short put or moves higher",
+      "underlying_price": 220.61,
+      "expiration": "2026-07-17",
+      "dte": 59,
+      "short_put": 190.0,
+      "long_put": 185.0,
+      "short_delta": -0.1618,
+      "delta_source": "black_scholes_estimate",
+      "credit": 0.84,
+      "max_risk": 4.16,
+      "credit_to_risk": 0.2019,
+      "breakeven": 189.16,
+      "max_profit_dollars": 84.0,
+      "max_loss_dollars": 416.0,
+      "suggested_limit_credit": 0.84,
+      "minimum_acceptable_credit": 0.74,
+      "short_mid": 3.8,
+      "long_mid": 2.955,
+      "earnings_date": null,
+      "rules_pass": true,
+      "status": "Valid",
+      "legs": {
+        "short": {
+          "contract_symbol": "NVDA260717P00190000",
+          "strike": 190.0,
+          "bid": 3.75,
+          "ask": 3.85,
+          "mid": 3.8,
+          "last": 3.8,
+          "volume": 1479,
+          "open_interest": 17139,
+          "implied_volatility": 0.43286699951171875,
+          "bid_ask_quality": "tight",
+          "bid_ask_width_pct": 0.0263
+        },
+        "long": {
+          "contract_symbol": "NVDA260717P00185000",
+          "strike": 185.0,
+          "bid": 2.93,
+          "ask": 2.98,
+          "mid": 2.955,
+          "last": 2.96,
+          "volume": 1472,
+          "open_interest": 13229,
+          "implied_volatility": 0.4390925231933594,
+          "bid_ask_quality": "tight",
+          "bid_ask_width_pct": 0.0169
+        }
+      },
+      "liquidity": {
+        "short_open_interest": 17139,
+        "long_open_interest": 13229,
+        "short_volume": 1479,
+        "long_volume": 1472,
+        "min_open_interest": 13229,
+        "min_volume": 1472
+      },
+      "quality": {
+        "bid_ask": "tight",
+        "open_interest": "strong",
+        "volume": "strong",
+        "earnings": "unknown"
+      },
+      "nearby_spreads": [
+        {
+          "short_put": 205.0,
+          "long_put": 200.0,
+          "short_delta": -0.285,
+          "credit": 1.52,
+          "max_risk": 3.48,
+          "credit_to_risk": 0.4368,
+          "status": "Valid",
+          "selected": false,
+          "rules_pass": true
+        },
+        {
+          "short_put": 200.0,
+          "long_put": 195.0,
+          "short_delta": -0.2392,
+          "credit": 1.28,
+          "max_risk": 3.72,
+          "credit_to_risk": 0.3441,
+          "status": "Valid",
+          "selected": false,
+          "rules_pass": true
+        },
+        {
+          "short_put": 195.0,
+          "long_put": 190.0,
+          "short_delta": -0.1973,
+          "credit": 1.0,
+          "max_risk": 4.0,
+          "credit_to_risk": 0.25,
+          "status": "Valid",
+          "selected": false,
+          "rules_pass": true
+        },
+        {
+          "short_put": 190.0,
+          "long_put": 185.0,
+          "short_delta": -0.1618,
+          "credit": 0.84,
+          "max_risk": 4.16,
+          "credit_to_risk": 0.2019,
+          "status": "Selected",
+          "selected": true,
+          "rules_pass": true
+        },
+        {
+          "short_put": 185.0,
+          "long_put": 180.0,
+          "short_delta": -0.1299,
+          "credit": 0.66,
+          "max_risk": 4.34,
+          "credit_to_risk": 0.1521,
+          "status": "Too low delta",
+          "selected": false,
+          "rules_pass": false
+        },
+        {
+          "short_put": 180.0,
+          "long_put": 175.0,
+          "short_delta": -0.104,
+          "credit": 0.5,
+          "max_risk": 4.5,
+          "credit_to_risk": 0.1111,
+          "status": "Too low delta",
+          "selected": false,
+          "rules_pass": false
+        },
+        {
+          "short_put": 175.0,
+          "long_put": 170.0,
+          "short_delta": -0.0833,
+          "credit": 0.39,
+          "max_risk": 4.61,
+          "credit_to_risk": 0.0846,
+          "status": "Too low delta",
+          "selected": false,
+          "rules_pass": false
         }
       ]
     },
@@ -5010,7 +5610,7 @@
       "minimum_acceptable_credit": 0.7,
       "short_mid": 4.05,
       "long_mid": 3.25,
-      "earnings_date": "2026-04-30",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -5053,7 +5653,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -5160,7 +5760,7 @@
       "minimum_acceptable_credit": 0.7,
       "short_mid": 3.7,
       "long_mid": 2.9,
-      "earnings_date": "2026-04-29",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -5203,7 +5803,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -5460,7 +6060,7 @@
       "minimum_acceptable_credit": 0.67,
       "short_mid": 4.725,
       "long_mid": 3.95,
-      "earnings_date": "2026-04-29",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -5503,7 +6103,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -6360,7 +6960,7 @@
       "minimum_acceptable_credit": 0.6,
       "short_mid": 3.25,
       "long_mid": 2.56,
-      "earnings_date": "2026-04-30",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -6403,7 +7003,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -7086,7 +7686,5 @@
       ]
     }
   ],
-  "warnings": [
-    "NVDA: skipped because earnings is 2026-05-20"
-  ]
+  "warnings": []
 }
