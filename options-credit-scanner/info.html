@@ -31,6 +31,14 @@
     </section>
 
     <section class="info-card">
+      <h2>Quick Translation</h2>
+      <p>
+        Options are quoted per share, but one standard option contract controls 100 shares. A displayed credit
+        of $1.65 usually means about $165 collected for one spread before commissions and fill differences.
+      </p>
+    </section>
+
+    <section class="info-card">
       <h2>Current Rules</h2>
       <div class="rule-grid">
         <div><span>Expiration</span><strong>45-60 DTE</strong></div>
@@ -60,6 +68,36 @@
         <span>Example</span>
         <strong>Sell 520 put / buy 515 put for $0.80 credit</strong>
         <p>Max risk is $4.20, so credit/risk is 19.0% before commissions and slippage.</p>
+      </div>
+    </section>
+
+    <section class="info-card">
+      <h2>What The Numbers Mean</h2>
+      <div class="definition-list">
+        <div>
+          <strong>Credit</strong>
+          <p>The estimated premium received for opening the spread. $1.65 credit means about $165 per 1 contract spread.</p>
+        </div>
+        <div>
+          <strong>Max risk</strong>
+          <p>The spread width minus the credit. For a $5-wide spread with $1.65 credit, max risk is $3.35, or about $335.</p>
+        </div>
+        <div>
+          <strong>Credit/risk</strong>
+          <p>The premium divided by max risk. $1.65 / $3.35 = 49.3%. Higher is more premium per dollar at risk.</p>
+        </div>
+        <div>
+          <strong>Try limit</strong>
+          <p>The scanner's estimated mid-price credit. This is the first limit credit to try in your broker.</p>
+        </div>
+        <div>
+          <strong>Do not chase below</strong>
+          <p>A lower bound for the credit. If the broker cannot fill near this credit, the trade may no longer match the idea.</p>
+        </div>
+        <div>
+          <strong>Breakeven</strong>
+          <p>The short put strike minus the credit. The underlying needs to finish above this level at expiration to avoid a loss at settlement.</p>
+        </div>
       </div>
     </section>
 

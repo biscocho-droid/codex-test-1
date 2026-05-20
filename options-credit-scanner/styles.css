@@ -318,6 +318,14 @@ select {
   color: var(--green);
 }
 
+.metric-note {
+  display: block;
+  margin-top: 3px;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 700;
+}
+
 .detail-panel {
   position: fixed;
   right: 12px;
@@ -607,6 +615,27 @@ select {
   border-radius: 8px;
   background: #f9fafb;
   padding: 12px;
+}
+
+.definition-list {
+  display: grid;
+  gap: 10px;
+}
+
+.definition-list div {
+  border-radius: 8px;
+  background: #f9fafb;
+  padding: 12px;
+}
+
+.definition-list strong {
+  display: block;
+  color: var(--ink);
+}
+
+.definition-list p {
+  margin-top: 6px;
+  font-size: 13px;
 }
 
 .rule-grid span,
