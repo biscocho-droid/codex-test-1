@@ -145,15 +145,18 @@ function candidateCard(candidate, index) {
       <div class="candidate-metrics">
         <div>
           <span class="metric-label">credit</span>
-          <strong class="metric-value positive">${money.format(candidate.credit)}</strong>
+          <strong class="metric-value positive">${formatMoney(candidate.credit)}</strong>
+          <span class="metric-note">${formatMoney(candidate.max_profit_dollars)} max profit</span>
         </div>
         <div>
           <span class="metric-label">max risk</span>
-          <strong class="metric-value">${money.format(candidate.max_risk)}</strong>
+          <strong class="metric-value">${formatMoney(candidate.max_risk)}</strong>
+          <span class="metric-note">${formatMoney(candidate.max_loss_dollars)} max loss</span>
         </div>
         <div>
           <span class="metric-label">credit/risk</span>
           <strong class="metric-value positive">${pct(candidate.credit_to_risk)}</strong>
+          <span class="metric-note">premium vs risk</span>
         </div>
       </div>
     </button>
