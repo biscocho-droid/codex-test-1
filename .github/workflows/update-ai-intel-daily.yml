@@ -3,8 +3,9 @@ name: Update AI Intel Daily
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 9 * * *"
-    - cron: "0 10 * * *"
+    # Redundant morning window. GitHub can delay scheduled runs, so the job
+    # checks whether today's Chicago-date archive already exists before writing.
+    - cron: "*/15 9-11 * * *"
 
 permissions:
   contents: write
@@ -15,36 +16,33 @@ jobs:
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
-      - name: Check Chicago schedule
-        id: schedule
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          schedule="${{ github.event.schedule }}"
-          zone="$(TZ=America/Chicago date +%Z)"
-          if [ "$schedule" = "0 9 * * *" ] && [ "$zone" = "CDT" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          elif [ "$schedule" = "0 10 * * *" ] && [ "$zone" != "CDT" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Check out automation
-        if: steps.schedule.outputs.run == 'true'
         uses: actions/checkout@v4
         with:
           ref: main
           path: source
 
       - name: Check out Pages branch
-        if: steps.schedule.outputs.run == 'true'
         uses: actions/checkout@v4
         with:
           ref: gh-pages
           path: pages
+
+      - name: Decide whether to update
+        id: schedule
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          today="$(TZ=America/Chicago date +%F)"
+          if [ -f "pages/ai-intel-daily/archive/$today.json" ]; then
+            echo "AI Intel Daily archive already exists for $today."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "No AI Intel Daily archive exists for $today; running update."
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Set up Python
         if: steps.schedule.outputs.run == 'true'
