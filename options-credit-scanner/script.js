@@ -37,12 +37,31 @@ function formatNumber(value) {
 
 function compactSource(value) {
   if (!value) return "unknown";
-  return value.replaceAll("_", " ");
+  return titleCase(value.replaceAll("_", " "));
 }
 
 function formatMaybeDelta(value) {
   if (value === null || value === undefined) return "--";
   return formatDelta(value);
+}
+
+function titleCase(value) {
+  if (!value) return "--";
+  const acronyms = new Map([
+    ["etf", "ETF"],
+    ["oi", "OI"],
+    ["dte", "DTE"],
+    ["iv", "IV"],
+  ]);
+  return String(value)
+    .split(" ")
+    .map((word) => {
+      if (!word) return "";
+      const key = word.toLowerCase();
+      if (acronyms.has(key)) return acronyms.get(key);
+      return word[0].toUpperCase() + word.slice(1).toLowerCase();
+    })
+    .join(" ");
 }
 
 function directionIcon(candidate) {
@@ -82,10 +101,10 @@ function render() {
 
 function renderSummary() {
   const data = state.data;
-  const status = data.scan.market_status ? ` | market ${data.scan.market_status}` : "";
   const scanDate = formatScanDate(data.scan.generated_at);
   const dateText = scanDate ? ` on ${scanDate}` : "";
-  byId("scan-status").textContent = `Last scan ${data.scan.local_time} CT${dateText} | ${data.scan.mode}${status}`;
+  const marketText = data.scan.market_status ? ` | Market ${titleCase(data.scan.market_status)}` : "";
+  byId("scan-status").textContent = `Last Scan ${data.scan.local_time} CT${dateText} | ${titleCase(data.scan.mode)}${marketText}`;
   byId("ticker-count").textContent = data.summary.ticker_count;
   byId("candidate-count").textContent = data.summary.candidate_count;
   byId("skipped-count").textContent = data.summary.skipped_for_earnings;
@@ -111,8 +130,8 @@ function renderFilters() {
   const tickers = ["all", ...state.data.tickers];
   const currentOptions = Array.from(select.options).map((option) => option.value);
   if (currentOptions.join("|") !== tickers.join("|")) {
-    select.innerHTML = tickers
-      .map((ticker) => `<option value="${ticker}">${ticker === "all" ? "All tickers" : ticker}</option>`)
+      select.innerHTML = tickers
+      .map((ticker) => `<option value="${ticker}">${ticker === "all" ? "All Tickers" : ticker}</option>`)
       .join("");
   }
   select.value = state.ticker;
@@ -151,7 +170,7 @@ function candidateCard(candidate, index) {
         <div>
           <div class="strategy-line">
             <span class="direction-badge ${candidate.bias || "bullish"}">${directionIcon(candidate)}</span>
-            <span>${candidate.strategy_label || "Sell put spread"} · ${candidate.bias_label || "Bullish"}</span>
+            <span>${candidate.strategy_label || "Sell Put Spread"} · ${candidate.bias_label || "Bullish"}</span>
           </div>
           <div class="spread-name">${candidate.short_put} / ${candidate.long_put} Put</div>
           <div class="spread-meta">${candidate.dte} DTE | delta ${formatDelta(candidate.short_delta)} | exp ${candidate.expiration}</div>
@@ -159,25 +178,25 @@ function candidateCard(candidate, index) {
         <div class="rank-pill">#${index + 1}</div>
       </div>
       <div class="quality-row">
-        <span>${candidate.quality.bid_ask} quotes</span>
-        <span>${candidate.quality.open_interest} OI</span>
-        <span>limit ${formatMoney(candidate.suggested_limit_credit || candidate.credit)}</span>
+        <span>${titleCase(candidate.quality.bid_ask)} Quotes</span>
+        <span>${titleCase(candidate.quality.open_interest)} OI</span>
+        <span>Limit ${formatMoney(candidate.suggested_limit_credit || candidate.credit)}</span>
       </div>
       <div class="candidate-metrics">
         <div>
-          <span class="metric-label">credit</span>
+          <span class="metric-label">Credit</span>
           <strong class="metric-value positive">${formatMoney(candidate.credit)}</strong>
-          <span class="metric-note">${formatMoney(candidate.max_profit_dollars)} max profit</span>
+          <span class="metric-note">${formatMoney(candidate.max_profit_dollars)} Max Profit</span>
         </div>
         <div>
-          <span class="metric-label">max risk</span>
+          <span class="metric-label">Max Risk</span>
           <strong class="metric-value">${formatMoney(candidate.max_risk)}</strong>
-          <span class="metric-note">${formatMoney(candidate.max_loss_dollars)} max loss</span>
+          <span class="metric-note">${formatMoney(candidate.max_loss_dollars)} Max Loss</span>
         </div>
         <div>
-          <span class="metric-label">credit/risk</span>
+          <span class="metric-label">Credit/Risk</span>
           <strong class="metric-value positive">${pct(candidate.credit_to_risk)}</strong>
-          <span class="metric-note">premium vs risk</span>
+          <span class="metric-note">Premium vs. Risk</span>
         </div>
       </div>
     </button>
@@ -194,17 +213,17 @@ function showDetail(candidate) {
     <div class="direction-panel ${candidate.bias || "bullish"}">
       <div class="direction-mark">${directionIcon(candidate)}</div>
       <div>
-        <strong>${candidate.strategy_label || "Sell put spread"} · ${candidate.bias_label || "Bullish"}</strong>
+        <strong>${candidate.strategy_label || "Sell Put Spread"} · ${candidate.bias_label || "Bullish"}</strong>
         <p>${candidate.desired_move || "Underlying stays above the short put or moves higher."}</p>
       </div>
     </div>
     <div class="broker-check">
       <div>
-        <span>Try limit</span>
+        <span>Try Limit</span>
         <strong>${formatMoney(candidate.suggested_limit_credit || candidate.credit)}</strong>
       </div>
       <div>
-        <span>Do not chase below</span>
+        <span>Do Not Chase Below</span>
         <strong>${formatMoney(candidate.minimum_acceptable_credit || candidate.credit)}</strong>
       </div>
     </div>
@@ -214,11 +233,11 @@ function showDetail(candidate) {
         <strong>${formatMoney(candidate.credit)}</strong>
       </div>
       <div class="detail-item">
-        <span>Max risk</span>
+        <span>Max Risk</span>
         <strong>${formatMoney(candidate.max_risk)}</strong>
       </div>
       <div class="detail-item">
-        <span>Short delta</span>
+        <span>Short Delta</span>
         <strong>${formatDelta(candidate.short_delta)}</strong>
       </div>
       <div class="detail-item">
@@ -234,11 +253,11 @@ function showDetail(candidate) {
         <strong>${formatMoney(candidate.underlying_price)}</strong>
       </div>
       <div class="detail-item">
-        <span>Max profit / loss</span>
+        <span>Max Profit / Loss</span>
         <strong>${formatMoney(candidate.max_profit_dollars)} / ${formatMoney(candidate.max_loss_dollars)}</strong>
       </div>
       <div class="detail-item">
-        <span>Delta source</span>
+        <span>Delta Source</span>
         <strong>${compactSource(candidate.delta_source)}</strong>
       </div>
     </div>
@@ -276,13 +295,13 @@ function showDetail(candidate) {
     </div>
     ${nearbySpreadsTable(candidate)}
     <ul class="quality-list">
-      <li><span>Bid/ask quality</span><strong>${candidate.quality.bid_ask}</strong></li>
-      <li><span>Short bid/ask width</span><strong>${optionalPct(shortLeg.bid_ask_width_pct)}</strong></li>
-      <li><span>Long bid/ask width</span><strong>${optionalPct(longLeg.bid_ask_width_pct)}</strong></li>
-      <li><span>Minimum open interest</span><strong>${formatNumber(candidate.liquidity?.min_open_interest)}</strong></li>
-      <li><span>Minimum volume</span><strong>${formatNumber(candidate.liquidity?.min_volume)}</strong></li>
-      <li><span>Earnings</span><strong>${candidate.quality.earnings}</strong></li>
-      <li><span>Data source</span><strong>${source}</strong></li>
+      <li><span>Bid/Ask Quality</span><strong>${titleCase(candidate.quality.bid_ask)}</strong></li>
+      <li><span>Short Bid/Ask Width</span><strong>${optionalPct(shortLeg.bid_ask_width_pct)}</strong></li>
+      <li><span>Long Bid/Ask Width</span><strong>${optionalPct(longLeg.bid_ask_width_pct)}</strong></li>
+      <li><span>Minimum Open Interest</span><strong>${formatNumber(candidate.liquidity?.min_open_interest)}</strong></li>
+      <li><span>Minimum Volume</span><strong>${formatNumber(candidate.liquidity?.min_volume)}</strong></li>
+      <li><span>Earnings</span><strong>${titleCase(candidate.quality.earnings)}</strong></li>
+      <li><span>Data Source</span><strong>${source}</strong></li>
     </ul>
   `;
   byId("detail-panel").hidden = false;

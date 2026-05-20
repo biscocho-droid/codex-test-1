@@ -336,7 +336,7 @@ select {
   display: block;
   color: #7a8494;
   font-size: 9px;
-  text-transform: lowercase;
+  font-weight: 700;
 }
 
 .metric-value {
