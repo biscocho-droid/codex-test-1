@@ -188,13 +188,13 @@ def market_status(now_ct: datetime) -> str:
 
 def spread_status(delta: float | None, credit: float | None, rules: ScanRules) -> tuple[str, bool]:
     if delta is None:
-        return "No delta", False
+        return "No Delta", False
     if delta < rules.min_short_delta:
-        return "Too aggressive", False
+        return "Too Aggressive", False
     if delta > rules.max_short_delta:
-        return "Too low delta", False
+        return "Too Low Delta", False
     if credit is None or credit < rules.min_credit:
-        return "Too little credit", False
+        return "Too Little Credit", False
     return "Valid", True
 
 
@@ -236,10 +236,10 @@ def build_spread_candidate(
         "id": f"{symbol}-{expiration}-{short_strike:g}-{long_strike:g}-P",
         "ticker": symbol,
         "strategy": "put_credit_spread",
-        "strategy_label": "Sell put spread",
+        "strategy_label": "Sell Put Spread",
         "bias": "bullish",
         "bias_label": "Bullish",
-        "desired_move": "Underlying stays above the short put or moves higher",
+        "desired_move": "Underlying stays above the short put or moves higher.",
         "underlying_price": round(spot, 2),
         "expiration": expiration,
         "dte": dte,
@@ -411,7 +411,7 @@ def build_payload(tickers: list[str], rules: ScanRules) -> dict[str, Any]:
 
     return {
         "scan": {
-            "mode": "live yfinance",
+            "mode": "Live Yahoo Finance",
             "generated_at": now_ct.isoformat(timespec="seconds"),
             "local_time": now_ct.strftime("%-I:%M %p"),
             "timezone": "America/Chicago",
