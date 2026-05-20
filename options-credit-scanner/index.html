@@ -11,7 +11,7 @@
 <body>
   <header class="app-header">
     <div>
-      <p class="eyebrow">Put Credit Spreads</p>
+      <p class="eyebrow">Credit Spreads</p>
       <h1>Credit Spread Scanner</h1>
       <p id="scan-status" class="scan-status">Loading latest scan...</p>
     </div>
@@ -40,7 +40,7 @@
     <section class="universe-note">
       <strong>Configured universe:</strong>
       <span id="universe-text">SPY, QQQ, IWM, AAPL, AMZN, MSFT, NVDA, TSLA</span>
-      <span class="universe-mode">Current mode: put credit spreads only. All current candidates are bullish or neutral-to-bullish.</span>
+      <span id="strategy-counts" class="universe-mode">Current mode: put and call credit spreads. Put spreads are bullish; call spreads are bearish.</span>
     </section>
 
     <section class="controls" aria-label="Scanner controls">
@@ -57,6 +57,14 @@
           <option value="0.12">12%+</option>
           <option value="0.15">15%+</option>
           <option value="0.18">18%+</option>
+        </select>
+      </div>
+      <div class="control-row">
+        <label for="strategy-filter">Strategy</label>
+        <select id="strategy-filter">
+          <option value="all">All Strategies</option>
+          <option value="put_credit_spread">Put Credit Spreads</option>
+          <option value="call_credit_spread">Call Credit Spreads</option>
         </select>
       </div>
     </section>

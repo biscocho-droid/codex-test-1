@@ -3,6 +3,7 @@ const state = {
   candidates: [],
   ticker: "all",
   minScore: 0,
+  strategy: "all",
 };
 
 const money = new Intl.NumberFormat("en-US", {
@@ -110,6 +111,9 @@ function renderSummary() {
   byId("skipped-count").textContent = data.summary.skipped_for_earnings;
   byId("market-badge").textContent = `${data.rules.min_dte}-${data.rules.max_dte} DTE`;
   byId("universe-text").textContent = data.tickers.join(", ");
+  const putCount = data.summary.put_candidate_count ?? 0;
+  const callCount = data.summary.call_candidate_count ?? 0;
+  byId("strategy-counts").textContent = `Current mode: put and call credit spreads. Put spreads are bullish; call spreads are bearish. Current scan: ${putCount} put candidates and ${callCount} call candidates.`;
   renderWarnings(data.warnings || []);
 }
 
@@ -141,7 +145,8 @@ function filteredCandidates() {
   return state.candidates.filter((candidate) => {
     const tickerPass = state.ticker === "all" || candidate.ticker === state.ticker;
     const scorePass = Number(candidate.credit_to_risk) >= state.minScore;
-    return tickerPass && scorePass;
+    const strategyPass = state.strategy === "all" || candidate.strategy === state.strategy;
+    return tickerPass && scorePass && strategyPass;
   });
 }
 
@@ -163,6 +168,9 @@ function renderCandidates() {
 }
 
 function candidateCard(candidate, index) {
+  const shortStrike = candidate.short_strike ?? candidate.short_put;
+  const longStrike = candidate.long_strike ?? candidate.long_put;
+  const optionLabel = candidate.option_label || "Put";
   return `
     <button type="button" class="candidate-card" data-candidate-id="${candidate.id}">
       <div class="candidate-top">
@@ -172,7 +180,7 @@ function candidateCard(candidate, index) {
             <span>${candidate.strategy_label || "Sell Put Spread"} · ${candidate.bias_label || "Bullish"}</span>
             <span class="direction-badge ${candidate.bias || "bullish"}">${directionIcon(candidate)}</span>
           </div>
-          <div class="spread-name">${candidate.short_put} / ${candidate.long_put} Put</div>
+          <div class="spread-name">${shortStrike} / ${longStrike} ${optionLabel}</div>
           <div class="spread-meta">${candidate.dte} DTE | delta ${formatDelta(candidate.short_delta)} | exp ${candidate.expiration}</div>
         </div>
         <div class="rank-pill">#${index + 1}</div>
@@ -208,7 +216,11 @@ function showDetail(candidate) {
   const shortLeg = candidate.legs?.short || {};
   const longLeg = candidate.legs?.long || {};
   const source = state.data?.scan?.data_source || "Yahoo Finance via yfinance";
-  byId("detail-title").textContent = `${candidate.ticker} ${candidate.short_put} / ${candidate.long_put} Put`;
+  const shortStrike = candidate.short_strike ?? candidate.short_put;
+  const longStrike = candidate.long_strike ?? candidate.long_put;
+  const optionLabel = candidate.option_label || "Put";
+  const optionSymbol = optionLabel === "Call" ? "C" : "P";
+  byId("detail-title").textContent = `${candidate.ticker} ${shortStrike} / ${longStrike} ${optionLabel}`;
   byId("detail-body").innerHTML = `
     <div class="direction-panel ${candidate.bias || "bullish"}">
       <div>
@@ -274,7 +286,7 @@ function showDetail(candidate) {
         </thead>
         <tbody>
           <tr>
-            <td>Sell ${candidate.short_put}P</td>
+            <td>Sell ${shortStrike}${optionSymbol}</td>
             <td>${formatMoney(shortLeg.bid)}</td>
             <td>${formatMoney(shortLeg.ask)}</td>
             <td>${formatMoney(shortLeg.mid)}</td>
@@ -282,7 +294,7 @@ function showDetail(candidate) {
             <td>${formatNumber(shortLeg.volume)}</td>
           </tr>
           <tr>
-            <td>Buy ${candidate.long_put}P</td>
+            <td>Buy ${longStrike}${optionSymbol}</td>
             <td>${formatMoney(longLeg.bid)}</td>
             <td>${formatMoney(longLeg.ask)}</td>
             <td>${formatMoney(longLeg.mid)}</td>
@@ -313,7 +325,7 @@ function nearbySpreadsTable(candidate) {
     <section class="nearby-section">
       <div class="nearby-head">
         <h3>Nearby $5-Wide Spreads</h3>
-        <span>same expiration</span>
+        <span>Same Expiration</span>
       </div>
       <div class="nearby-table-wrap">
         <table class="nearby-table">
@@ -343,7 +355,7 @@ function nearbyRow(row) {
   else classes.push("outside");
   return `
     <tr class="${row.selected ? "selected-row" : ""}">
-      <td>${row.short_put} / ${row.long_put}</td>
+      <td>${row.short_strike ?? row.short_put} / ${row.long_strike ?? row.long_put}</td>
       <td>${formatMaybeDelta(row.short_delta)}</td>
       <td>${formatMoney(row.credit)}</td>
       <td>${formatMoney(row.max_risk)}</td>
@@ -365,6 +377,11 @@ function bindEvents() {
 
   byId("min-score").addEventListener("change", (event) => {
     state.minScore = Number(event.target.value);
+    renderCandidates();
+  });
+
+  byId("strategy-filter").addEventListener("change", (event) => {
+    state.strategy = event.target.value;
     renderCandidates();
   });
 

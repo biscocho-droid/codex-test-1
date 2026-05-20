@@ -43,7 +43,8 @@
       <div class="rule-grid">
         <div><span>Expiration</span><strong>45-60 DTE</strong></div>
         <div><span>Spread width</span><strong>$5 wide</strong></div>
-        <div><span>Short put delta</span><strong>-0.15 to -0.30</strong></div>
+        <div><span>Short Put Delta</span><strong>-0.15 to -0.30</strong></div>
+        <div><span>Short Call Delta</span><strong>0.15 to 0.30</strong></div>
         <div><span>Minimum credit</span><strong>$0.60</strong></div>
       </div>
     </section>
@@ -51,9 +52,10 @@
     <section class="info-card">
       <h2>Trade Direction</h2>
       <p>
-        The current scanner looks for put credit spreads. Selling a put spread is generally a bullish or neutral-to-bullish trade:
-        you want the underlying to stay above the short put strike or move higher. A future call credit spread mode would be bearish
-        or neutral-to-bearish, because you would want the underlying to stay below the short call strike.
+        The scanner looks for both put credit spreads and call credit spreads using the same structure and mirrored delta ranges.
+        Selling a put spread is generally bullish or
+        neutral-to-bullish: you want the underlying to stay above the short put strike or move higher. Selling a call spread is
+        generally bearish or neutral-to-bearish: you want the underlying to stay below the short call strike or move lower.
       </p>
     </section>
 
@@ -113,7 +115,7 @@
     <section class="info-card">
       <h2>Nearby Spread Ladder</h2>
       <p>
-        Tapping a candidate shows nearby $5-wide put spreads with the same expiration. This helps compare
+        Tapping a candidate shows nearby $5-wide spreads with the same expiration and strategy type. This helps compare
         whether the selected strike is meaningfully better than the strikes directly above or below it.
       </p>
     </section>
