@@ -5,3 +5,5 @@ __pycache__/
 data/*.sqlite3
 reports/*.html
 config.yaml
+trend_research_app/logs/
+trend_research_app/.update.lock/
