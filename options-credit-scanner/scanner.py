@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Live put credit spread scanner for the static dashboard.
+Live credit spread scanner for the static dashboard.
 
-The scanner uses yfinance option chains, estimates put delta with Black-Scholes
+The scanner uses yfinance option chains, estimates option delta with Black-Scholes
 when Yahoo does not provide Greeks, applies the configured filters, and writes
 data/latest.json for the GitHub Pages dashboard.
 """
@@ -36,6 +36,8 @@ class ScanRules:
     min_credit: float = 0.60
     min_short_delta: float = -0.30
     max_short_delta: float = -0.15
+    min_short_call_delta: float = 0.15
+    max_short_call_delta: float = 0.30
     min_open_interest: int = 50
     max_bid_ask_pct_of_mid: float = 0.35
     risk_free_rate: float = 0.045
@@ -54,6 +56,17 @@ def put_delta(spot: float, strike: float, dte: int, iv: float, rate: float) -> f
         return None
     d1 = (math.log(spot / strike) + (rate + 0.5 * iv * iv) * time_years) / sigma_root_t
     return normal_cdf(d1) - 1.0
+
+
+def call_delta(spot: float, strike: float, dte: int, iv: float, rate: float) -> float | None:
+    if spot <= 0 or strike <= 0 or dte <= 0 or iv <= 0 or not np.isfinite(iv):
+        return None
+    time_years = dte / 365.0
+    sigma_root_t = iv * math.sqrt(time_years)
+    if sigma_root_t <= 0:
+        return None
+    d1 = (math.log(spot / strike) + (rate + 0.5 * iv * iv) * time_years) / sigma_root_t
+    return normal_cdf(d1)
 
 
 def quote_mid(row: pd.Series) -> float | None:
@@ -186,19 +199,26 @@ def market_status(now_ct: datetime) -> str:
     return "closed"
 
 
-def spread_status(delta: float | None, credit: float | None, rules: ScanRules) -> tuple[str, bool]:
+def spread_status(option_type: str, delta: float | None, credit: float | None, rules: ScanRules) -> tuple[str, bool]:
     if delta is None:
         return "No Delta", False
-    if delta < rules.min_short_delta:
-        return "Too Aggressive", False
-    if delta > rules.max_short_delta:
-        return "Too Low Delta", False
+    if option_type == "put":
+        if delta < rules.min_short_delta:
+            return "Too Aggressive", False
+        if delta > rules.max_short_delta:
+            return "Too Low Delta", False
+    else:
+        if delta > rules.max_short_call_delta:
+            return "Too Aggressive", False
+        if delta < rules.min_short_call_delta:
+            return "Too Low Delta", False
     if credit is None or credit < rules.min_credit:
         return "Too Little Credit", False
     return "Valid", True
 
 
 def build_spread_candidate(
+    option_type: str,
     symbol: str,
     spot: float,
     expiration: str,
@@ -211,11 +231,15 @@ def build_spread_candidate(
     earnings_date: date | None,
 ) -> tuple[dict[str, Any] | None, str]:
     iv = safe_float(short_row.get("impliedVolatility"))
-    delta = put_delta(spot, short_strike, dte, iv or 0.0, rules.risk_free_rate)
+    delta = (
+        put_delta(spot, short_strike, dte, iv or 0.0, rules.risk_free_rate)
+        if option_type == "put"
+        else call_delta(spot, short_strike, dte, iv or 0.0, rules.risk_free_rate)
+    )
     short_mid = quote_mid(short_row)
     long_mid = quote_mid(long_row)
     credit = round(short_mid - long_mid, 2) if short_mid is not None and long_mid is not None else None
-    status, rules_pass = spread_status(delta, credit, rules)
+    status, rules_pass = spread_status(option_type, delta, credit, rules)
 
     if credit is None:
         return None, status
@@ -232,17 +256,34 @@ def build_spread_candidate(
 
     combined_bid_ask = "tight" if short_ba == "tight" and long_ba == "tight" else "good"
     min_acceptable_credit = max(rules.min_credit, credit - 0.10)
+    is_put = option_type == "put"
+    option_label = "Put" if is_put else "Call"
+    strategy = "put_credit_spread" if is_put else "call_credit_spread"
+    strategy_label = "Sell Put Spread" if is_put else "Sell Call Spread"
+    bias = "bullish" if is_put else "bearish"
+    bias_label = "Bullish" if is_put else "Bearish"
+    desired_move = (
+        "Underlying stays above the short put or moves higher."
+        if is_put
+        else "Underlying stays below the short call or moves lower."
+    )
+    breakeven = round(short_strike - credit, 2) if is_put else round(short_strike + credit, 2)
+    contract_suffix = "P" if is_put else "C"
     candidate = {
-        "id": f"{symbol}-{expiration}-{short_strike:g}-{long_strike:g}-P",
+        "id": f"{symbol}-{expiration}-{short_strike:g}-{long_strike:g}-{contract_suffix}",
         "ticker": symbol,
-        "strategy": "put_credit_spread",
-        "strategy_label": "Sell Put Spread",
-        "bias": "bullish",
-        "bias_label": "Bullish",
-        "desired_move": "Underlying stays above the short put or moves higher.",
+        "strategy": strategy,
+        "strategy_label": strategy_label,
+        "bias": bias,
+        "bias_label": bias_label,
+        "desired_move": desired_move,
+        "option_type": option_type,
+        "option_label": option_label,
         "underlying_price": round(spot, 2),
         "expiration": expiration,
         "dte": dte,
+        "short_strike": short_strike,
+        "long_strike": long_strike,
         "short_put": short_strike,
         "long_put": long_strike,
         "short_delta": round(delta, 4) if delta is not None else None,
@@ -250,7 +291,7 @@ def build_spread_candidate(
         "credit": credit,
         "max_risk": max_risk,
         "credit_to_risk": round(credit / max_risk, 4),
-        "breakeven": round(short_strike - credit, 2),
+        "breakeven": breakeven,
         "max_profit_dollars": round(credit * 100, 2),
         "max_loss_dollars": round(max_risk * 100, 2),
         "suggested_limit_credit": credit,
@@ -284,6 +325,10 @@ def ladder_row(
     selected = spread["short_put"] == selected_short and spread["long_put"] == selected_long
     status = "Selected" if selected else spread.get("status", "Valid")
     return {
+        "option_type": spread.get("option_type", "put"),
+        "option_label": spread.get("option_label", "Put"),
+        "short_strike": spread["short_strike"],
+        "long_strike": spread["long_strike"],
         "short_put": spread["short_put"],
         "long_put": spread["long_put"],
         "short_delta": spread["short_delta"],
@@ -297,15 +342,16 @@ def ladder_row(
 
 
 def attach_nearby_ladders(candidates: list[dict[str, Any]], all_spreads: list[dict[str, Any]], rules: ScanRules) -> None:
-    grouped: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    grouped: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
     for spread in all_spreads:
-        grouped.setdefault((spread["ticker"], spread["expiration"]), []).append(spread)
+        grouped.setdefault((spread["ticker"], spread["expiration"], spread["option_type"]), []).append(spread)
 
-    for spreads in grouped.values():
-        spreads.sort(key=lambda item: item["short_put"], reverse=True)
+    for key, spreads in grouped.items():
+        option_type = key[2]
+        spreads.sort(key=lambda item: item["short_strike"], reverse=(option_type == "put"))
 
     for candidate in candidates:
-        peers = grouped.get((candidate["ticker"], candidate["expiration"]), [])
+        peers = grouped.get((candidate["ticker"], candidate["expiration"], candidate["option_type"]), [])
         selected_index = next((i for i, item in enumerate(peers) if item["id"] == candidate["id"]), None)
         if selected_index is None:
             candidate["nearby_spreads"] = []
@@ -353,41 +399,49 @@ def scan_ticker(symbol: str, rules: ScanRules, today: date) -> tuple[list[dict[s
 
     for expiration, exp_date, dte in valid_expirations:
         try:
-            puts = ticker.option_chain(expiration).puts.copy()
+            chain = ticker.option_chain(expiration)
+            puts = chain.puts.copy()
+            calls = chain.calls.copy()
         except Exception as exc:
-            warnings.append(f"{symbol} {expiration}: could not fetch puts ({exc})")
+            warnings.append(f"{symbol} {expiration}: could not fetch option chain ({exc})")
             continue
 
-        if puts.empty or "strike" not in puts.columns:
-            warnings.append(f"{symbol} {expiration}: no puts returned")
-            continue
-
-        puts["strike_key"] = puts["strike"].round(4)
-        put_by_strike = {float(row["strike_key"]): row for _, row in puts.iterrows()}
-
-        for short_strike, short_row in put_by_strike.items():
-            long_strike = round(short_strike - rules.spread_width, 4)
-            long_row = put_by_strike.get(long_strike)
-            if long_row is None:
+        chain_specs = [
+            ("put", puts, -rules.spread_width),
+            ("call", calls, rules.spread_width),
+        ]
+        for option_type, options, width_direction in chain_specs:
+            if options.empty or "strike" not in options.columns:
+                warnings.append(f"{symbol} {expiration}: no {option_type}s returned")
                 continue
 
-            spread, _ = build_spread_candidate(
-                symbol,
-                spot,
-                expiration,
-                dte,
-                short_strike,
-                long_strike,
-                short_row,
-                long_row,
-                rules,
-                earnings_date,
-            )
-            if spread is None:
-                continue
-            all_spreads.append(spread)
-            if spread["rules_pass"]:
-                candidates.append(spread)
+            options["strike_key"] = options["strike"].round(4)
+            option_by_strike = {float(row["strike_key"]): row for _, row in options.iterrows()}
+
+            for short_strike, short_row in option_by_strike.items():
+                long_strike = round(short_strike + width_direction, 4)
+                long_row = option_by_strike.get(long_strike)
+                if long_row is None:
+                    continue
+
+                spread, _ = build_spread_candidate(
+                    option_type,
+                    symbol,
+                    spot,
+                    expiration,
+                    dte,
+                    short_strike,
+                    long_strike,
+                    short_row,
+                    long_row,
+                    rules,
+                    earnings_date,
+                )
+                if spread is None:
+                    continue
+                all_spreads.append(spread)
+                if spread["rules_pass"]:
+                    candidates.append(spread)
 
     attach_nearby_ladders(candidates, all_spreads, rules)
     return candidates, warnings
@@ -422,6 +476,8 @@ def build_payload(tickers: list[str], rules: ScanRules) -> dict[str, Any]:
         "summary": {
             "ticker_count": len(tickers),
             "candidate_count": len(all_candidates),
+            "put_candidate_count": sum(1 for item in all_candidates if item["option_type"] == "put"),
+            "call_candidate_count": sum(1 for item in all_candidates if item["option_type"] == "call"),
             "skipped_for_earnings": skipped_for_earnings,
             "warning_count": len(warnings),
         },
