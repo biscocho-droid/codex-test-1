@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-20T10:44:10+00:00",
+  "generatedAt": "2026-05-20T10:45:04+00:00",
   "sourcePolicy": "Free public RSS/Atom/news feeds only. No paid feeds and no API keys.",
   "itemCount": 80,
   "sourceCount": 15,
@@ -1624,7 +1624,7 @@
         "META",
         "MSFT"
       ],
-      "signalScore": 92,
+      "signalScore": 91,
       "angle": "Model capability signal; watch platform distribution, developer adoption, and monetization."
     },
     {
