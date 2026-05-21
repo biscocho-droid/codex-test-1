@@ -349,6 +349,10 @@
           <span id="scenario-base-value">$0 base case</span>
           <span id="scenario-bull-value">$0 bull case</span>
         </div>
+        <div class="scenario-year-switch" aria-label="Scenario target year">
+          <button type="button" class="scenario-year-button active" data-scenario-year="2030">2030</button>
+          <button type="button" class="scenario-year-button" data-scenario-year="2035">2035</button>
+        </div>
       </div>
 
       <div class="scenario-grid">
@@ -356,7 +360,7 @@
           <div class="panel-head">
             <div>
               <h2>Portfolio Outcomes</h2>
-              <p>Manual bear/base/bull price targets against today&apos;s share counts</p>
+              <p id="scenario-horizon-caption">2030 bear/base/bull price targets against today&apos;s share counts</p>
             </div>
           </div>
           <svg id="scenario-chart" viewBox="0 0 900 320" class="bar-chart" role="img" aria-label="Portfolio scenario value chart"></svg>
@@ -395,7 +399,12 @@
           <span id="matrix-base-total">$0 base</span>
           <span id="matrix-bull-total">$0 bull</span>
         </div>
+        <div class="scenario-year-switch" aria-label="Matrix target year">
+          <button type="button" class="scenario-year-button active" data-scenario-year="2030">2030</button>
+          <button type="button" class="scenario-year-button" data-scenario-year="2035">2035</button>
+        </div>
       </div>
+      <p id="matrix-horizon-caption" class="view-caption">2030 outcome matrix using static long-range bear/base/bull targets.</p>
 
       <div class="sheet-table-wrap">
         <table class="matrix-table">

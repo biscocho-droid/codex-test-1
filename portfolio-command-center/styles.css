@@ -61,7 +61,8 @@ button.ghost,
 .account-pill,
 .range-pill,
 .prompt-pill,
-.view-button {
+.view-button,
+.scenario-year-button {
   background: #111318;
 }
 
@@ -185,10 +186,24 @@ td {
   background: rgba(255, 255, 255, 0.03);
 }
 
+.scenario-year-switch {
+  display: inline-flex;
+  padding: 0.2rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
 .view-button {
   padding: 0.55rem 0.78rem;
   border-color: transparent;
   font-size: 0.84rem;
+}
+
+.scenario-year-button {
+  padding: 0.48rem 0.72rem;
+  border-color: transparent;
+  font-size: 0.82rem;
 }
 
 .app-view {
@@ -267,6 +282,12 @@ td {
 .sheet-toolbar h2 {
   margin: 0.2rem 0 0;
   font-size: 1.35rem;
+}
+
+.view-caption {
+  margin: -0.25rem 0 0;
+  color: var(--muted);
+  line-height: 1.45;
 }
 
 .sheet-stats {
@@ -829,18 +850,21 @@ td {
   }
 
   .view-switch,
+  .scenario-year-switch,
   .view-button {
     width: 100%;
   }
 
-  .view-switch {
+  .view-switch,
+  .scenario-year-switch {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     border-radius: 16px;
     gap: 0.2rem;
   }
 
-  .view-button {
+  .view-button,
+  .scenario-year-button {
     min-width: 0;
     border-radius: 12px;
     padding-inline: 0.45rem;
