@@ -296,11 +296,14 @@ const els = {
   scenarioBaseValue: document.getElementById("scenario-base-value"),
   scenarioBullValue: document.getElementById("scenario-bull-value"),
   scenarioChart: document.getElementById("scenario-chart"),
+  scenarioHorizonCaption: document.getElementById("scenario-horizon-caption"),
   scenarioReadout: document.getElementById("scenario-readout"),
   scenarioCards: document.getElementById("scenario-cards"),
+  scenarioYearButtons: [...document.querySelectorAll(".scenario-year-button")],
   matrixBearTotal: document.getElementById("matrix-bear-total"),
   matrixBaseTotal: document.getElementById("matrix-base-total"),
   matrixBullTotal: document.getElementById("matrix-bull-total"),
+  matrixHorizonCaption: document.getElementById("matrix-horizon-caption"),
   matrixBody: document.getElementById("matrix-body"),
   matrixCurrentTotal: document.getElementById("matrix-current-total"),
   matrixBearValue: document.getElementById("matrix-bear-value"),
@@ -836,15 +839,47 @@ function readNumber(input, fallback) {
   return Number.isFinite(value) ? value : fallback;
 }
 
+function defaultScenarioTargets(holding, targetYear) {
+  const yearsOut = Math.max(Number(targetYear) - 2026, 1);
+  const multipliers = targetYear === "2035"
+    ? { bear: 1 + yearsOut * 0.005, base: 1 + yearsOut * 0.11, bull: 1 + yearsOut * 0.22 }
+    : { bear: 1 - yearsOut * 0.025, base: 1 + yearsOut * 0.13, bull: 1 + yearsOut * 0.28 };
+
+  return {
+    bear: Number((holding.price * Math.max(multipliers.bear, 0.45)).toFixed(2)),
+    base: Number((holding.price * multipliers.base).toFixed(2)),
+    bull: Number((holding.price * multipliers.bull).toFixed(2)),
+  };
+}
+
+function normalizeScenarioTargets() {
+  const targets = state.planning.scenarioTargets || {};
+  const looksLikeLegacyTargets = Object.values(targets).some((target) => {
+    return target && typeof target === "object" && ["bear", "base", "bull"].some((key) => key in target);
+  });
+
+  if (looksLikeLegacyTargets) {
+    state.planning.scenarioTargets = {
+      2030: targets,
+      2035: {},
+    };
+    return;
+  }
+
+  state.planning.scenarioTargets = {
+    2030: targets["2030"] || {},
+    2035: targets["2035"] || {},
+  };
+}
+
 function ensureScenarioTargets() {
-  state.holdings.forEach((holding) => {
-    if (!state.planning.scenarioTargets[holding.ticker]) {
-      state.planning.scenarioTargets[holding.ticker] = {
-        bear: Number((holding.price * 0.75).toFixed(2)),
-        base: Number((holding.price * 1.15).toFixed(2)),
-        bull: Number((holding.price * 1.65).toFixed(2)),
-      };
-    }
+  normalizeScenarioTargets();
+  ["2030", "2035"].forEach((targetYear) => {
+    state.holdings.forEach((holding) => {
+      if (!state.planning.scenarioTargets[targetYear][holding.ticker]) {
+        state.planning.scenarioTargets[targetYear][holding.ticker] = defaultScenarioTargets(holding, targetYear);
+      }
+    });
   });
 }
 
@@ -852,7 +887,7 @@ function scenarioRows() {
   ensureScenarioTargets();
   const current = aggregateStateFor("combined");
   return current.holdings.map((holding) => {
-    const targets = state.planning.scenarioTargets[holding.ticker];
+    const targets = state.planning.scenarioTargets[activeScenarioYear][holding.ticker];
     const bearValue = holding.shares * targets.bear;
     const baseValue = holding.shares * targets.base;
     const bullValue = holding.shares * targets.bull;
@@ -956,9 +991,9 @@ function renderBarChart(target, totals) {
   const chartWidth = width - pad.left - pad.right;
   const chartHeight = height - pad.top - pad.bottom;
   const rows = [
-    { key: "bear", label: "Bear", value: totals.bearValue, pnl: totals.bearPnl },
-    { key: "base", label: "Base", value: totals.baseValue, pnl: totals.basePnl },
-    { key: "bull", label: "Bull", value: totals.bullValue, pnl: totals.bullPnl },
+    { key: "bear", label: `${activeScenarioYear} Bear`, value: totals.bearValue, pnl: totals.bearPnl },
+    { key: "base", label: `${activeScenarioYear} Base`, value: totals.baseValue, pnl: totals.basePnl },
+    { key: "bull", label: `${activeScenarioYear} Bull`, value: totals.bullValue, pnl: totals.bullPnl },
   ];
   const max = Math.max(...rows.map((row) => row.value), totals.currentValue) * 1.12;
   const barWidth = chartWidth / rows.length * 0.54;
@@ -1030,16 +1065,17 @@ function renderScenarioLab() {
   const rows = scenarioRows().sort((a, b) => b.value - a.value);
   const totals = scenarioTotals(rows);
   els.scenarioCurrentValue.textContent = `${money(totals.currentValue)} current`;
-  els.scenarioBaseValue.textContent = `${money(totals.baseValue)} base case`;
-  els.scenarioBullValue.textContent = `${money(totals.bullValue)} bull case`;
+  els.scenarioBaseValue.textContent = `${money(totals.baseValue)} ${activeScenarioYear} base`;
+  els.scenarioBullValue.textContent = `${money(totals.bullValue)} ${activeScenarioYear} bull`;
+  els.scenarioHorizonCaption.textContent = `${activeScenarioYear} bear/base/bull price targets against today's share counts`;
   renderBarChart(els.scenarioChart, totals);
 
   const upside = [...rows].sort((a, b) => b.bullPnl - a.bullPnl)[0];
   const downside = [...rows].sort((a, b) => a.bearPnl - b.bearPnl)[0];
   const asymmetric = [...rows].sort((a, b) => (b.bullPnl / Math.max(Math.abs(b.bearPnl), 1)) - (a.bullPnl / Math.max(Math.abs(a.bearPnl), 1)))[0];
   els.scenarioReadout.innerHTML = `
-    <div class="mini-metric"><span>Bear case</span><strong class="${totals.bearPnl >= 0 ? "positive-text" : "negative-text"}">${totals.bearPnl >= 0 ? "+" : ""}${money(totals.bearPnl)}</strong></div>
-    <div class="mini-metric"><span>Base case</span><strong class="${totals.basePnl >= 0 ? "positive-text" : "negative-text"}">${totals.basePnl >= 0 ? "+" : ""}${money(totals.basePnl)}</strong></div>
+    <div class="mini-metric"><span>${activeScenarioYear} bear case</span><strong class="${totals.bearPnl >= 0 ? "positive-text" : "negative-text"}">${totals.bearPnl >= 0 ? "+" : ""}${money(totals.bearPnl)}</strong></div>
+    <div class="mini-metric"><span>${activeScenarioYear} base case</span><strong class="${totals.basePnl >= 0 ? "positive-text" : "negative-text"}">${totals.basePnl >= 0 ? "+" : ""}${money(totals.basePnl)}</strong></div>
     <div class="mini-metric"><span>Biggest upside driver</span><strong>${escapeHtml(upside.ticker)} · ${money(upside.bullPnl)}</strong></div>
     <div class="mini-metric"><span>Most downside risk</span><strong>${escapeHtml(downside.ticker)} · ${money(downside.bearPnl)}</strong></div>
     <div class="mini-metric"><span>Best asymmetry</span><strong>${escapeHtml(asymmetric.ticker)}</strong></div>
@@ -1058,9 +1094,9 @@ function renderScenarioLab() {
         <span class="conviction-pill ${convictionClass(holding.conviction)}">${escapeHtml(holding.conviction)}</span>
       </div>
       <div class="scenario-targets">
-        <label>Bear <input type="number" min="0" step="0.01" data-ticker="${escapeHtml(holding.ticker)}" data-case="bear" value="${holding.targets.bear}"></label>
-        <label>Base <input type="number" min="0" step="0.01" data-ticker="${escapeHtml(holding.ticker)}" data-case="base" value="${holding.targets.base}"></label>
-        <label>Bull <input type="number" min="0" step="0.01" data-ticker="${escapeHtml(holding.ticker)}" data-case="bull" value="${holding.targets.bull}"></label>
+        <label>${activeScenarioYear} Bear <input type="number" min="0" step="0.01" data-ticker="${escapeHtml(holding.ticker)}" data-case="bear" value="${holding.targets.bear}"></label>
+        <label>${activeScenarioYear} Base <input type="number" min="0" step="0.01" data-ticker="${escapeHtml(holding.ticker)}" data-case="base" value="${holding.targets.base}"></label>
+        <label>${activeScenarioYear} Bull <input type="number" min="0" step="0.01" data-ticker="${escapeHtml(holding.ticker)}" data-case="bull" value="${holding.targets.bull}"></label>
       </div>
       <div class="scenario-results">
         <div class="scenario-result-row"><span>Bear impact</span><strong class="${holding.bearPnl >= 0 ? "positive-text" : "negative-text"}">${holding.bearPnl >= 0 ? "+" : ""}${money(holding.bearPnl)}</strong></div>
@@ -1075,9 +1111,10 @@ function renderScenarioLab() {
 function renderOutcomeMatrix() {
   const rows = scenarioRows().sort((a, b) => b.baseValue - a.baseValue);
   const totals = scenarioTotals(rows);
-  els.matrixBearTotal.textContent = `${money(totals.bearValue)} bear`;
-  els.matrixBaseTotal.textContent = `${money(totals.baseValue)} base`;
-  els.matrixBullTotal.textContent = `${money(totals.bullValue)} bull`;
+  els.matrixBearTotal.textContent = `${money(totals.bearValue)} ${activeScenarioYear} bear`;
+  els.matrixBaseTotal.textContent = `${money(totals.baseValue)} ${activeScenarioYear} base`;
+  els.matrixBullTotal.textContent = `${money(totals.bullValue)} ${activeScenarioYear} bull`;
+  els.matrixHorizonCaption.textContent = `${activeScenarioYear} outcome matrix using static long-range bear/base/bull targets.`;
   els.matrixBody.innerHTML = "";
   rows.forEach((holding) => {
     const baseWeight = totals.baseValue > 0 ? holding.baseValue / totals.baseValue : 0;
@@ -1156,10 +1193,20 @@ function setActiveView(view) {
   });
 }
 
+function setActiveScenarioYear(targetYear) {
+  activeScenarioYear = targetYear;
+  els.scenarioYearButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.scenarioYear === targetYear);
+  });
+  renderScenarioLab();
+  renderOutcomeMatrix();
+}
+
 const state = loadState();
 let activeRange = "1Y";
 let activeAccountView = "combined";
 let activeView = "dashboard";
+let activeScenarioYear = "2030";
 
 els.rangePills.forEach((pill) => {
   pill.addEventListener("click", () => setActiveRange(pill.dataset.range));
@@ -1171,6 +1218,10 @@ els.accountPills.forEach((pill) => {
 
 els.viewButtons.forEach((button) => {
   button.addEventListener("click", () => setActiveView(button.dataset.view));
+});
+
+els.scenarioYearButtons.forEach((button) => {
+  button.addEventListener("click", () => setActiveScenarioYear(button.dataset.scenarioYear));
 });
 
 els.promptPills.forEach((pill) => {
@@ -1204,7 +1255,10 @@ els.scenarioCards.addEventListener("change", (event) => {
   const scenarioCase = input.dataset.case;
   if (!ticker || !scenarioCase) return;
   ensureScenarioTargets();
-  state.planning.scenarioTargets[ticker][scenarioCase] = readNumber(input, state.planning.scenarioTargets[ticker][scenarioCase]);
+  state.planning.scenarioTargets[activeScenarioYear][ticker][scenarioCase] = readNumber(
+    input,
+    state.planning.scenarioTargets[activeScenarioYear][ticker][scenarioCase]
+  );
   saveState();
   renderScenarioLab();
   renderOutcomeMatrix();
@@ -1216,4 +1270,5 @@ els.runOverlay.addEventListener("click", () => {
 });
 
 renderAll();
+setActiveScenarioYear(activeScenarioYear);
 setActiveView(activeView);
