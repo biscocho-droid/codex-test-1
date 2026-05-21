@@ -1,65 +1,67 @@
+const STORAGE_PREFIX = "financeOS.publicDemo";
+
 const BASE_DATA = {
   months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
-  takeHome: 4808,
+  takeHome: 5200,
   bills: [
-    { name: "Rent", category: "Home", day: 1, amount: 1641 },
-    { name: "Rental Insurance", category: "Home", day: 2, amount: 15 },
-    { name: "Electricity", category: "Home", day: 8, amount: 65 },
-    { name: "Phone", category: "Home", day: 10, amount: 50 },
-    { name: "Internet", category: "Home", day: 12, amount: 60 },
-    { name: "Car Payment", category: "Savings", day: 15, amount: 500 },
-    { name: "Auto Insurance", category: "Transportation", day: 16, amount: 111 },
-    { name: "Spotify", category: "Entertainment", day: 18, amount: 12 },
-    { name: "Amazon Prime", category: "Entertainment", day: 20, amount: 16 },
-    { name: "Netflix", category: "Entertainment", day: 22, amount: 7 },
-    { name: "Food/Litter", category: "Health / Luna", day: 24, amount: 60 },
-    { name: "TradingView", category: "Misc", day: 26, amount: 10 },
+    { name: "Rent", category: "Home", day: 1, amount: 1450 },
+    { name: "Rental Insurance", category: "Home", day: 2, amount: 18 },
+    { name: "Electricity", category: "Home", day: 8, amount: 82 },
+    { name: "Phone", category: "Home", day: 10, amount: 55 },
+    { name: "Internet", category: "Home", day: 12, amount: 70 },
+    { name: "Car Payment", category: "Savings", day: 15, amount: 425 },
+    { name: "Auto Insurance", category: "Transportation", day: 16, amount: 128 },
+    { name: "Music", category: "Entertainment", day: 18, amount: 15 },
+    { name: "Shopping Membership", category: "Entertainment", day: 20, amount: 14 },
+    { name: "Streaming", category: "Entertainment", day: 22, amount: 18 },
+    { name: "Pet Supplies", category: "Health / Pet", day: 24, amount: 48 },
+    { name: "Research Tools", category: "Misc", day: 26, amount: 22 },
   ],
   goals: [
-    { id: "emergency", name: "Emergency Fund", target: 5000, current: 1200, monthly: 300 },
-    { id: "investing", name: "Investing Cash", target: 3000, current: 500, monthly: 150 },
-    { id: "travel", name: "Travel / Fun Fund", target: 1500, current: 250, monthly: 75 },
+    { id: "emergency", name: "Emergency Fund", target: 8000, current: 2600, monthly: 350 },
+    { id: "investing", name: "Investing Cash", target: 5000, current: 1400, monthly: 250 },
+    { id: "travel", name: "Travel / Fun Fund", target: 2200, current: 675, monthly: 125 },
   ],
   categories: [
     cat("Savings", "#1f8a5b", [
-      line("Trading Money", empty()),
-      line("Retirement (401K)", empty()),
+      line("Brokerage Transfer", empty()),
+      line("Retirement Contribution", empty()),
       line("Tax Withheld", empty()),
-      line("Car Payment", [500, 500, 500, 500, 0, 0, 0, 0, 0, 0, 0, 0]),
+      line("Car Payment", [425, 425, 425, 425, 0, 0, 0, 0, 0, 0, 0, 0]),
     ]),
     cat("Home", "#3366cc", [
-      line("Rent", filled(1641)),
-      line("Rental Insurance", filled(15)),
-      line("Electricity", filled(65)),
-      line("Phone", filled(50)),
-      line("Webull", filled(3)),
-      line("Internet", filled(60)),
-      line("Gym", filled(30)),
-      line("Gym Yr Fee", filled(4)),
-      line("Microsoft Storage", filled(2)),
-      line("Water", filled(16)),
-      line("Trash/sewer/pest", filled(45)),
+      line("Rent", filled(1450)),
+      line("Rental Insurance", filled(18)),
+      line("Electricity", filled(82)),
+      line("Phone", filled(55)),
+      line("Cloud Storage", filled(4)),
+      line("Internet", filled(70)),
+      line("Gym", filled(32)),
+      line("Annual Fitness Fee", filled(5)),
+      line("Software Storage", filled(3)),
+      line("Water", filled(24)),
+      line("Trash / Sewer / Pest", filled(38)),
     ]),
     cat("Transportation", "#bd862c", [
-      line("Gas", filled(100)),
-      line("Auto Insurance", filled(111)),
-      line("Car Wash", filled(27)),
-      line("Oil Change", filled(10)),
+      line("Gas", filled(135)),
+      line("Auto Insurance", filled(128)),
+      line("Car Wash", filled(22)),
+      line("Maintenance", filled(18)),
     ]),
-    cat("Daily Living", "#1f7974", [line("Groceries", filled(280)), line("Higene", filled(25)), line("Barber", filled(75))]),
-    cat("Entertainment", "#6d5bd0", [line("Spotify", filled(12)), line("Amazon Prime", filled(16)), line("HBO", filled(10)), line("Netflix", filled(7))]),
-    cat("Health / Luna", "#c75243", [line("Health Insurance", empty()), line("Dental", empty()), line("Vision", empty()), line("Food/Litter", filled(60)), line("Toys/Prime Hyd", filled(20))]),
-    cat("Misc", "#5b6778", [line("Random", empty()), line("Accommodations", empty()), line("Food", empty()), line("Trading", empty()), line("User intellect", filled(10)), line("TradingView", filled(10))]),
+    cat("Daily Living", "#1f7974", [line("Groceries", filled(360)), line("Personal Care", filled(35)), line("Haircut", filled(45))]),
+    cat("Entertainment", "#6d5bd0", [line("Music", filled(15)), line("Shopping Membership", filled(14)), line("Premium Streaming", filled(18)), line("Streaming", filled(16))]),
+    cat("Health / Pet", "#c75243", [line("Health Insurance", empty()), line("Dental", empty()), line("Vision", empty()), line("Pet Supplies", filled(48)), line("Pet Extras", filled(18))]),
+    cat("Misc", "#5b6778", [line("Random", empty()), line("Accommodations", empty()), line("Food", empty()), line("Learning", empty()), line("Research Tools", filled(22)), line("Market Data", filled(18))]),
   ],
 };
 
 const state = {
   month: 0,
-  view: localStorage.getItem("financeOS.view") || "overview",
-  edits: JSON.parse(localStorage.getItem("financeOS.edits") || "{}"),
-  goals: JSON.parse(localStorage.getItem("financeOS.goals") || "{}"),
-  income: Number(localStorage.getItem("financeOS.income") || BASE_DATA.takeHome),
-  paycheckAssignments: JSON.parse(localStorage.getItem("financeOS.paycheckAssignments") || "{}"),
+  view: localStorage.getItem(`${STORAGE_PREFIX}.view`) || "overview",
+  edits: JSON.parse(localStorage.getItem(`${STORAGE_PREFIX}.edits`) || "{}"),
+  goals: JSON.parse(localStorage.getItem(`${STORAGE_PREFIX}.goals`) || "{}"),
+  income: Number(localStorage.getItem(`${STORAGE_PREFIX}.income`) || BASE_DATA.takeHome),
+  paycheckAssignments: JSON.parse(localStorage.getItem(`${STORAGE_PREFIX}.paycheckAssignments`) || "{}"),
   paycheckEditMode: false,
 };
 
@@ -95,7 +97,7 @@ function valueFor(categoryIndex, lineIndex, monthIndex = state.month) {
 function setValue(categoryIndex, lineIndex, value) {
   const key = `${state.month}:${categoryIndex}:${lineIndex}`;
   state.edits[key] = Number(value) || 0;
-  localStorage.setItem("financeOS.edits", JSON.stringify(state.edits));
+  localStorage.setItem(`${STORAGE_PREFIX}.edits`, JSON.stringify(state.edits));
 }
 
 function categoryTotal(categoryIndex, monthIndex = state.month) {
@@ -111,7 +113,7 @@ function categoryNamesTotal(names, monthIndex = state.month) {
 }
 
 function allocationSummary() {
-  const bills = categoryNamesTotal(["Home", "Transportation", "Entertainment", "Health / Luna", "Misc"]);
+  const bills = categoryNamesTotal(["Home", "Transportation", "Entertainment", "Health / Pet", "Misc"]);
   const goals = categoryTotal(0);
   const living = categoryNamesTotal(["Daily Living"]);
   const net = takeHome() - bills - living - goals;
@@ -134,7 +136,7 @@ function goalValue(goal, field) {
 
 function setGoalValue(goalId, field, value) {
   state.goals[goalId] = { ...(state.goals[goalId] || {}), [field]: Number(value) || 0 };
-  localStorage.setItem("financeOS.goals", JSON.stringify(state.goals));
+  localStorage.setItem(`${STORAGE_PREFIX}.goals`, JSON.stringify(state.goals));
 }
 
 function paycheckItems() {
@@ -149,7 +151,7 @@ function paycheckItems() {
     { id: "transportation", label: "Transportation", detail: "Gas, insurance, wash, oil", amount: categoryTotal(2), defaultPaycheck: 2 },
     { id: "daily-living", label: "Daily Living", detail: "Groceries, hygiene, barber", amount: categoryTotal(3), defaultPaycheck: 2 },
     { id: "entertainment", label: "Entertainment", detail: "Streaming / subscriptions", amount: categoryTotal(4), defaultPaycheck: 2 },
-    { id: "health-luna", label: "Health / Luna", detail: "Pet and health items", amount: categoryTotal(5), defaultPaycheck: 2 },
+    { id: "health-pet", label: "Health / Pet", detail: "Pet and health items", amount: categoryTotal(5), defaultPaycheck: 2 },
     { id: "misc", label: "Misc", detail: "Learning / trading tools", amount: categoryTotal(6), defaultPaycheck: 2 },
   ];
 }
@@ -160,12 +162,12 @@ function assignedPaycheck(item) {
 
 function setPaycheckAssignment(itemId, paycheck) {
   state.paycheckAssignments[itemId] = paycheck;
-  localStorage.setItem("financeOS.paycheckAssignments", JSON.stringify(state.paycheckAssignments));
+  localStorage.setItem(`${STORAGE_PREFIX}.paycheckAssignments`, JSON.stringify(state.paycheckAssignments));
 }
 
 function switchView(view) {
   state.view = view;
-  localStorage.setItem("financeOS.view", view);
+  localStorage.setItem(`${STORAGE_PREFIX}.view`, view);
   document.querySelectorAll(".view").forEach((el) => el.classList.toggle("active", el.id === view));
   document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.toggle("active", btn.dataset.view === view));
   const titles = {
@@ -191,9 +193,9 @@ function setupControls() {
     state.edits = {};
     state.income = BASE_DATA.takeHome;
     state.paycheckAssignments = {};
-    localStorage.removeItem("financeOS.edits");
-    localStorage.removeItem("financeOS.income");
-    localStorage.removeItem("financeOS.paycheckAssignments");
+    localStorage.removeItem(`${STORAGE_PREFIX}.edits`);
+    localStorage.removeItem(`${STORAGE_PREFIX}.income`);
+    localStorage.removeItem(`${STORAGE_PREFIX}.paycheckAssignments`);
     render();
   });
   document.getElementById("scenarioSpend").addEventListener("input", updateScenario);
@@ -522,7 +524,7 @@ function renderPlanner() {
   if (incomeInput) {
     incomeInput.addEventListener("input", () => {
       state.income = Number(incomeInput.value) || 0;
-      localStorage.setItem("financeOS.income", String(state.income));
+      localStorage.setItem(`${STORAGE_PREFIX}.income`, String(state.income));
       refreshPlannerSummary();
     });
     incomeInput.addEventListener("change", render);
