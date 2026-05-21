@@ -159,7 +159,7 @@ function render() {
   const left = remaining();
   els.totalProfit.value = state.total;
   els.allocatedTotal.textContent = money(totalAllocated);
-  els.allocatedPercent.textContent = `${percent(totalAllocated)} of profit`;
+  els.allocatedPercent.textContent = `${percent(totalAllocated)} of flex cash`;
   els.remainingTotal.textContent = money(left);
   els.remainingTotal.classList.toggle("over", left < 0);
   els.remainingNote.textContent = left < 0 ? "Overallocated" : "Available to route";
@@ -246,7 +246,7 @@ function renderInsights() {
   const savings = state.buckets.find((bucket) => /saving|emergency|cash/i.test(bucket.name));
 
   const notes = [
-    ["Allocation status", left < 0 ? `${money(Math.abs(left))} above the profit pool` : `${money(left)} still free to assign`],
+    ["Allocation status", left < 0 ? `${money(Math.abs(left))} above your monthly leftover cash` : `${money(left)} still free to assign`],
     ["Largest bucket", largest ? `${largest.name} at ${money(largest.amount)}` : "No buckets yet"],
     ["Investing pace", investment ? `${percent(investment.amount)} routed to investing` : "Add an investing bucket"],
     ["Cash cushion", savings ? `${percent(savings.amount)} routed to savings` : "Add a savings bucket"],
