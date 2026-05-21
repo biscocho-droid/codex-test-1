@@ -110,7 +110,7 @@ function setupControls() {
   els.totalProfit.addEventListener("input", (event) => {
     state.total = Math.max(0, Number(event.target.value) || 0);
     saveState();
-    render();
+    render({ buckets: false });
   });
 
   document.getElementById("resetBtn").addEventListener("click", () => {
@@ -154,10 +154,13 @@ function setupControls() {
   });
 }
 
-function render() {
+function render(options = {}) {
+  const { buckets = true } = options;
   const totalAllocated = allocated();
   const left = remaining();
-  els.totalProfit.value = state.total;
+  if (document.activeElement !== els.totalProfit) {
+    els.totalProfit.value = state.total;
+  }
   els.allocatedTotal.textContent = money(totalAllocated);
   els.allocatedPercent.textContent = `${percent(totalAllocated)} of flex cash`;
   els.remainingTotal.textContent = money(left);
@@ -166,7 +169,11 @@ function render() {
   els.allocationCount.textContent = `${state.buckets.length} bucket${state.buckets.length === 1 ? "" : "s"}`;
   els.donutRemaining.textContent = money(left);
 
-  renderBuckets();
+  if (buckets) {
+    renderBuckets();
+  } else {
+    updateVisibleBucketRows();
+  }
   renderLegend();
   renderInsights();
   drawDonut();
@@ -190,9 +197,9 @@ function renderBuckets() {
     range.value = bucket.amount;
     percentEl.textContent = percent(bucket.amount);
 
-    name.addEventListener("input", (event) => updateBucket(bucket.id, { name: event.target.value }));
-    amount.addEventListener("input", (event) => updateBucket(bucket.id, { amount: Math.max(0, Number(event.target.value) || 0) }));
-    range.addEventListener("input", (event) => updateBucket(bucket.id, { amount: Number(event.target.value) || 0 }));
+    name.addEventListener("input", (event) => updateBucket(bucket.id, { name: event.target.value }, { buckets: false }));
+    amount.addEventListener("input", (event) => updateBucket(bucket.id, { amount: Math.max(0, Number(event.target.value) || 0) }, { buckets: false }));
+    range.addEventListener("input", (event) => updateBucket(bucket.id, { amount: Number(event.target.value) || 0 }, { buckets: false }));
     row.querySelector(".remove-btn").addEventListener("click", () => removeBucket(bucket.id));
     swatch.addEventListener("click", () => cycleColor(bucket.id));
 
@@ -200,10 +207,34 @@ function renderBuckets() {
   });
 }
 
-function updateBucket(id, patch) {
+function updateBucket(id, patch, renderOptions = {}) {
   state.buckets = state.buckets.map((bucket) => (bucket.id === id ? { ...bucket, ...patch } : bucket));
   saveState();
-  render();
+  render(renderOptions);
+}
+
+function updateVisibleBucketRows() {
+  els.list.querySelectorAll(".bucket-row").forEach((row, index) => {
+    const bucket = state.buckets[index];
+    if (!bucket) return;
+    const name = row.querySelector(".bucket-name");
+    const amount = row.querySelector(".bucket-amount");
+    const range = row.querySelector(".bucket-range");
+    const percentEl = row.querySelector(".bucket-percent");
+
+    row.style.setProperty("--swatch", bucket.color);
+    if (document.activeElement !== name) {
+      name.value = bucket.name;
+    }
+    if (document.activeElement !== amount) {
+      amount.value = bucket.amount;
+    }
+    if (document.activeElement !== range) {
+      range.value = bucket.amount;
+    }
+    range.max = Math.max(state.total, allocated(), 1000);
+    percentEl.textContent = percent(bucket.amount);
+  });
 }
 
 function removeBucket(id) {
@@ -325,6 +356,6 @@ function drawBars() {
   });
 }
 
-window.addEventListener("resize", render);
+window.addEventListener("resize", () => render());
 setupControls();
 render();
