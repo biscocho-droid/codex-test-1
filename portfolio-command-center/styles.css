@@ -38,7 +38,8 @@ body {
 }
 
 button,
-textarea {
+textarea,
+input {
   font: inherit;
 }
 
@@ -81,7 +82,19 @@ textarea {
   resize: vertical;
 }
 
-textarea:focus {
+input {
+  width: 100%;
+  min-height: 2.7rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0f1115;
+  color: var(--ink);
+  padding: 0.7rem 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+textarea:focus,
+input:focus {
   outline: 2px solid rgba(84, 199, 118, 0.2);
   border-color: rgba(84, 199, 118, 0.36);
 }
@@ -228,7 +241,10 @@ td {
   gap: 1rem;
 }
 
-.sheet-view {
+.sheet-view,
+.modeler-view,
+.scenarios-view,
+.matrix-view {
   gap: 1rem;
 }
 
@@ -276,6 +292,11 @@ td {
 
 .sheet-table {
   min-width: 1780px;
+  font-variant-numeric: tabular-nums;
+}
+
+.matrix-table {
+  min-width: 1120px;
   font-variant-numeric: tabular-nums;
 }
 
@@ -347,6 +368,39 @@ td {
   grid-column: span 8;
 }
 
+.modeler-grid,
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.model-controls-panel,
+.model-summary-panel {
+  grid-column: span 4;
+}
+
+.model-chart-panel {
+  grid-column: span 8;
+}
+
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.input-grid label,
+.scenario-targets label {
+  display: grid;
+  gap: 0.42rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 .panel-head {
   display: flex;
   align-items: start;
@@ -387,6 +441,63 @@ td {
   height: auto;
   border-radius: var(--radius-lg);
   background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0));
+}
+
+.projection-chart,
+.bar-chart {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0));
+}
+
+.projection-line {
+  fill: none;
+  stroke-width: 3;
+}
+
+.projection-line-bear {
+  stroke: var(--red);
+}
+
+.projection-line-base {
+  stroke: var(--green);
+}
+
+.projection-line-bull {
+  stroke: var(--blue);
+}
+
+.projection-area {
+  fill: rgba(84, 199, 118, 0.08);
+}
+
+.chart-legend {
+  fill: var(--muted);
+  font-size: 12px;
+}
+
+.bar-bear {
+  fill: rgba(240, 113, 103, 0.78);
+}
+
+.bar-base {
+  fill: rgba(84, 199, 118, 0.82);
+}
+
+.bar-bull {
+  fill: rgba(122, 184, 255, 0.82);
+}
+
+.bar-label {
+  fill: var(--ink);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.bar-sublabel {
+  fill: var(--muted);
+  font-size: 12px;
 }
 
 .chart-grid-line {
@@ -512,14 +623,20 @@ td {
 
 .allocation-list,
 .account-list,
-.thesis-grid {
+.thesis-grid,
+.scenario-card-grid {
   display: grid;
   gap: 0.8rem;
 }
 
+.scenario-card-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .allocation-row,
 .account-row,
-.thesis-card {
+.thesis-card,
+.scenario-card {
   padding: 0.95rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
@@ -528,11 +645,41 @@ td {
 
 .allocation-meta,
 .account-head,
-.thesis-head {
+.thesis-head,
+.scenario-card-head,
+.scenario-result-row {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 0.45rem;
+}
+
+.scenario-card-head {
+  align-items: start;
+}
+
+.scenario-targets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: 0.75rem 0;
+}
+
+.scenario-targets input {
+  min-height: 2.45rem;
+}
+
+.scenario-results {
+  display: grid;
+  gap: 0.35rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--line);
+}
+
+.scenario-result-row {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .allocation-track {
@@ -633,7 +780,9 @@ td {
 
 @media (max-width: 1180px) {
   .summary-grid,
-  .dashboard-grid {
+  .dashboard-grid,
+  .modeler-grid,
+  .scenario-grid {
     grid-template-columns: 1fr;
   }
 
@@ -646,8 +795,15 @@ td {
   .cash-panel,
   .performance-panel,
   .profile-panel,
-  .strategy-panel {
+  .strategy-panel,
+  .model-controls-panel,
+  .model-summary-panel,
+  .model-chart-panel {
     grid-column: auto;
+  }
+
+  .scenario-card-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -677,11 +833,25 @@ td {
     width: 100%;
   }
 
+  .view-switch {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-radius: 16px;
+    gap: 0.2rem;
+  }
+
   .view-button {
-    flex: 1;
+    min-width: 0;
+    border-radius: 12px;
+    padding-inline: 0.45rem;
   }
 
   .sheet-stats {
     justify-content: flex-start;
+  }
+
+  .input-grid,
+  .scenario-targets {
+    grid-template-columns: 1fr;
   }
 }
