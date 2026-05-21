@@ -226,6 +226,18 @@ const defaultState = {
     retirement: [38620, 39210, 39840, 40460, 40980, 41390, 41870, 42234],
     combined: [61470, 63310, 65480, 65440, 68230, 71530, 75090, 80985],
   },
+  planning: {
+    k401: {
+      currentBalance: null,
+      monthlyContribution: 850,
+      employerMatch: 250,
+      annualRaisePct: 3,
+      years: 25,
+      baseReturnPct: 7,
+      withdrawalRatePct: 4,
+    },
+    scenarioTargets: {},
+  },
 };
 
 const els = {
@@ -268,6 +280,35 @@ const els = {
   pricingStamp: document.getElementById("pricing-stamp"),
   chartCaption: document.getElementById("chart-caption"),
   chart: document.getElementById("portfolio-chart"),
+  k401StartingBalance: document.getElementById("k401-starting-balance"),
+  k401ProjectedBalance: document.getElementById("k401-projected-balance"),
+  k401GrowthShare: document.getElementById("k401-growth-share"),
+  k401CurrentBalance: document.getElementById("k401-current-balance"),
+  k401MonthlyContribution: document.getElementById("k401-monthly-contribution"),
+  k401EmployerMatch: document.getElementById("k401-employer-match"),
+  k401AnnualRaise: document.getElementById("k401-annual-raise"),
+  k401Years: document.getElementById("k401-years"),
+  k401BaseReturn: document.getElementById("k401-base-return"),
+  k401Chart: document.getElementById("k401-chart"),
+  k401ChartCaption: document.getElementById("k401-chart-caption"),
+  k401Summary: document.getElementById("k401-summary"),
+  scenarioCurrentValue: document.getElementById("scenario-current-value"),
+  scenarioBaseValue: document.getElementById("scenario-base-value"),
+  scenarioBullValue: document.getElementById("scenario-bull-value"),
+  scenarioChart: document.getElementById("scenario-chart"),
+  scenarioReadout: document.getElementById("scenario-readout"),
+  scenarioCards: document.getElementById("scenario-cards"),
+  matrixBearTotal: document.getElementById("matrix-bear-total"),
+  matrixBaseTotal: document.getElementById("matrix-base-total"),
+  matrixBullTotal: document.getElementById("matrix-bull-total"),
+  matrixBody: document.getElementById("matrix-body"),
+  matrixCurrentTotal: document.getElementById("matrix-current-total"),
+  matrixBearValue: document.getElementById("matrix-bear-value"),
+  matrixBearPl: document.getElementById("matrix-bear-pl"),
+  matrixBaseValue: document.getElementById("matrix-base-value"),
+  matrixBasePl: document.getElementById("matrix-base-pl"),
+  matrixBullValue: document.getElementById("matrix-bull-value"),
+  matrixBullPl: document.getElementById("matrix-bull-pl"),
   accountPills: [...document.querySelectorAll(".account-pill")],
   rangePills: [...document.querySelectorAll(".range-pill")],
   promptPills: [...document.querySelectorAll(".prompt-pill")],
@@ -317,6 +358,18 @@ function loadState() {
         ...account,
         account: account.account || "brokerage",
       })),
+      planning: {
+        ...structuredClone(defaultState.planning),
+        ...(parsed.planning || {}),
+        k401: {
+          ...structuredClone(defaultState.planning.k401),
+          ...((parsed.planning && parsed.planning.k401) || {}),
+        },
+        scenarioTargets: {
+          ...structuredClone(defaultState.planning.scenarioTargets),
+          ...((parsed.planning && parsed.planning.scenarioTargets) || {}),
+        },
+      },
       history: {
         labels: history.labels || structuredClone(defaultState.history.labels),
         brokerage: history.brokerage || history.values || structuredClone(defaultState.history.brokerage),
@@ -345,13 +398,17 @@ function inActiveAccount(item) {
   return activeAccountView === "combined" || item.account === activeAccountView;
 }
 
-function aggregateState() {
+function inAccountView(item, accountView) {
+  return accountView === "combined" || item.account === accountView;
+}
+
+function aggregateStateFor(accountView) {
   const holdings = state.holdings
-    .filter(inActiveAccount)
+    .filter((holding) => inAccountView(holding, accountView))
     .map((holding) => ({ ...holding, ...holdingMetrics(holding) }));
   const totalHoldingsValue = holdings.reduce((sum, holding) => sum + holding.value, 0);
   const totalCostBasis = holdings.reduce((sum, holding) => sum + holding.costBasis, 0);
-  const cashAccounts = state.cashAccounts.filter(inActiveAccount);
+  const cashAccounts = state.cashAccounts.filter((account) => inAccountView(account, accountView));
   const totalCash = cashAccounts.reduce((sum, account) => sum + account.balance, 0);
   const totalValue = totalHoldingsValue + totalCash;
   const totalPnl = totalHoldingsValue - totalCostBasis;
@@ -365,8 +422,8 @@ function aggregateState() {
   const sortByPnlPct = [...holdings].sort((a, b) => b.pnlPct - a.pnlPct);
 
   return {
-    accountView: activeAccountView,
-    accountLabel: ACCOUNT_VIEWS[activeAccountView].label,
+    accountView,
+    accountLabel: ACCOUNT_VIEWS[accountView].label,
     holdings,
     cashAccounts,
     totalHoldingsValue,
@@ -379,6 +436,10 @@ function aggregateState() {
     topWinner: sortByPnlPct[0] || null,
     topLaggard: sortByPnlPct[sortByPnlPct.length - 1] || null,
   };
+}
+
+function aggregateState() {
+  return aggregateStateFor(activeAccountView);
 }
 
 function buildAllocation(items, key, total) {
@@ -770,6 +831,283 @@ function runOverlayResponse(prompt, model) {
   ].join("\n\n");
 }
 
+function readNumber(input, fallback) {
+  const value = Number(input.value);
+  return Number.isFinite(value) ? value : fallback;
+}
+
+function ensureScenarioTargets() {
+  state.holdings.forEach((holding) => {
+    if (!state.planning.scenarioTargets[holding.ticker]) {
+      state.planning.scenarioTargets[holding.ticker] = {
+        bear: Number((holding.price * 0.75).toFixed(2)),
+        base: Number((holding.price * 1.15).toFixed(2)),
+        bull: Number((holding.price * 1.65).toFixed(2)),
+      };
+    }
+  });
+}
+
+function scenarioRows() {
+  ensureScenarioTargets();
+  const current = aggregateStateFor("combined");
+  return current.holdings.map((holding) => {
+    const targets = state.planning.scenarioTargets[holding.ticker];
+    const bearValue = holding.shares * targets.bear;
+    const baseValue = holding.shares * targets.base;
+    const bullValue = holding.shares * targets.bull;
+    return {
+      ...holding,
+      targets,
+      bearValue,
+      baseValue,
+      bullValue,
+      bearPnl: bearValue - holding.value,
+      basePnl: baseValue - holding.value,
+      bullPnl: bullValue - holding.value,
+    };
+  });
+}
+
+function scenarioTotals(rows) {
+  const cash = aggregateStateFor("combined").totalCash;
+  const currentValue = rows.reduce((sum, row) => sum + row.value, cash);
+  const bearValue = rows.reduce((sum, row) => sum + row.bearValue, cash);
+  const baseValue = rows.reduce((sum, row) => sum + row.baseValue, cash);
+  const bullValue = rows.reduce((sum, row) => sum + row.bullValue, cash);
+  return {
+    currentValue,
+    bearValue,
+    baseValue,
+    bullValue,
+    bearPnl: bearValue - currentValue,
+    basePnl: baseValue - currentValue,
+    bullPnl: bullValue - currentValue,
+  };
+}
+
+function buildK401Projection(start, monthlyContribution, employerMatch, annualRaisePct, years, annualReturnPct) {
+  const monthlyReturn = annualReturnPct / 100 / 12;
+  const raise = annualRaisePct / 100;
+  let balance = start;
+  let contribution = monthlyContribution + employerMatch;
+  let contributed = 0;
+  const points = [{ year: 0, balance, contributed: 0 }];
+
+  for (let month = 1; month <= years * 12; month += 1) {
+    if (month > 1 && month % 12 === 1) contribution *= 1 + raise;
+    balance = balance * (1 + monthlyReturn) + contribution;
+    contributed += contribution;
+    if (month % 12 === 0) {
+      points.push({ year: month / 12, balance, contributed });
+    }
+  }
+
+  return points;
+}
+
+function renderLineChart(target, series) {
+  const width = 900;
+  const height = 360;
+  const pad = { top: 28, right: 34, bottom: 44, left: 72 };
+  const chartWidth = width - pad.left - pad.right;
+  const chartHeight = height - pad.top - pad.bottom;
+  const allPoints = series.flatMap((item) => item.points);
+  const maxYear = Math.max(...allPoints.map((point) => point.year), 1);
+  const min = 0;
+  const max = Math.max(...allPoints.map((point) => point.balance), 1) * 1.08;
+
+  const toPoint = (point) => ({
+    x: pad.left + (point.year / maxYear) * chartWidth,
+    y: pad.top + ((max - point.balance) / (max - min)) * chartHeight,
+    value: point.balance,
+    year: point.year,
+  });
+
+  const gridLines = Array.from({ length: 4 }, (_, index) => {
+    const y = pad.top + (chartHeight / 3) * index;
+    const value = max - (max / 3) * index;
+    return `
+      <line class="chart-grid-line" x1="${pad.left}" y1="${y}" x2="${width - pad.right}" y2="${y}"></line>
+      <text class="chart-axis-label" x="10" y="${y + 4}">${compactMoney(value)}</text>
+    `;
+  }).join("");
+
+  const yearLabels = [0, Math.round(maxYear / 2), maxYear].map((year) => {
+    const x = pad.left + (year / maxYear) * chartWidth;
+    return `<text class="chart-axis-label" x="${x}" y="${height - 14}" text-anchor="middle">Year ${year}</text>`;
+  }).join("");
+
+  const paths = series.map((item, index) => {
+    const points = item.points.map(toPoint);
+    return `
+      <path class="projection-line projection-line-${item.key}" d="${linePath(points)}"></path>
+      <text class="chart-legend" x="${width - 180}" y="${30 + index * 18}">${item.label}: ${compactMoney(points.at(-1).value)}</text>
+    `;
+  }).join("");
+
+  target.innerHTML = `${gridLines}${yearLabels}${paths}`;
+}
+
+function renderBarChart(target, totals) {
+  const width = 900;
+  const height = 320;
+  const pad = { top: 26, right: 34, bottom: 54, left: 72 };
+  const chartWidth = width - pad.left - pad.right;
+  const chartHeight = height - pad.top - pad.bottom;
+  const rows = [
+    { key: "bear", label: "Bear", value: totals.bearValue, pnl: totals.bearPnl },
+    { key: "base", label: "Base", value: totals.baseValue, pnl: totals.basePnl },
+    { key: "bull", label: "Bull", value: totals.bullValue, pnl: totals.bullPnl },
+  ];
+  const max = Math.max(...rows.map((row) => row.value), totals.currentValue) * 1.12;
+  const barWidth = chartWidth / rows.length * 0.54;
+  const gridLines = Array.from({ length: 4 }, (_, index) => {
+    const y = pad.top + (chartHeight / 3) * index;
+    const value = max - (max / 3) * index;
+    return `
+      <line class="chart-grid-line" x1="${pad.left}" y1="${y}" x2="${width - pad.right}" y2="${y}"></line>
+      <text class="chart-axis-label" x="10" y="${y + 4}">${compactMoney(value)}</text>
+    `;
+  }).join("");
+
+  const bars = rows.map((row, index) => {
+    const x = pad.left + index * (chartWidth / rows.length) + (chartWidth / rows.length - barWidth) / 2;
+    const barHeight = (row.value / max) * chartHeight;
+    const y = pad.top + chartHeight - barHeight;
+    return `
+      <rect class="bar-${row.key}" x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" rx="8"></rect>
+      <text class="bar-label" x="${x + barWidth / 2}" y="${Math.max(y - 22, 18)}" text-anchor="middle">${compactMoney(row.value)}</text>
+      <text class="bar-sublabel" x="${x + barWidth / 2}" y="${Math.max(y - 6, 34)}" text-anchor="middle">${row.pnl >= 0 ? "+" : ""}${compactMoney(row.pnl)}</text>
+      <text class="chart-axis-label" x="${x + barWidth / 2}" y="${height - 18}" text-anchor="middle">${row.label}</text>
+    `;
+  }).join("");
+
+  target.innerHTML = `${gridLines}${bars}`;
+}
+
+function renderK401Modeler() {
+  const retirement = aggregateStateFor("retirement");
+  const settings = state.planning.k401;
+  const defaultBalance = Math.round(retirement.totalValue);
+  if (settings.currentBalance === null) settings.currentBalance = defaultBalance;
+
+  els.k401CurrentBalance.value = Math.round(settings.currentBalance);
+  els.k401MonthlyContribution.value = settings.monthlyContribution;
+  els.k401EmployerMatch.value = settings.employerMatch;
+  els.k401AnnualRaise.value = settings.annualRaisePct;
+  els.k401Years.value = settings.years;
+  els.k401BaseReturn.value = settings.baseReturnPct;
+
+  const start = Number(settings.currentBalance) || defaultBalance;
+  const bearReturn = Math.max(settings.baseReturnPct - 3, -10);
+  const baseReturn = settings.baseReturnPct;
+  const bullReturn = settings.baseReturnPct + 3;
+  const series = [
+    { key: "bear", label: `Bear ${bearReturn.toFixed(1)}%`, points: buildK401Projection(start, settings.monthlyContribution, settings.employerMatch, settings.annualRaisePct, settings.years, bearReturn) },
+    { key: "base", label: `Base ${baseReturn.toFixed(1)}%`, points: buildK401Projection(start, settings.monthlyContribution, settings.employerMatch, settings.annualRaisePct, settings.years, baseReturn) },
+    { key: "bull", label: `Bull ${bullReturn.toFixed(1)}%`, points: buildK401Projection(start, settings.monthlyContribution, settings.employerMatch, settings.annualRaisePct, settings.years, bullReturn) },
+  ];
+  const baseFinal = series[1].points.at(-1);
+  const growth = baseFinal.balance - start - baseFinal.contributed;
+  const growthShare = baseFinal.balance > 0 ? growth / baseFinal.balance : 0;
+
+  els.k401StartingBalance.textContent = `${money(start)} starting`;
+  els.k401ProjectedBalance.textContent = `${money(baseFinal.balance)} projected`;
+  els.k401GrowthShare.textContent = `${pct(growthShare)} growth`;
+  els.k401ChartCaption.textContent = `${settings.years} years · contributions rise ${settings.annualRaisePct}% annually`;
+  renderLineChart(els.k401Chart, series);
+
+  els.k401Summary.innerHTML = `
+    <div class="mini-metric"><span>Projected balance</span><strong>${money(baseFinal.balance)}</strong></div>
+    <div class="mini-metric"><span>Total contributions</span><strong>${money(baseFinal.contributed)}</strong></div>
+    <div class="mini-metric"><span>Estimated growth</span><strong>${money(growth)}</strong></div>
+    <div class="mini-metric"><span>4% income estimate</span><strong>${money(baseFinal.balance * (settings.withdrawalRatePct / 100))} / yr</strong></div>
+  `;
+}
+
+function renderScenarioLab() {
+  const rows = scenarioRows().sort((a, b) => b.value - a.value);
+  const totals = scenarioTotals(rows);
+  els.scenarioCurrentValue.textContent = `${money(totals.currentValue)} current`;
+  els.scenarioBaseValue.textContent = `${money(totals.baseValue)} base case`;
+  els.scenarioBullValue.textContent = `${money(totals.bullValue)} bull case`;
+  renderBarChart(els.scenarioChart, totals);
+
+  const upside = [...rows].sort((a, b) => b.bullPnl - a.bullPnl)[0];
+  const downside = [...rows].sort((a, b) => a.bearPnl - b.bearPnl)[0];
+  const asymmetric = [...rows].sort((a, b) => (b.bullPnl / Math.max(Math.abs(b.bearPnl), 1)) - (a.bullPnl / Math.max(Math.abs(a.bearPnl), 1)))[0];
+  els.scenarioReadout.innerHTML = `
+    <div class="mini-metric"><span>Bear case</span><strong class="${totals.bearPnl >= 0 ? "positive-text" : "negative-text"}">${totals.bearPnl >= 0 ? "+" : ""}${money(totals.bearPnl)}</strong></div>
+    <div class="mini-metric"><span>Base case</span><strong class="${totals.basePnl >= 0 ? "positive-text" : "negative-text"}">${totals.basePnl >= 0 ? "+" : ""}${money(totals.basePnl)}</strong></div>
+    <div class="mini-metric"><span>Biggest upside driver</span><strong>${escapeHtml(upside.ticker)} · ${money(upside.bullPnl)}</strong></div>
+    <div class="mini-metric"><span>Most downside risk</span><strong>${escapeHtml(downside.ticker)} · ${money(downside.bearPnl)}</strong></div>
+    <div class="mini-metric"><span>Best asymmetry</span><strong>${escapeHtml(asymmetric.ticker)}</strong></div>
+  `;
+
+  els.scenarioCards.innerHTML = "";
+  rows.forEach((holding) => {
+    const card = document.createElement("article");
+    card.className = "scenario-card";
+    card.innerHTML = `
+      <div class="scenario-card-head">
+        <div>
+          <strong>${escapeHtml(holding.ticker)} · ${escapeHtml(holding.name)}</strong>
+          <div class="small-note">${escapeHtml(holding.sector)} · ${money(holding.value)} current</div>
+        </div>
+        <span class="conviction-pill ${convictionClass(holding.conviction)}">${escapeHtml(holding.conviction)}</span>
+      </div>
+      <div class="scenario-targets">
+        <label>Bear <input type="number" min="0" step="0.01" data-ticker="${escapeHtml(holding.ticker)}" data-case="bear" value="${holding.targets.bear}"></label>
+        <label>Base <input type="number" min="0" step="0.01" data-ticker="${escapeHtml(holding.ticker)}" data-case="base" value="${holding.targets.base}"></label>
+        <label>Bull <input type="number" min="0" step="0.01" data-ticker="${escapeHtml(holding.ticker)}" data-case="bull" value="${holding.targets.bull}"></label>
+      </div>
+      <div class="scenario-results">
+        <div class="scenario-result-row"><span>Bear impact</span><strong class="${holding.bearPnl >= 0 ? "positive-text" : "negative-text"}">${holding.bearPnl >= 0 ? "+" : ""}${money(holding.bearPnl)}</strong></div>
+        <div class="scenario-result-row"><span>Base impact</span><strong class="${holding.basePnl >= 0 ? "positive-text" : "negative-text"}">${holding.basePnl >= 0 ? "+" : ""}${money(holding.basePnl)}</strong></div>
+        <div class="scenario-result-row"><span>Bull impact</span><strong class="${holding.bullPnl >= 0 ? "positive-text" : "negative-text"}">${holding.bullPnl >= 0 ? "+" : ""}${money(holding.bullPnl)}</strong></div>
+      </div>
+    `;
+    els.scenarioCards.appendChild(card);
+  });
+}
+
+function renderOutcomeMatrix() {
+  const rows = scenarioRows().sort((a, b) => b.baseValue - a.baseValue);
+  const totals = scenarioTotals(rows);
+  els.matrixBearTotal.textContent = `${money(totals.bearValue)} bear`;
+  els.matrixBaseTotal.textContent = `${money(totals.baseValue)} base`;
+  els.matrixBullTotal.textContent = `${money(totals.bullValue)} bull`;
+  els.matrixBody.innerHTML = "";
+  rows.forEach((holding) => {
+    const baseWeight = totals.baseValue > 0 ? holding.baseValue / totals.baseValue : 0;
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td class="ticker-cell"><strong>${escapeHtml(holding.ticker)}</strong><span>${escapeHtml(holding.name)}</span></td>
+      <td class="numeric-cell">${money(holding.value)}</td>
+      <td class="numeric-cell">${money(holding.bearValue)}</td>
+      <td class="numeric-cell ${holding.bearPnl >= 0 ? "positive-text" : "negative-text"}">${holding.bearPnl >= 0 ? "+" : ""}${money(holding.bearPnl)}</td>
+      <td class="numeric-cell">${money(holding.baseValue)}</td>
+      <td class="numeric-cell ${holding.basePnl >= 0 ? "positive-text" : "negative-text"}">${holding.basePnl >= 0 ? "+" : ""}${money(holding.basePnl)}</td>
+      <td class="numeric-cell">${money(holding.bullValue)}</td>
+      <td class="numeric-cell ${holding.bullPnl >= 0 ? "positive-text" : "negative-text"}">${holding.bullPnl >= 0 ? "+" : ""}${money(holding.bullPnl)}</td>
+      <td class="numeric-cell">${pct(baseWeight)}</td>
+    `;
+    els.matrixBody.appendChild(row);
+  });
+
+  els.matrixCurrentTotal.textContent = money(totals.currentValue);
+  els.matrixBearValue.textContent = money(totals.bearValue);
+  els.matrixBearPl.textContent = `${totals.bearPnl >= 0 ? "+" : ""}${money(totals.bearPnl)}`;
+  els.matrixBearPl.className = totals.bearPnl >= 0 ? "positive-text" : "negative-text";
+  els.matrixBaseValue.textContent = money(totals.baseValue);
+  els.matrixBasePl.textContent = `${totals.basePnl >= 0 ? "+" : ""}${money(totals.basePnl)}`;
+  els.matrixBasePl.className = totals.basePnl >= 0 ? "positive-text" : "negative-text";
+  els.matrixBullValue.textContent = money(totals.bullValue);
+  els.matrixBullPl.textContent = `${totals.bullPnl >= 0 ? "+" : ""}${money(totals.bullPnl)}`;
+  els.matrixBullPl.className = totals.bullPnl >= 0 ? "positive-text" : "negative-text";
+}
+
 function renderAll() {
   const model = aggregateState();
   renderSummary(model);
@@ -783,6 +1121,9 @@ function renderAll() {
   renderTheses(model);
   renderProfile();
   renderChart();
+  renderK401Modeler();
+  renderScenarioLab();
+  renderOutcomeMatrix();
   els.marketStatus.textContent = `${model.accountLabel} · ${model.totalPnl >= 0 ? "+" : ""}${pct(model.totalPnlPct)} gain`;
   els.pricingStamp.textContent = `Updated ${new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`;
 }
@@ -837,6 +1178,36 @@ els.promptPills.forEach((pill) => {
     els.strategyInput.value = pill.dataset.prompt || "";
     els.strategyInput.focus();
   });
+});
+
+[
+  [els.k401CurrentBalance, "currentBalance"],
+  [els.k401MonthlyContribution, "monthlyContribution"],
+  [els.k401EmployerMatch, "employerMatch"],
+  [els.k401AnnualRaise, "annualRaisePct"],
+  [els.k401Years, "years"],
+  [els.k401BaseReturn, "baseReturnPct"],
+].forEach(([input, key]) => {
+  input.addEventListener("input", () => {
+    const fallback = state.planning.k401[key] || 0;
+    state.planning.k401[key] = readNumber(input, fallback);
+    if (key === "years") state.planning.k401[key] = Math.max(1, Math.round(state.planning.k401[key]));
+    saveState();
+    renderK401Modeler();
+  });
+});
+
+els.scenarioCards.addEventListener("change", (event) => {
+  const input = event.target;
+  if (!(input instanceof HTMLInputElement)) return;
+  const ticker = input.dataset.ticker;
+  const scenarioCase = input.dataset.case;
+  if (!ticker || !scenarioCase) return;
+  ensureScenarioTargets();
+  state.planning.scenarioTargets[ticker][scenarioCase] = readNumber(input, state.planning.scenarioTargets[ticker][scenarioCase]);
+  saveState();
+  renderScenarioLab();
+  renderOutcomeMatrix();
 });
 
 els.runOverlay.addEventListener("click", () => {

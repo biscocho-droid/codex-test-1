@@ -26,6 +26,9 @@
         <div class="view-switch" aria-label="App Views">
           <button id="dashboard-view-button" type="button" class="view-button active" data-view="dashboard">Dashboard</button>
           <button id="sheet-view-button" type="button" class="view-button" data-view="sheet">Holdings Sheet</button>
+          <button id="k401-view-button" type="button" class="view-button" data-view="k401">401(k) Modeler</button>
+          <button id="scenarios-view-button" type="button" class="view-button" data-view="scenarios">Scenario Lab</button>
+          <button id="matrix-view-button" type="button" class="view-button" data-view="matrix">Outcome Matrix</button>
         </div>
       </div>
     </header>
@@ -258,6 +261,169 @@
               <th id="sheet-total-pl-pct">0.0%</th>
               <th>100.0%</th>
               <th colspan="2"></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section id="k401-view" class="modeler-view k401-view app-view" aria-label="401k Growth Modeler" hidden>
+      <div class="sheet-toolbar">
+        <div>
+          <p class="eyebrow">Retirement Model</p>
+          <h2>401(k) Growth Modeler</h2>
+        </div>
+        <div class="sheet-stats">
+          <span id="k401-starting-balance">$0 starting</span>
+          <span id="k401-projected-balance">$0 projected</span>
+          <span id="k401-growth-share">0% growth</span>
+        </div>
+      </div>
+
+      <div class="modeler-grid">
+        <article class="panel model-controls-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Assumptions</h2>
+              <p>Defaults use your current 401(k) balance from tracked holdings</p>
+            </div>
+          </div>
+          <div class="input-grid">
+            <label>
+              Current Balance
+              <input id="k401-current-balance" type="number" min="0" step="100">
+            </label>
+            <label>
+              Monthly Contribution
+              <input id="k401-monthly-contribution" type="number" min="0" step="25">
+            </label>
+            <label>
+              Employer Match / Month
+              <input id="k401-employer-match" type="number" min="0" step="25">
+            </label>
+            <label>
+              Annual Raise
+              <input id="k401-annual-raise" type="number" min="0" max="30" step="0.25">
+            </label>
+            <label>
+              Time Horizon
+              <input id="k401-years" type="number" min="1" max="45" step="1">
+            </label>
+            <label>
+              Base Return
+              <input id="k401-base-return" type="number" min="-20" max="30" step="0.25">
+            </label>
+          </div>
+        </article>
+
+        <article class="panel model-chart-panel wide">
+          <div class="panel-head">
+            <div>
+              <h2>Projected Path</h2>
+              <p id="k401-chart-caption">Bear, base, and bull return paths</p>
+            </div>
+          </div>
+          <svg id="k401-chart" viewBox="0 0 900 360" class="projection-chart" role="img" aria-label="401k projected balance chart"></svg>
+        </article>
+
+        <article class="panel model-summary-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Retirement Snapshot</h2>
+              <p>Contribution, growth, and income estimate</p>
+            </div>
+          </div>
+          <div id="k401-summary" class="mini-metrics"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="scenarios-view" class="scenarios-view app-view" aria-label="Portfolio Scenario Lab" hidden>
+      <div class="sheet-toolbar">
+        <div>
+          <p class="eyebrow">Forward Portfolio</p>
+          <h2>Scenario Lab</h2>
+        </div>
+        <div class="sheet-stats">
+          <span id="scenario-current-value">$0 current</span>
+          <span id="scenario-base-value">$0 base case</span>
+          <span id="scenario-bull-value">$0 bull case</span>
+        </div>
+      </div>
+
+      <div class="scenario-grid">
+        <article class="panel model-chart-panel wide">
+          <div class="panel-head">
+            <div>
+              <h2>Portfolio Outcomes</h2>
+              <p>Manual bear/base/bull price targets against today&apos;s share counts</p>
+            </div>
+          </div>
+          <svg id="scenario-chart" viewBox="0 0 900 320" class="bar-chart" role="img" aria-label="Portfolio scenario value chart"></svg>
+        </article>
+
+        <article class="panel model-summary-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Outcome Read</h2>
+              <p>Largest upside and downside drivers</p>
+            </div>
+          </div>
+          <div id="scenario-readout" class="mini-metrics"></div>
+        </article>
+
+        <article class="panel thesis-panel wide">
+          <div class="panel-head">
+            <div>
+              <h2>Holding Cases</h2>
+              <p>Editable targets for bear, base, and bull cases</p>
+            </div>
+          </div>
+          <div id="scenario-cards" class="scenario-card-grid"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="matrix-view" class="matrix-view app-view" aria-label="Portfolio Outcome Matrix" hidden>
+      <div class="sheet-toolbar">
+        <div>
+          <p class="eyebrow">Scenario Table</p>
+          <h2>Portfolio Outcome Matrix</h2>
+        </div>
+        <div class="sheet-stats">
+          <span id="matrix-bear-total">$0 bear</span>
+          <span id="matrix-base-total">$0 base</span>
+          <span id="matrix-bull-total">$0 bull</span>
+        </div>
+      </div>
+
+      <div class="sheet-table-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Holding</th>
+              <th>Current Value</th>
+              <th>Bear Value</th>
+              <th>Bear P/L</th>
+              <th>Base Value</th>
+              <th>Base P/L</th>
+              <th>Bull Value</th>
+              <th>Bull P/L</th>
+              <th>Base Weight</th>
+            </tr>
+          </thead>
+          <tbody id="matrix-body"></tbody>
+          <tfoot>
+            <tr>
+              <th>Total</th>
+              <th id="matrix-current-total">$0</th>
+              <th id="matrix-bear-value">$0</th>
+              <th id="matrix-bear-pl">$0</th>
+              <th id="matrix-base-value">$0</th>
+              <th id="matrix-base-pl">$0</th>
+              <th id="matrix-bull-value">$0</th>
+              <th id="matrix-bull-pl">$0</th>
+              <th>100.0%</th>
             </tr>
           </tfoot>
         </table>
