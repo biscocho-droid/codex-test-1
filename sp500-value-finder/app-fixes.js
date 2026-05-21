@@ -1,5 +1,36 @@
 (function () {
   const CONTRAST_ALPHA_THRESHOLD = 90;
+  const THEME_STORAGE_KEY = "sp500-value-finder-theme";
+
+  function preferredTheme() {
+    try {
+      return localStorage.getItem(THEME_STORAGE_KEY) === "dark" ? "dark" : "light";
+    } catch (_error) {
+      return "light";
+    }
+  }
+
+  function updateThemeButton(button) {
+    const isDark = document.documentElement.dataset.theme === "dark";
+    button.textContent = isDark ? "Light Mode" : "Dark Mode";
+    button.setAttribute("aria-pressed", String(isDark));
+    button.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+  }
+
+  function applyTheme(theme) {
+    const nextTheme = theme === "dark" ? "dark" : "light";
+    document.documentElement.dataset.theme = nextTheme;
+
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+    } catch (_error) {
+      // Theme persistence is a convenience; the toggle still works without storage access.
+    }
+
+    document.querySelectorAll(".theme-toggle").forEach(updateThemeButton);
+  }
+
+  applyTheme(preferredTheme());
 
   function tickerForLogo(logo) {
     const tickerCell = logo.closest(".ticker-cell");
@@ -128,7 +159,25 @@
     document.querySelectorAll(".table-wrap").forEach(lockTableScroll);
   }
 
+  function hydrateThemeToggle() {
+    const topbar = document.querySelector(".topbar");
+    if (!topbar || topbar.querySelector(".theme-toggle")) return;
+
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "theme-toggle";
+    updateThemeButton(toggle);
+    toggle.addEventListener("click", () => {
+      const isDark = document.documentElement.dataset.theme === "dark";
+      applyTheme(isDark ? "light" : "dark");
+    });
+
+    const modeButtons = topbar.querySelector(".top-actions");
+    topbar.insertBefore(toggle, modeButtons);
+  }
+
   function hydrate() {
+    hydrateThemeToggle();
     hydrateLogos();
     hydrateTableScroll();
   }

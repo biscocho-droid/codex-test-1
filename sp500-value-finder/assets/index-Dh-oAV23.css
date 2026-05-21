@@ -11,3 +11,60 @@
 .table-wrap{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:none;scrollbar-gutter:stable both-edges}
 .table-wrap table{min-width:1040px}
 @media (width<=720px){.table-wrap{overflow:auto}.table-panel{height:560px}}
+
+/* Codex theme toggle */
+.theme-toggle{color:#0f172a;background:#fff;border:1px solid #dbe3ed;border-radius:999px;min-height:38px;padding:0 14px;font-size:12px;font-weight:800;white-space:nowrap;box-shadow:0 1px 2px #0f172a12}
+.theme-toggle:hover{background:#f8fafc;border-color:#cbd5e1}
+html[data-theme=dark]{color:#e5edf7;background:#07111f;color-scheme:dark}
+html[data-theme=dark] body{background:radial-gradient(circle at top left,#123057 0,#07111f 34%,#050a13 100%);color:#e5edf7}
+html[data-theme=dark] .app-shell{background:transparent}
+html[data-theme=dark] .topbar{background:#08111f;border-bottom-color:#1d2b3f;box-shadow:0 12px 32px #00000030}
+html[data-theme=dark] .brand-mark{color:#dbeafe;background:linear-gradient(135deg,#1d4ed8,#0f172a)}
+html[data-theme=dark] .brand h1,html[data-theme=dark] .panel-header h2,html[data-theme=dark] .rail-heading,html[data-theme=dark] .filter-control strong,html[data-theme=dark] .metric-card strong,html[data-theme=dark] .metric-card.positive strong,html[data-theme=dark] .data-point strong,html[data-theme=dark] .detail-title strong,html[data-theme=dark] .ai-thesis-card strong,html[data-theme=dark] .cap-row strong,html[data-theme=dark] .chart-tooltip strong{color:#f8fafc}
+html[data-theme=dark] .brand span,html[data-theme=dark] .panel-header p,html[data-theme=dark] .metric-card span,html[data-theme=dark] .metric-card p,html[data-theme=dark] .data-point span,html[data-theme=dark] .detail-title span,html[data-theme=dark] .ai-thesis-card span,html[data-theme=dark] .ai-thesis-card em,html[data-theme=dark] .ai-thesis-card p,html[data-theme=dark] .filter-control span,html[data-theme=dark] .rail-note,html[data-theme=dark] .table-select span,html[data-theme=dark] .cap-row,html[data-theme=dark] .cap-row em,html[data-theme=dark] .chart-tooltip span,html[data-theme=dark] .chart-tooltip p{color:#9fb0c7}
+html[data-theme=dark] .search-box{color:#9fb0c7;background:#0f1b2d;border-color:#26364d}
+html[data-theme=dark] .search-box input{color:#f8fafc}
+html[data-theme=dark] .search-box input::placeholder{color:#64748b}
+html[data-theme=dark] .top-actions{background:#0f1b2d;border-color:#26364d}
+html[data-theme=dark] .top-actions button{color:#9fb0c7}
+html[data-theme=dark] .top-actions button.active{color:#f8fafc;background:#1e314b;box-shadow:0 1px 2px #00000040}
+html[data-theme=dark] .theme-toggle{color:#dbeafe;background:#0f1b2d;border-color:#315174;box-shadow:0 0 0 1px #60a5fa12,0 10px 24px #0000002e}
+html[data-theme=dark] .theme-toggle:hover{background:#16243a;border-color:#60a5fa}
+html[data-theme=dark] .filter-rail,html[data-theme=dark] .metric-card,html[data-theme=dark] .chart-panel,html[data-theme=dark] .detail-panel,html[data-theme=dark] .table-panel,html[data-theme=dark] .market-cap-panel{background:#0b1424;border-color:#1d2b3f;box-shadow:0 18px 48px #0000002e}
+html[data-theme=dark] .filter-rail{border-right-color:#1d2b3f}
+html[data-theme=dark] .filter-control{border-top-color:#1d2b3f}
+html[data-theme=dark] .filter-control input{accent-color:#60a5fa}
+html[data-theme=dark] .rail-note,html[data-theme=dark] .ai-thesis-card,html[data-theme=dark] .data-point,html[data-theme=dark] .ai-filter-row{background:#0f1b2d;border-color:#1d2b3f}
+html[data-theme=dark] .metric-icon{color:#86efac;background:#123322}
+html[data-theme=dark] .metric-card.negative .metric-icon{color:#fca5a5;background:#3f1518}
+html[data-theme=dark] .metric-card.neutral .metric-icon{color:#cbd5e1;background:#172033}
+html[data-theme=dark] .metric-card.negative strong,html[data-theme=dark] .data-point.negative strong,html[data-theme=dark] .negative-text{color:#f87171}
+html[data-theme=dark] .data-point.positive strong,html[data-theme=dark] .positive-text{color:#4ade80}
+html[data-theme=dark] .panel-header{border-bottom-color:#1d2b3f}
+html[data-theme=dark] .panel-header svg{color:#6f829c}
+html[data-theme=dark] .chart-tooltip{background:#0f1b2d;border-color:#315174;box-shadow:0 18px 44px #00000066}
+html[data-theme=dark] .recharts-cartesian-grid line{stroke:#26364d}
+html[data-theme=dark] .recharts-text,html[data-theme=dark] .recharts-cartesian-axis-tick-value{fill:#9fb0c7}
+html[data-theme=dark] .recharts-legend-item-text{color:#cbd5e1!important}
+html[data-theme=dark] thead th{color:#cbd5e1;background:#111c2e;border-color:#24344b}
+html[data-theme=dark] tbody td{color:#d7e0ed;border-bottom-color:#1d2b3f;border-right-color:#1d2b3f}
+html[data-theme=dark] tbody tr:hover,html[data-theme=dark] tbody tr.selected-row{background:#102d51}
+html[data-theme=dark] tbody tr.focused-row{background:#143a68}
+html[data-theme=dark] .rank-badge{color:#cbd5e1;background:#172033;border-color:#26364d}
+html[data-theme=dark] .rank-badge.top-rank{color:#ecfdf5;background:#15803d;border-color:#22c55e}
+html[data-theme=dark] .rank-badge.watch-rank{color:#111827;background:#fbbf24;border-color:#f59e0b}
+html[data-theme=dark] .company-logo:not(.logo-needs-contrast){background:linear-gradient(135deg,#e2e8f0,#f8fafc);border-color:#334155}
+html[data-theme=dark] .company-logo.logo-needs-contrast{background:#08111f;border-color:#315174}
+html[data-theme=dark] .company-logo.logo-failed:before{color:#f8fafc}
+html[data-theme=dark] .tier-pill{color:#bfdbfe;background:#15345a}
+html[data-theme=dark] .confidence-pill{color:#cbd5e1;background:#172033}
+html[data-theme=dark] .confidence-pill.high,html[data-theme=dark] .opportunity-badge.positive{color:#bbf7d0;background:#11351f}
+html[data-theme=dark] .confidence-pill.medium,html[data-theme=dark] .opportunity-badge.neutral{color:#fde68a;background:#422f0e}
+html[data-theme=dark] .confidence-pill.low{color:#fecaca;background:#451a1a}
+html[data-theme=dark] .table-select select{color:#f8fafc;background:#0b1424;border-color:#26364d}
+html[data-theme=dark] .table-select select:focus{border-color:#60a5fa;box-shadow:0 0 0 3px #60a5fa26}
+html[data-theme=dark] .cap-row:hover{background:#111c2e}
+html[data-theme=dark] .cap-row span{color:#cbd5e1;background:#172033}
+html[data-theme=dark] .clear-focus-button{color:#bfdbfe;background:#15345a;border-color:#315174}
+html[data-theme=dark] .clear-focus-button:hover{background:#1e3a5f}
+@media (width<=720px){.theme-toggle{width:100%;min-height:40px}}
