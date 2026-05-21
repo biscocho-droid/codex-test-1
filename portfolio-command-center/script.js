@@ -729,10 +729,10 @@ function renderChart() {
     ${points.map((point) => `<circle class="chart-dot" cx="${point.x}" cy="${point.y}" r="3"></circle>`).join("")}
     <line id="chart-hover-line" class="chart-hover-line" x1="${points.at(-1).x}" y1="${pad.top}" x2="${points.at(-1).x}" y2="${height - pad.bottom}"></line>
     <circle id="chart-hover-dot" class="chart-hover-dot" cx="${points.at(-1).x}" cy="${points.at(-1).y}" r="6"></circle>
-    <g id="chart-tooltip" class="chart-tooltip" transform="translate(${Math.max(points.at(-1).x - 78, pad.left)}, ${Math.max(points.at(-1).y - 76, pad.top)})">
-      <rect class="chart-tooltip-bg" width="156" height="58" rx="8"></rect>
-      <text id="chart-tooltip-label" class="chart-tooltip-label" x="12" y="21">${points.at(-1).label}</text>
-      <text id="chart-tooltip-value" class="chart-tooltip-value" x="12" y="45">${money(points.at(-1).value)}</text>
+    <g id="chart-tooltip" class="chart-tooltip" transform="translate(${Math.max(points.at(-1).x - 84, pad.left)}, ${Math.max(points.at(-1).y - 84, pad.top)})">
+      <rect class="chart-tooltip-bg" width="168" height="66" rx="8"></rect>
+      <text id="chart-tooltip-label" class="chart-tooltip-label" x="12" y="23">${points.at(-1).label}</text>
+      <text id="chart-tooltip-value" class="chart-tooltip-value" x="12" y="52">${money(points.at(-1).value)}</text>
     </g>
     <rect id="chart-hit-layer" class="chart-hit-layer" x="${pad.left}" y="${pad.top}" width="${chartWidth}" height="${chartHeight}"></rect>
   `;
@@ -752,8 +752,8 @@ function bindChartHover(points, chartBox) {
   if (!hitLayer || !hoverLine || !hoverDot || !tooltip || !tooltipLabel || !tooltipValue) return;
 
   function moveTooltip(point) {
-    const tooltipWidth = 156;
-    const tooltipHeight = 58;
+    const tooltipWidth = 168;
+    const tooltipHeight = 66;
     const margin = 12;
     const minX = chartBox.pad.left;
     const maxX = chartBox.width - chartBox.pad.right - tooltipWidth;
