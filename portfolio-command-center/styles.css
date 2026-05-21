@@ -494,8 +494,9 @@ td {
 }
 
 .chart-legend {
-  fill: var(--muted);
-  font-size: 12px;
+  fill: #c4ccd4;
+  font-size: 14px;
+  font-weight: 800;
 }
 
 .bar-bear {
@@ -512,13 +513,14 @@ td {
 
 .bar-label {
   fill: var(--ink);
-  font-size: 14px;
-  font-weight: 800;
+  font-size: 17px;
+  font-weight: 900;
 }
 
 .bar-sublabel {
-  fill: var(--muted);
-  font-size: 12px;
+  fill: #c4ccd4;
+  font-size: 14px;
+  font-weight: 800;
 }
 
 .chart-grid-line {
@@ -527,8 +529,9 @@ td {
 }
 
 .chart-axis-label {
-  fill: #7c8792;
-  font-size: 11px;
+  fill: #b8c0c8;
+  font-size: 14px;
+  font-weight: 800;
 }
 
 .chart-line {
@@ -571,15 +574,16 @@ td {
 }
 
 .chart-tooltip-label {
-  fill: var(--muted);
-  font-size: 11px;
+  fill: #c4ccd4;
+  font-size: 13px;
+  font-weight: 800;
   text-transform: uppercase;
 }
 
 .chart-tooltip-value {
   fill: var(--ink);
-  font-size: 18px;
-  font-weight: 800;
+  font-size: 22px;
+  font-weight: 900;
 }
 
 .portfolio-chart.is-hovering .chart-hover-line,
