@@ -2,9 +2,11 @@
 
 /* Codex mobile/table polish */
 .company-logo{position:relative;background:linear-gradient(135deg,#eef2f7,#dbe3ed)}
-.company-logo:before{content:attr(data-fallback);position:absolute;inset:0;z-index:0;display:grid;place-items:center;color:#0f172a;font-size:10px;font-weight:850;letter-spacing:0}
+.company-logo.logo-needs-contrast{background:#0f172a;border-color:#1e293b}
+.company-logo:before{content:attr(data-fallback);position:absolute;inset:0;z-index:0;display:none;place-items:center;color:#0f172a;font-size:10px;font-weight:850;letter-spacing:0}
 .company-logo.large:before{font-size:14px}
-.company-logo img{position:relative;z-index:1}
+.company-logo img{position:relative;z-index:1;background:transparent}
+.company-logo.logo-failed:before{display:grid}
 .company-logo.logo-failed img{display:none}
 .table-wrap{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:none;scrollbar-gutter:stable both-edges}
 .table-wrap table{min-width:1040px}

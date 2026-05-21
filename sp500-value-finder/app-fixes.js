@@ -1,4 +1,6 @@
 (function () {
+  const CONTRAST_ALPHA_THRESHOLD = 90;
+
   function tickerForLogo(logo) {
     const tickerCell = logo.closest(".ticker-cell");
     const ticker = tickerCell?.querySelector("strong")?.textContent?.trim();
@@ -21,14 +23,58 @@
       return;
     }
 
-    const fail = () => logo.classList.add("logo-failed");
-    const pass = () => {
-      if (img.naturalWidth <= 1 || img.naturalHeight <= 1) fail();
-      else logo.classList.remove("logo-failed");
+    const fail = () => {
+      logo.classList.add("logo-failed");
+      logo.classList.remove("logo-needs-contrast");
     };
 
-    img.addEventListener("error", fail, { once: true });
-    img.addEventListener("load", pass, { once: true });
+    const analyzeVisibility = () => {
+      if (!img.naturalWidth || !img.naturalHeight) return;
+
+      try {
+        const canvas = document.createElement("canvas");
+        const width = Math.min(64, img.naturalWidth);
+        const height = Math.min(64, img.naturalHeight);
+        canvas.width = width;
+        canvas.height = height;
+
+        const context = canvas.getContext("2d", { willReadFrequently: true });
+        context.drawImage(img, 0, 0, width, height);
+        const pixels = context.getImageData(0, 0, width, height).data;
+
+        let alphaTotal = 0;
+        for (let index = 3; index < pixels.length; index += 4) {
+          alphaTotal += pixels[index];
+        }
+
+        const alphaMean = alphaTotal / (pixels.length / 4);
+        logo.classList.toggle("logo-needs-contrast", alphaMean < CONTRAST_ALPHA_THRESHOLD);
+      } catch (_error) {
+        // If canvas inspection is blocked, keep the normal logo instead of forcing a fallback.
+        logo.classList.remove("logo-needs-contrast");
+      }
+    };
+
+    const pass = () => {
+      if (img.naturalWidth <= 1 || img.naturalHeight <= 1) fail();
+      else {
+        logo.classList.remove("logo-failed");
+        analyzeVisibility();
+      }
+    };
+
+    if (img.dataset.logoPrepared !== "true") {
+      img.dataset.logoPrepared = "true";
+      img.crossOrigin = "anonymous";
+      img.addEventListener("error", fail);
+      img.addEventListener("load", pass);
+
+      if (img.src && !img.src.startsWith("data:")) {
+        const src = img.src;
+        img.removeAttribute("src");
+        img.src = src;
+      }
+    }
 
     if (img.complete) pass();
   }
