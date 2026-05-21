@@ -13,15 +13,24 @@
 
   function markLogo(logo) {
     const ticker = tickerForLogo(logo);
-    logo.dataset.fallback = ticker.toUpperCase();
-    logo.classList.add("logo-failed");
+    logo.dataset.fallback = ticker.slice(0, 2).toUpperCase();
 
     const img = logo.querySelector("img");
     if (!img) {
+      logo.classList.add("logo-failed");
       return;
     }
 
-    img.setAttribute("aria-hidden", "true");
+    const fail = () => logo.classList.add("logo-failed");
+    const pass = () => {
+      if (img.naturalWidth <= 1 || img.naturalHeight <= 1) fail();
+      else logo.classList.remove("logo-failed");
+    };
+
+    img.addEventListener("error", fail, { once: true });
+    img.addEventListener("load", pass, { once: true });
+
+    if (img.complete) pass();
   }
 
   function hydrateLogos() {
