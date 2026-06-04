@@ -1,6 +1,13 @@
 {
   "archives": [
     {
+      "date": "2026-06-04",
+      "path": "2026-06-04.json",
+      "generatedAt": "2026-06-04T09:20:01+00:00",
+      "itemCount": 80,
+      "sourceCount": 10
+    },
+    {
       "date": "2026-06-03",
       "path": "2026-06-03.json",
       "generatedAt": "2026-06-03T09:20:05+00:00",
