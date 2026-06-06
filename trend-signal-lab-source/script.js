@@ -1,49 +1,49 @@
 const APP_DATA = {
-  "generatedAt": "2026-06-05T10:15:12.645828+00:00",
-  "signalCount": 7,
-  "exposureCount": 17,
+  "generatedAt": "2026-06-06T10:15:11.978573+00:00",
+  "signalCount": 8,
+  "exposureCount": 20,
   "windows": {
     "5": {
-      "sampleSize": 17,
-      "avgExcessReturn": -0.007756183681068125,
-      "hitRate": 0.5882352941176471,
-      "avgMaxDrawdown": -0.041379033063148996
+      "sampleSize": 20,
+      "avgExcessReturn": -0.006836900808614393,
+      "hitRate": 0.5,
+      "avgMaxDrawdown": -0.034544576174540466
     },
     "20": {
-      "sampleSize": 17,
-      "avgExcessReturn": 0.011007652190762503,
-      "hitRate": 0.5294117647058824,
-      "avgMaxDrawdown": -0.0881663541952158
+      "sampleSize": 20,
+      "avgExcessReturn": 0.009054844555674086,
+      "hitRate": 0.5,
+      "avgMaxDrawdown": -0.08854930980533507
     },
     "60": {
-      "sampleSize": 17,
-      "avgExcessReturn": 0.11063755578737618,
-      "hitRate": 0.7647058823529411,
-      "avgMaxDrawdown": -0.1432173942857482
+      "sampleSize": 20,
+      "avgExcessReturn": 0.09194991014871459,
+      "hitRate": 0.7,
+      "avgMaxDrawdown": -0.15199238423517972
     },
     "120": {
-      "sampleSize": 14,
-      "avgExcessReturn": 0.17429327083212012,
-      "hitRate": 0.9285714285714286,
-      "avgMaxDrawdown": -0.17533144478117646
+      "sampleSize": 17,
+      "avgExcessReturn": 0.13916286275777848,
+      "hitRate": 0.8235294117647058,
+      "avgMaxDrawdown": -0.19431421928985926
     },
     "252": {
       "sampleSize": 11,
-      "avgExcessReturn": 0.5836430258530074,
+      "avgExcessReturn": 0.5719874101852661,
       "hitRate": 0.8181818181818182,
-      "avgMaxDrawdown": -0.20012608923131356
+      "avgMaxDrawdown": -0.2169851716932089
     },
     "504": {
       "sampleSize": 7,
-      "avgExcessReturn": 1.147824032113283,
+      "avgExcessReturn": 1.1478240836820899,
       "hitRate": 0.8571428571428571,
-      "avgMaxDrawdown": -0.24818792707337284
+      "avgMaxDrawdown": -0.24818795768604351
     },
     "756": {
       "sampleSize": 7,
-      "avgExcessReturn": 1.3253814761681255,
+      "avgExcessReturn": 1.325381450764508,
       "hitRate": 0.5714285714285714,
-      "avgMaxDrawdown": -0.4321187345225011
+      "avgMaxDrawdown": -0.43211877875926025
     }
   },
   "categories": [
@@ -52,22 +52,22 @@ const APP_DATA = {
       "label": "Food",
       "windows": {
         "5": {
-          "excess": -0.036749291398489314,
+          "excess": -0.036749355121257765,
           "hitRate": 0.3333333333333333,
           "samples": 6
         },
         "20": {
-          "excess": -0.02364003549966831,
+          "excess": -0.02364009052761094,
           "hitRate": 0.3333333333333333,
           "samples": 6
         },
         "60": {
-          "excess": -0.0760904843500979,
+          "excess": -0.07609049564307467,
           "hitRate": 0.5,
           "samples": 6
         },
         "120": {
-          "excess": -0.01560262195042117,
+          "excess": -0.015602630363423168,
           "hitRate": 0.6666666666666666,
           "samples": 3
         },
@@ -93,37 +93,37 @@ const APP_DATA = {
       "label": "Health",
       "windows": {
         "5": {
-          "excess": 0.007399849373909861,
+          "excess": 0.007399805074295329,
           "hitRate": 0.75,
           "samples": 4
         },
         "20": {
-          "excess": 0.0324596976290788,
+          "excess": 0.032459838192604534,
           "hitRate": 0.5,
           "samples": 4
         },
         "60": {
-          "excess": 0.14007678939995788,
+          "excess": 0.1400767173233794,
           "hitRate": 1.0,
           "samples": 4
         },
         "120": {
-          "excess": 0.198486565515419,
+          "excess": 0.19848669562423837,
           "hitRate": 1.0,
           "samples": 4
         },
         "252": {
-          "excess": 0.7545141416315859,
+          "excess": 0.7545145069211945,
           "hitRate": 1.0,
           "samples": 4
         },
         "504": {
-          "excess": 1.1314096699177394,
+          "excess": 1.131409852648703,
           "hitRate": 1.0,
           "samples": 4
         },
         "756": {
-          "excess": 0.6743057869574327,
+          "excess": 0.6743059485666063,
           "hitRate": 0.5,
           "samples": 4
         }
@@ -134,37 +134,37 @@ const APP_DATA = {
       "label": "Internet",
       "windows": {
         "5": {
-          "excess": 0.008434461188162616,
-          "hitRate": 0.7142857142857143,
-          "samples": 7
+          "excess": 0.005415889425807741,
+          "hitRate": 0.5,
+          "samples": 10
         },
         "20": {
-          "excess": 0.028447358532093885,
-          "hitRate": 0.7142857142857143,
-          "samples": 7
+          "excess": 0.01930980815087292,
+          "hitRate": 0.6,
+          "samples": 10
         },
         "60": {
-          "excess": 0.25386774241230725,
-          "hitRate": 0.8571428571428571,
-          "samples": 7
+          "excess": 0.1735234307539222,
+          "hitRate": 0.7,
+          "samples": 10
         },
         "120": {
-          "excess": 0.2418524850627528,
-          "hitRate": 1.0,
-          "samples": 7
+          "excess": 0.16186297754755502,
+          "hitRate": 0.8,
+          "samples": 10
         },
         "252": {
-          "excess": 0.4860023882652481,
+          "excess": 0.4676862120504498,
           "hitRate": 0.7142857142857143,
           "samples": 7
         },
         "504": {
-          "excess": 1.1697098483740083,
+          "excess": 1.1697097250599386,
           "hitRate": 0.6666666666666666,
           "samples": 3
         },
         "756": {
-          "excess": 2.1934823951157156,
+          "excess": 2.1934821203617108,
           "hitRate": 0.6666666666666666,
           "samples": 3
         }
@@ -181,31 +181,31 @@ const APP_DATA = {
       "why": "The best outcomes are showing up after the market has time to reprice infrastructure and platform beneficiaries, not in the first few weeks.",
       "windows": {
         "5": {
-          "excess": 0.021354222353205016,
-          "hitRate": 0.8333333333333334
+          "excess": 0.013693652351444744,
+          "hitRate": 0.5555555555555556
         },
         "20": {
-          "excess": 0.038761405885381815,
-          "hitRate": 0.8333333333333334
+          "excess": 0.02517054186188065,
+          "hitRate": 0.6666666666666666
         },
         "60": {
-          "excess": 0.1865355015763015,
-          "hitRate": 0.8333333333333334
+          "excess": 0.11970810242587454,
+          "hitRate": 0.6666666666666666
         },
         "120": {
-          "excess": 0.27469022759530454,
-          "hitRate": 1.0
+          "excess": 0.17486707567554402,
+          "hitRate": 0.7777777777777778
         },
         "252": {
-          "excess": 0.49936853252337204,
+          "excess": 0.4779996468497685,
           "hitRate": 0.6666666666666666
         },
         "504": {
-          "excess": 1.1697098483740083,
+          "excess": 1.1697097250599386,
           "hitRate": 0.6666666666666666
         },
         "756": {
-          "excess": 2.1934823951157156,
+          "excess": 2.1934821203617108,
           "hitRate": 0.6666666666666666
         }
       }
@@ -219,31 +219,31 @@ const APP_DATA = {
       "why": "This family compounds well over longer holds, which makes it more useful as a medium- and long-horizon healthcare signal than a fast trade.",
       "windows": {
         "5": {
-          "excess": 0.003895927242839714,
+          "excess": 0.0038959269188484358,
           "hitRate": 0.5
         },
         "20": {
-          "excess": 0.040703877512964615,
+          "excess": 0.04070407482221644,
           "hitRate": 0.5
         },
         "60": {
-          "excess": 0.09544791555457321,
+          "excess": 0.09544796857662019,
           "hitRate": 1.0
         },
         "120": {
-          "excess": 0.17905396112434646,
+          "excess": 0.1790542644600398,
           "hitRate": 1.0
         },
         "252": {
-          "excess": 0.7743187643644106,
+          "excess": 0.7743192462928038,
           "hitRate": 1.0
         },
         "504": {
-          "excess": 1.526499775465097,
+          "excess": 1.5265001321891292,
           "hitRate": 1.0
         },
         "756": {
-          "excess": 0.6436650279534294,
+          "excess": 0.6436654078428653,
           "hitRate": 0.5
         }
       }
@@ -257,19 +257,19 @@ const APP_DATA = {
       "why": "The theme is still too new and too noisy. It stays in the app as an emerging watchlist signal, not a promoted high-confidence family.",
       "windows": {
         "5": {
-          "excess": -0.036749291398489314,
+          "excess": -0.036749355121257765,
           "hitRate": 0.3333333333333333
         },
         "20": {
-          "excess": -0.02364003549966831,
+          "excess": -0.02364009052761094,
           "hitRate": 0.3333333333333333
         },
         "60": {
-          "excess": -0.0760904843500979,
+          "excess": -0.07609049564307467,
           "hitRate": 0.5
         },
         "120": {
-          "excess": -0.01560262195042117,
+          "excess": -0.015602630363423168,
           "hitRate": 0.6666666666666666
         },
         "252": {
@@ -295,23 +295,23 @@ const APP_DATA = {
       "why": "The payoff is lumpy because the theme is narrative-driven, but when it hits the mapped winner can outrun the benchmark hard.",
       "windows": {
         "5": {
-          "excess": -0.06908410580209179,
+          "excess": -0.06908397690492529,
           "hitRate": 0.0
         },
         "20": {
-          "excess": -0.03343692558763367,
+          "excess": -0.03343679524819665,
           "hitRate": 0.0
         },
         "60": {
-          "excess": 0.6578611874283418,
+          "excess": 0.6578613857063511,
           "hitRate": 1.0
         },
         "120": {
-          "excess": 0.04482602986744233,
+          "excess": 0.04482609439565377,
           "hitRate": 1.0
         },
         "252": {
-          "excess": 0.4058055227165043,
+          "excess": 0.40580560325453807,
           "hitRate": 1.0
         },
         "504": {
@@ -333,31 +333,31 @@ const APP_DATA = {
       "why": "This is one of the cleanest families in the model. Both the signal and the exposure mapping stay strong as the horizon extends.",
       "windows": {
         "5": {
-          "excess": 0.010903771504980009,
+          "excess": 0.010903683229742223,
           "hitRate": 1.0
         },
         "20": {
-          "excess": 0.024215517745192983,
+          "excess": 0.024215601562992628,
           "hitRate": 0.5
         },
         "60": {
-          "excess": 0.18470566324534254,
+          "excess": 0.1847054660701386,
           "hitRate": 1.0
         },
         "120": {
-          "excess": 0.21791916990649152,
+          "excess": 0.21791912678843695,
           "hitRate": 1.0
         },
         "252": {
-          "excess": 0.7347095188987613,
+          "excess": 0.7347097675495853,
           "hitRate": 1.0
         },
         "504": {
-          "excess": 0.7363195643703817,
+          "excess": 0.736319573108277,
           "hitRate": 1.0
         },
         "756": {
-          "excess": 0.7049465459614359,
+          "excess": 0.7049464892903471,
           "hitRate": 0.5
         }
       }
@@ -368,19 +368,25 @@ const APP_DATA = {
       "date": "2026-02-01",
       "trend": "protein soda",
       "category": "food",
-      "score": 51.4
+      "score": 50.9
+    },
+    {
+      "date": "2025-09-01",
+      "trend": "chatgpt",
+      "category": "internet",
+      "score": 63.8
     },
     {
       "date": "2025-09-01",
       "trend": "protein soda",
       "category": "food",
-      "score": 53.7
+      "score": 52.9
     },
     {
-      "date": "2025-03-01",
+      "date": "2025-02-01",
       "trend": "chatgpt",
       "category": "internet",
-      "score": 62.0
+      "score": 67.3
     },
     {
       "date": "2024-10-01",
@@ -392,7 +398,7 @@ const APP_DATA = {
       "date": "2023-03-01",
       "trend": "chatgpt",
       "category": "internet",
-      "score": 76.0
+      "score": 81.2
     },
     {
       "date": "2023-02-01",
@@ -404,7 +410,7 @@ const APP_DATA = {
       "date": "2022-09-01",
       "trend": "ozempic",
       "category": "health",
-      "score": 63.0
+      "score": 56.6
     }
   ],
   "exposures": [
@@ -453,10 +459,64 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Better-for-you beverage adjacency and distribution scale.",
       "windows": {
-        "5": 0.03794141900533243,
-        "20": 0.024221300032529758,
-        "60": 0.022693901496346314,
+        "5": 0.03794139681897124,
+        "20": 0.024221276661879454,
+        "60": 0.022693914835803186,
         "120": null,
+        "252": null,
+        "504": null,
+        "756": null
+      }
+    },
+    {
+      "date": "2025-09-01",
+      "trend": "chatgpt",
+      "category": "internet",
+      "benchmark": "QQQ",
+      "ticker": "GOOGL",
+      "role": "beneficiary",
+      "rationale": "Search and model platform response to generative AI adoption.",
+      "windows": {
+        "5": 0.1084953970637228,
+        "20": 0.08858603251247099,
+        "60": 0.453973129498376,
+        "120": 0.3959695045013114,
+        "252": null,
+        "504": null,
+        "756": null
+      }
+    },
+    {
+      "date": "2025-09-01",
+      "trend": "chatgpt",
+      "category": "internet",
+      "benchmark": "QQQ",
+      "ticker": "MSFT",
+      "role": "beneficiary",
+      "rationale": "Platform distribution and enterprise AI monetization.",
+      "windows": {
+        "5": -0.03960900427527514,
+        "20": -0.03726742891839252,
+        "60": -0.1316703218162255,
+        "120": -0.3040123062690412,
+        "252": null,
+        "504": null,
+        "756": null
+      }
+    },
+    {
+      "date": "2025-09-01",
+      "trend": "chatgpt",
+      "category": "internet",
+      "benchmark": "QQQ",
+      "ticker": "NVDA",
+      "role": "beneficiary",
+      "rationale": "AI compute demand and infrastructure bottleneck exposure.",
+      "windows": {
+        "5": -0.0264421759787713,
+        "20": 0.029910867449746803,
+        "60": -0.03646660464510032,
+        "120": 0.05202842923393258,
         "252": null,
         "504": null,
         "756": null
@@ -471,8 +531,8 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Health-oriented beverage brand read-through.",
       "windows": {
-        "5": -0.08843690852849406,
-        "20": -0.04223094454220222,
+        "5": -0.08843700508102781,
+        "20": -0.04223104109473608,
         "60": -0.31665427005510915,
         "120": -0.303408752985422,
         "252": null,
@@ -489,8 +549,8 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Functional beverage adjacency and innovation leverage.",
       "windows": {
-        "5": 0.00985860768261615,
-        "20": 0.09564088510426483,
+        "5": 0.009858511130082404,
+        "20": 0.09564078855173097,
         "60": 0.21934508928692986,
         "120": 0.23559456045825722,
         "252": null,
@@ -507,17 +567,17 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Better-for-you beverage adjacency and distribution scale.",
       "windows": {
-        "5": -0.03945433462983361,
-        "20": -0.034733564219756596,
-        "60": 0.00723507400685508,
-        "120": 0.0210063266759013,
+        "5": -0.03945450167501563,
+        "20": -0.03473367791169435,
+        "60": 0.007234992909537552,
+        "120": 0.021006301436895303,
         "252": null,
         "504": null,
         "756": null
       }
     },
     {
-      "date": "2025-03-01",
+      "date": "2025-02-01",
       "trend": "chatgpt",
       "category": "internet",
       "benchmark": "QQQ",
@@ -525,17 +585,17 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Search and model platform response to generative AI adoption.",
       "windows": {
-        "5": 0.043246459598312526,
-        "20": -0.01781399486473545,
-        "60": -0.012313585962858475,
-        "120": 0.0831750628826704,
-        "252": 0.5871681628499714,
+        "5": -0.09484997756627211,
+        "20": -0.10708069284918997,
+        "60": -0.1290137578728372,
+        "120": -0.14015470415203912,
+        "252": 0.48642072972129347,
         "504": null,
         "756": null
       }
     },
     {
-      "date": "2025-03-01",
+      "date": "2025-02-01",
       "trend": "chatgpt",
       "category": "internet",
       "benchmark": "QQQ",
@@ -543,17 +603,17 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Platform distribution and enterprise AI monetization.",
       "windows": {
-        "5": 0.02748664439569215,
-        "20": 0.02146674902618151,
-        "60": 0.13390120181082965,
-        "120": 0.15645261485504913,
-        "252": -0.18398385564710518,
+        "5": -0.018337656971904037,
+        "20": -0.008853829541281999,
+        "60": 0.04474958474174151,
+        "120": 0.1525651817556941,
+        "252": -0.1596895736718047,
         "504": null,
         "756": null
       }
     },
     {
-      "date": "2025-03-01",
+      "date": "2025-02-01",
       "trend": "chatgpt",
       "category": "internet",
       "benchmark": "QQQ",
@@ -561,11 +621,11 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "AI compute demand and infrastructure bottleneck exposure.",
       "windows": {
-        "5": -0.013143984231852146,
-        "20": 0.00547603317317269,
-        "60": 0.1364942920114529,
-        "120": 0.4070067519940874,
-        "252": 0.3702268605517509,
+        "5": 0.12344984135423553,
+        "20": 0.03779966924045308,
+        "60": 0.014669729799180242,
+        "120": 0.41589997698792947,
+        "252": 0.31846796747173145,
         "504": null,
         "756": null
       }
@@ -579,11 +639,11 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Direct robotaxi narrative and autonomy optionality exposure.",
       "windows": {
-        "5": -0.06908410580209179,
-        "20": -0.03343692558763367,
-        "60": 0.6578611874283418,
-        "120": 0.04482602986744233,
-        "252": 0.4058055227165043,
+        "5": -0.06908397690492529,
+        "20": -0.03343679524819665,
+        "60": 0.6578613857063511,
+        "120": 0.04482609439565377,
+        "252": 0.40580560325453807,
         "504": null,
         "756": null
       }
@@ -597,13 +657,13 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Search and model platform response to generative AI adoption.",
       "windows": {
-        "5": 0.020316326685958952,
-        "20": 0.04650375308329946,
-        "60": 0.1981070156264173,
-        "120": 0.17699128650869533,
-        "252": -0.023119629378764106,
-        "504": 0.17556445630821282,
-        "756": 1.2319207512500534
+        "5": 0.02031636883408572,
+        "20": 0.04650379414806194,
+        "60": 0.19810702410716607,
+        "120": 0.17699134197400146,
+        "252": -0.0231200847191102,
+        "504": 0.17556447924042384,
+        "756": 1.231920691857722
       }
     },
     {
@@ -615,13 +675,13 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Platform distribution and enterprise AI monetization.",
       "windows": {
-        "5": 0.007436418428127478,
-        "20": 0.06347035024525893,
-        "60": 0.1578915600061035,
-        "120": 0.0634992117870854,
-        "252": 0.16019290674215436,
-        "504": -0.09188837402488037,
-        "756": -0.39677228967812916
+        "5": 0.007436572856916346,
+        "20": 0.06347089862313648,
+        "60": 0.15789176912795733,
+        "120": 0.06349964271337472,
+        "252": 0.160192858992386,
+        "504": -0.0918880823411139,
+        "756": -0.3967719576441775
       }
     },
     {
@@ -633,13 +693,13 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "AI compute demand and infrastructure bottleneck exposure.",
       "windows": {
-        "5": 0.042783469242991146,
-        "20": 0.11346554464911374,
-        "60": 0.5051325259658641,
-        "120": 0.7610164375442396,
-        "252": 2.085726750022225,
-        "504": 3.425453462838692,
-        "756": 5.745298723775222
+        "5": 0.04278350584626489,
+        "20": 0.11346556609192104,
+        "60": 0.5051323688926128,
+        "120": 0.7610166143347328,
+        "252": 2.0857259833041146,
+        "504": 3.4254527782805058,
+        "756": 5.745297626871587
       }
     },
     {
@@ -651,13 +711,13 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Large-cap anti-obesity leadership and prescribing leverage.",
       "windows": {
-        "5": 0.006420581248646973,
-        "20": -0.030713550333804296,
-        "60": 0.1588439903298593,
-        "120": 0.3102439985603944,
-        "252": 0.8907652210535242,
-        "504": 1.3545609653840809,
-        "756": 1.9261212067716378
+        "5": 0.006420462701442697,
+        "20": -0.03071339178423671,
+        "60": 0.15884370437614082,
+        "120": 0.3102440278421843,
+        "252": 0.8907656933056143,
+        "504": 1.3545612337901578,
+        "756": 1.9261212733053379
       }
     },
     {
@@ -669,13 +729,13 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Large-cap anti-obesity leadership and prescribing leverage.",
       "windows": {
-        "5": 0.015386961761313045,
-        "20": 0.07914458582419026,
-        "60": 0.2105673361608258,
-        "120": 0.12559434125258861,
-        "252": 0.5786538167439985,
-        "504": 0.11807816335668253,
-        "756": -0.516228114848766
+        "5": 0.015386903758041748,
+        "20": 0.07914459491022197,
+        "60": 0.2105672277641364,
+        "120": 0.1255942257346896,
+        "252": 0.5786538417935563,
+        "504": 0.1180779124263962,
+        "756": -0.5162282947246437
       }
     },
     {
@@ -687,13 +747,13 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Direct obesity and diabetes drug exposure.",
       "windows": {
-        "5": -0.0013760338164092722,
-        "20": 0.08714190982652004,
-        "60": 0.10882855104933031,
-        "120": 0.02510950893784214,
-        "252": 0.7658706880155983,
-        "504": 1.7465989985909687,
-        "756": 1.3419642867740724
+        "5": -0.0013758596281969737,
+        "20": 0.08714236845367973,
+        "60": 0.10882878511073635,
+        "120": 0.025109892370672515,
+        "252": 0.7658716518723847,
+        "504": 1.7465997120390329,
+        "756": 1.3419650465529442
       }
     },
     {
@@ -705,10 +765,10 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Direct obesity and diabetes drug exposure.",
       "windows": {
-        "5": 0.0091678883020887,
-        "20": -0.005734154800590807,
-        "60": 0.08206728005981612,
-        "120": 0.3329984133108508,
+        "5": 0.009167713465893845,
+        "20": -0.005734218809246849,
+        "60": 0.08206715204250403,
+        "120": 0.3329986365494071,
         "252": 0.7827668407132229,
         "504": 1.3064005523392255,
         "756": -0.05463423086721364
