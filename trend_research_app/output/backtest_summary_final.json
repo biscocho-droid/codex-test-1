@@ -1,69 +1,69 @@
 {
   "strategy_name": "trend_signal_event_backtest",
-  "created_at": "2026-06-08T10:15:12.055879+00:00",
+  "created_at": "2026-06-09T00:25:27.500126+00:00",
   "windows": {
     "5": {
       "trading_days": 5,
       "sample_size": 17,
-      "avg_stock_return": 0.006577707403077151,
-      "avg_benchmark_return": 0.017117766715796442,
-      "avg_excess_return": -0.010540059312719292,
-      "hit_rate": 0.5294117647058824,
-      "avg_max_drawdown": -0.037360759123503416
+      "avg_stock_return": 0.0038697755923287973,
+      "avg_benchmark_return": 0.012028734100177829,
+      "avg_excess_return": -0.008158958507849031,
+      "hit_rate": 0.5882352941176471,
+      "avg_max_drawdown": -0.037397985322622965
     },
     "20": {
       "trading_days": 20,
       "sample_size": 17,
-      "avg_stock_return": 0.006460430022114814,
-      "avg_benchmark_return": 0.0005859246630024592,
-      "avg_excess_return": 0.005874505359112355,
+      "avg_stock_return": 0.01753628686290918,
+      "avg_benchmark_return": 0.014135425048201651,
+      "avg_excess_return": 0.0034008618147075304,
       "hit_rate": 0.47058823529411764,
-      "avg_max_drawdown": -0.09749932007209339
+      "avg_max_drawdown": -0.08906701774125392
     },
     "60": {
       "trading_days": 60,
       "sample_size": 17,
-      "avg_stock_return": 0.11518854027942191,
-      "avg_benchmark_return": 0.023826068786062356,
-      "avg_excess_return": 0.09136247149335955,
+      "avg_stock_return": 0.12077582899277767,
+      "avg_benchmark_return": 0.025941376221497926,
+      "avg_excess_return": 0.09483445277127973,
       "hit_rate": 0.7647058823529411,
-      "avg_max_drawdown": -0.15882641414927473
+      "avg_max_drawdown": -0.1522488818398109
     },
     "120": {
       "trading_days": 120,
       "sample_size": 14,
-      "avg_stock_return": 0.2684740313336205,
-      "avg_benchmark_return": 0.1097752639733993,
-      "avg_excess_return": 0.15869876736022123,
+      "avg_stock_return": 0.28033844158147386,
+      "avg_benchmark_return": 0.11274893605723947,
+      "avg_excess_return": 0.1675895055242344,
       "hit_rate": 0.8571428571428571,
-      "avg_max_drawdown": -0.19428525187846696
+      "avg_max_drawdown": -0.1916458250428597
     },
     "252": {
       "trading_days": 252,
       "sample_size": 11,
-      "avg_stock_return": 0.8157397648692338,
-      "avg_benchmark_return": 0.24375230463976133,
-      "avg_excess_return": 0.5719874602294726,
+      "avg_stock_return": 0.7941236174553349,
+      "avg_benchmark_return": 0.24245304662209313,
+      "avg_excess_return": 0.5516705708332416,
       "hit_rate": 0.8181818181818182,
-      "avg_max_drawdown": -0.2169851757445648
+      "avg_max_drawdown": -0.21622755153658987
     },
     "504": {
       "trading_days": 504,
       "sample_size": 7,
-      "avg_stock_return": 1.5825593263366986,
-      "avg_benchmark_return": 0.4347351233397124,
-      "avg_excess_return": 1.1478242029969863,
+      "avg_stock_return": 1.5164935777124764,
+      "avg_benchmark_return": 0.43719778128253217,
+      "avg_excess_return": 1.0792957964299446,
       "hit_rate": 0.8571428571428571,
-      "avg_max_drawdown": -0.24818790752408873
+      "avg_max_drawdown": -0.25180461356005857
     },
     "756": {
       "trading_days": 756,
       "sample_size": 7,
-      "avg_stock_return": 1.9053693420817772,
-      "avg_benchmark_return": 0.5799879344698641,
-      "avg_excess_return": 1.325381407611913,
+      "avg_stock_return": 1.9535408710572109,
+      "avg_benchmark_return": 0.6030823106546357,
+      "avg_excess_return": 1.3504585604025756,
       "hit_rate": 0.5714285714285714,
-      "avg_max_drawdown": -0.4321187534524414
+      "avg_max_drawdown": -0.43211873416314406
     }
   },
   "category_windows": {
@@ -71,11 +71,11 @@
       "5": {
         "trading_days": 5,
         "sample_size": 6,
-        "avg_stock_return": -0.01891605851207845,
+        "avg_stock_return": -0.018916040919448335,
         "avg_benchmark_return": 0.017833296609179317,
-        "avg_excess_return": -0.036749355121257765,
+        "avg_excess_return": -0.036749337528627656,
         "hit_rate": 0.3333333333333333,
-        "avg_max_drawdown": -0.045055209049183254
+        "avg_max_drawdown": -0.04505522664181336
       },
       "20": {
         "trading_days": 20,
@@ -89,11 +89,11 @@
       "60": {
         "trading_days": 60,
         "sample_size": 6,
-        "avg_stock_return": -0.09541405312266486,
+        "avg_stock_return": -0.09541403553003475,
         "avg_benchmark_return": -0.019323557479590192,
-        "avg_excess_return": -0.07609049564307467,
+        "avg_excess_return": -0.07609047805044455,
         "hit_rate": 0.5,
-        "avg_max_drawdown": -0.20605303230380434
+        "avg_max_drawdown": -0.20605304933723131
       },
       "120": {
         "trading_days": 120,
@@ -136,130 +136,130 @@
       "5": {
         "trading_days": 5,
         "sample_size": 4,
-        "avg_stock_return": 0.016053423683231066,
-        "avg_benchmark_return": 0.008653296292574775,
-        "avg_excess_return": 0.0074001273906562914,
-        "hit_rate": 0.75,
-        "avg_max_drawdown": -0.03256263332371301
+        "avg_stock_return": 0.004544525347879358,
+        "avg_benchmark_return": -0.012975174427638958,
+        "avg_excess_return": 0.017519699775518316,
+        "hit_rate": 1.0,
+        "avg_max_drawdown": -0.0327206831611386
       },
       "20": {
         "trading_days": 20,
         "sample_size": 4,
-        "avg_stock_return": -0.011433903147141655,
-        "avg_benchmark_return": -0.04389371855781565,
-        "avg_excess_return": 0.032459815410674,
+        "avg_stock_return": 0.03563837807199838,
+        "avg_benchmark_return": 0.013691980105431156,
+        "avg_excess_return": 0.02194639796656722,
         "hit_rate": 0.5,
-        "avg_max_drawdown": -0.08817639465088598
+        "avg_max_drawdown": -0.05233910205350786
       },
       "60": {
         "trading_days": 60,
         "sample_size": 4,
-        "avg_stock_return": 0.17915162318277733,
-        "avg_benchmark_return": 0.039074628586924565,
-        "avg_excess_return": 0.14007699459585277,
+        "avg_stock_return": 0.20289756177707613,
+        "avg_benchmark_return": 0.048065041026522204,
+        "avg_excess_return": 0.15483252075055393,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.0885987184020319
+        "avg_max_drawdown": -0.060644077569967286
       },
       "120": {
         "trading_days": 120,
         "sample_size": 4,
-        "avg_stock_return": 0.2200924111603006,
-        "avg_benchmark_return": 0.021605526960247867,
-        "avg_excess_return": 0.19848688420005273,
+        "avg_stock_return": 0.2616177793679621,
+        "avg_benchmark_return": 0.032013583809579416,
+        "avg_excess_return": 0.22960419555838268,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.12406647889201336
+        "avg_max_drawdown": -0.1148285005195624
       },
       "252": {
         "trading_days": 252,
         "sample_size": 4,
-        "avg_stock_return": 0.8228826559771346,
-        "avg_benchmark_return": 0.06836809341364103,
-        "avg_excess_return": 0.7545145625634937,
+        "avg_stock_return": 0.7634382750317594,
+        "avg_benchmark_return": 0.06479548407248714,
+        "avg_excess_return": 0.6986427909592723,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.1351971561941822
+        "avg_max_drawdown": -0.13311368470440432
       },
       "504": {
         "trading_days": 504,
         "sample_size": 4,
-        "avg_stock_return": 1.3325748047729582,
-        "avg_benchmark_return": 0.2011646699736287,
-        "avg_excess_return": 1.1314101347993295,
+        "avg_stock_return": 1.2169596908352465,
+        "avg_benchmark_return": 0.20547482118591598,
+        "avg_excess_return": 1.0114848696493306,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.2702989430631938
+        "avg_max_drawdown": -0.2766281010768789
       },
       "756": {
         "trading_days": 756,
         "sample_size": 4,
-        "avg_stock_return": 0.866748480331138,
-        "avg_benchmark_return": 0.1924423487669059,
-        "avg_excess_return": 0.6743061315642321,
+        "avg_stock_return": 0.9510483020875597,
+        "avg_benchmark_return": 0.23285801104139847,
+        "avg_excess_return": 0.7181902910461613,
         "hit_rate": 0.5,
-        "avg_max_drawdown": -0.517543546869415
+        "avg_max_drawdown": -0.5175435299341932
       }
     },
     "internet": {
       "5": {
         "trading_days": 5,
         "sample_size": 7,
-        "avg_stock_return": 0.023014811741694,
-        "avg_benchmark_return": 0.02134129562045208,
-        "avg_excess_return": 0.001673516121241923,
+        "avg_stock_return": 0.023014904170680306,
+        "avg_benchmark_return": 0.021341342536929004,
+        "avg_excess_return": 0.0016735616337513034,
         "hit_rate": 0.5714285714285714,
-        "avg_max_drawdown": -0.03350730250137236
+        "avg_max_drawdown": -0.03350737971273654
       },
       "20": {
         "trading_days": 20,
         "sample_size": 7,
-        "avg_stock_return": 0.03531150039362201,
-        "avg_benchmark_return": 0.019330374972950475,
-        "avg_excess_return": 0.015981125420671538,
+        "avg_stock_return": 0.03531156345318546,
+        "avg_benchmark_return": 0.019330190958007476,
+        "avg_excess_return": 0.01598137249517798,
         "hit_rate": 0.5714285714285714,
-        "avg_max_drawdown": -0.10641433428078595
+        "avg_max_drawdown": -0.10641433867582041
       },
       "60": {
         "trading_days": 60,
         "sample_size": 7,
-        "avg_stock_return": 0.2591547158221503,
-        "avg_benchmark_return": 0.052097999984700424,
-        "avg_excess_return": 0.20705671583744992,
+        "avg_stock_return": 0.2591547227070177,
+        "avg_benchmark_return": 0.052097796648131016,
+        "avg_excess_return": 0.20705692605888668,
         "hit_rate": 0.8571428571428571,
-        "avg_max_drawdown": -0.15847656758667386
+        "avg_max_drawdown": -0.15847662642478982
       },
       "120": {
         "trading_days": 120,
         "sample_size": 7,
-        "avg_stock_return": 0.3624394300847055,
-        "avg_benchmark_return": 0.15177613046568333,
-        "avg_excess_return": 0.21066329961902225,
+        "avg_stock_return": 0.36243946874746286,
+        "avg_benchmark_return": 0.1517760135766028,
+        "avg_excess_return": 0.21066345517086002,
         "hit_rate": 0.8571428571428571,
-        "avg_max_drawdown": -0.2361087577284328
+        "avg_max_drawdown": -0.23610874884147612
       },
       "252": {
         "trading_days": 252,
         "sample_size": 7,
-        "avg_stock_return": 0.8116581128075762,
-        "avg_benchmark_return": 0.34397185391183005,
-        "avg_excess_return": 0.4676862588957461,
+        "avg_stock_return": 0.8116580988402351,
+        "avg_benchmark_return": 0.3439716537932966,
+        "avg_excess_return": 0.46768644504693846,
         "hit_rate": 0.7142857142857143,
-        "avg_max_drawdown": -0.263721186916212
+        "avg_max_drawdown": -0.2637211897264102
       },
       "504": {
         "trading_days": 504,
         "sample_size": 3,
-        "avg_stock_return": 1.9158720217550194,
-        "avg_benchmark_return": 0.7461623944944907,
-        "avg_excess_return": 1.169709627260529,
+        "avg_stock_return": 1.9158720935487834,
+        "avg_benchmark_return": 0.7461617280780204,
+        "avg_excess_return": 1.169710365470763,
         "hit_rate": 0.6666666666666666,
-        "avg_max_drawdown": -0.21870652680528202
+        "avg_max_drawdown": -0.21870663020429804
       },
       "756": {
         "trading_days": 756,
         "sample_size": 3,
-        "avg_stock_return": 3.290197157749296,
-        "avg_benchmark_return": 1.0967153820738083,
-        "avg_excess_return": 2.193481775675488,
+        "avg_stock_return": 3.2901976296834126,
+        "avg_benchmark_return": 1.0967147101389516,
+        "avg_excess_return": 2.1934829195444614,
         "hit_rate": 0.6666666666666666,
-        "avg_max_drawdown": -0.31821902889647663
+        "avg_max_drawdown": -0.31821900646841195
       }
     }
   },
@@ -268,141 +268,141 @@
       "5": {
         "trading_days": 5,
         "sample_size": 6,
-        "avg_stock_return": 0.035583780112967776,
-        "avg_benchmark_return": 0.022117369970222955,
-        "avg_excess_return": 0.01346641014274482,
+        "avg_stock_return": 0.03558388794678513,
+        "avg_benchmark_return": 0.02211741387581534,
+        "avg_excess_return": 0.013466474070969792,
         "hit_rate": 0.6666666666666666,
-        "avg_max_drawdown": -0.027878260890040158
+        "avg_max_drawdown": -0.02787835096996503
       },
       "20": {
         "trading_days": 20,
         "sample_size": 6,
-        "avg_stock_return": 0.040227833279763446,
-        "avg_benchmark_return": 0.01601039881829036,
-        "avg_excess_return": 0.02421743446147308,
+        "avg_stock_return": 0.040227906849254126,
+        "avg_benchmark_return": 0.01601017306351371,
+        "avg_excess_return": 0.02421773378574042,
         "hit_rate": 0.6666666666666666,
-        "avg_max_drawdown": -0.09548948964645175
+        "avg_max_drawdown": -0.09548949477399195
       },
       "60": {
         "trading_days": 60,
         "sample_size": 6,
-        "avg_stock_return": 0.17567092616569605,
-        "avg_benchmark_return": 0.0437483124091525,
-        "avg_excess_return": 0.13192261375654357,
+        "avg_stock_return": 0.17567093419804136,
+        "avg_benchmark_return": 0.043748042136821486,
+        "avg_excess_return": 0.13192289206121985,
         "hit_rate": 0.8333333333333334,
-        "avg_max_drawdown": -0.15622876183665427
+        "avg_max_drawdown": -0.15622883048112293
       },
       "120": {
         "trading_days": 120,
         "sample_size": 6,
-        "avg_stock_return": 0.41377693144617583,
-        "avg_benchmark_return": 0.1754741083779593,
-        "avg_excess_return": 0.23830282306821648,
+        "avg_stock_return": 0.4137769765527259,
+        "avg_benchmark_return": 0.1754739612526648,
+        "avg_excess_return": 0.23830301530006107,
         "hit_rate": 0.8333333333333334,
-        "avg_max_drawdown": -0.18595147197894613
+        "avg_max_drawdown": -0.18595146161083
       },
       "252": {
         "trading_days": 252,
         "sample_size": 6,
-        "avg_stock_return": 0.8359546927835829,
-        "avg_benchmark_return": 0.35795500470397296,
-        "avg_excess_return": 0.4779996880796101,
+        "avg_stock_return": 0.8359546764883518,
+        "avg_benchmark_return": 0.35795475780934655,
+        "avg_excess_return": 0.4779999186790051,
         "hit_rate": 0.6666666666666666,
-        "avg_max_drawdown": -0.21806525120460538
+        "avg_max_drawdown": -0.2180652544831699
       },
       "504": {
         "trading_days": 504,
         "sample_size": 3,
-        "avg_stock_return": 1.9158720217550194,
-        "avg_benchmark_return": 0.7461623944944907,
-        "avg_excess_return": 1.169709627260529,
+        "avg_stock_return": 1.9158720935487834,
+        "avg_benchmark_return": 0.7461617280780204,
+        "avg_excess_return": 1.169710365470763,
         "hit_rate": 0.6666666666666666,
-        "avg_max_drawdown": -0.21870652680528202
+        "avg_max_drawdown": -0.21870663020429804
       },
       "756": {
         "trading_days": 756,
         "sample_size": 3,
-        "avg_stock_return": 3.290197157749296,
-        "avg_benchmark_return": 1.0967153820738083,
-        "avg_excess_return": 2.193481775675488,
+        "avg_stock_return": 3.2901976296834126,
+        "avg_benchmark_return": 1.0967147101389516,
+        "avg_excess_return": 2.1934829195444614,
         "hit_rate": 0.6666666666666666,
-        "avg_max_drawdown": -0.31821902889647663
+        "avg_max_drawdown": -0.31821900646841195
       }
     },
     "ozempic": {
       "5": {
         "trading_days": 5,
         "sample_size": 2,
-        "avg_stock_return": 0.03299485551348014,
-        "avg_benchmark_return": 0.02909865879445439,
-        "avg_excess_return": 0.0038961967190257463,
-        "hit_rate": 0.5,
-        "avg_max_drawdown": -0.023569696653800598
+        "avg_stock_return": 0.009976953023000168,
+        "avg_benchmark_return": -0.014158580973428148,
+        "avg_excess_return": 0.024135533996428316,
+        "hit_rate": 1.0,
+        "avg_max_drawdown": -0.023885793428860713
       },
       "20": {
         "trading_days": 20,
         "sample_size": 2,
-        "avg_stock_return": -0.0004381549874924451,
-        "avg_benchmark_return": -0.04114208099208305,
-        "avg_excess_return": 0.04070392600459061,
+        "avg_stock_return": 0.09370634566897695,
+        "avg_benchmark_return": 0.07402914447131925,
+        "avg_excess_return": 0.0196772011976577,
         "hit_rate": 0.5,
-        "avg_max_drawdown": -0.09765139441429982
+        "avg_max_drawdown": -0.025976811194313
       },
       "60": {
         "trading_days": 60,
         "sample_size": 2,
-        "avg_stock_return": 0.17314356416032917,
-        "avg_benchmark_return": 0.07769557287274398,
-        "avg_excess_return": 0.09544799128758519,
+        "avg_stock_return": 0.2206354146523858,
+        "avg_benchmark_return": 0.09567615730756596,
+        "avg_excess_return": 0.12495925734481983,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.09765139441429982
+        "avg_max_drawdown": -0.04174207005573577
       },
       "120": {
         "trading_days": 120,
         "sample_size": 2,
-        "avg_stock_return": 0.20069099691491388,
-        "avg_benchmark_return": 0.021636592729191717,
-        "avg_excess_return": 0.17905440418572216,
+        "avg_stock_return": 0.2837415731519142,
+        "avg_benchmark_return": 0.04245252226664453,
+        "avg_excess_return": 0.24128905088526964,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.13373856251173893
+        "avg_max_drawdown": -0.11526251815291488
       },
       "252": {
         "trading_days": 252,
         "sample_size": 2,
-        "avg_stock_return": 0.8336530017287143,
-        "avg_benchmark_return": 0.059333919439335414,
-        "avg_excess_return": 0.7743190822893788,
+        "avg_stock_return": 0.7147643238143182,
+        "avg_benchmark_return": 0.05218838635033718,
+        "avg_excess_return": 0.662575937463981,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.14847565228793314
+        "avg_max_drawdown": -0.1443088322028619
       },
       "504": {
         "trading_days": 504,
         "sample_size": 2,
-        "avg_stock_return": 1.7845219544775093,
-        "avg_benchmark_return": 0.25802167781430896,
-        "avg_excess_return": 1.5265002766632003,
+        "avg_stock_return": 1.5532915912273784,
+        "avg_benchmark_return": 0.26664165377102766,
+        "avg_excess_return": 1.2866499374563507,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.18801452694216542
+        "avg_max_drawdown": -0.20067288729045996
       },
       "756": {
         "trading_days": 756,
         "sample_size": 2,
-        "avg_stock_return": 0.7914800646254009,
-        "avg_benchmark_return": 0.14781476020594142,
-        "avg_excess_return": 0.6436653044194595,
+        "avg_stock_return": 0.9600796650051268,
+        "avg_benchmark_return": 0.22864586174592882,
+        "avg_excess_return": 0.7314338032591979,
         "hit_rate": 0.5,
-        "avg_max_drawdown": -0.5148505248509734
+        "avg_max_drawdown": -0.5148505009747406
       }
     },
     "protein-soda": {
       "5": {
         "trading_days": 5,
         "sample_size": 6,
-        "avg_stock_return": -0.01891605851207845,
+        "avg_stock_return": -0.018916040919448335,
         "avg_benchmark_return": 0.017833296609179317,
-        "avg_excess_return": -0.036749355121257765,
+        "avg_excess_return": -0.036749337528627656,
         "hit_rate": 0.3333333333333333,
-        "avg_max_drawdown": -0.045055209049183254
+        "avg_max_drawdown": -0.04505522664181336
       },
       "20": {
         "trading_days": 20,
@@ -416,11 +416,11 @@
       "60": {
         "trading_days": 60,
         "sample_size": 6,
-        "avg_stock_return": -0.09541405312266486,
+        "avg_stock_return": -0.09541403553003475,
         "avg_benchmark_return": -0.019323557479590192,
-        "avg_excess_return": -0.07609049564307467,
+        "avg_excess_return": -0.07609047805044455,
         "hit_rate": 0.5,
-        "avg_max_drawdown": -0.20605303230380434
+        "avg_max_drawdown": -0.20605304933723131
       },
       "120": {
         "trading_days": 120,
@@ -464,8 +464,8 @@
         "trading_days": 5,
         "sample_size": 1,
         "avg_stock_return": -0.052398998485948645,
-        "avg_benchmark_return": 0.016684849521826806,
-        "avg_excess_return": -0.06908384800777545,
+        "avg_benchmark_return": 0.01668491450361098,
+        "avg_excess_return": -0.06908391298955963,
         "hit_rate": 0.0,
         "avg_max_drawdown": -0.0672815521693656
       },
@@ -473,8 +473,8 @@
         "trading_days": 20,
         "sample_size": 1,
         "avg_stock_return": 0.005813503076773419,
-        "avg_benchmark_return": 0.03925023190091115,
-        "avg_excess_return": -0.03343672882413773,
+        "avg_benchmark_return": 0.03925029832497007,
+        "avg_excess_return": -0.03343679524819665,
         "hit_rate": 0.0,
         "avg_max_drawdown": -0.17196340208679117
       },
@@ -482,8 +482,8 @@
         "trading_days": 60,
         "sample_size": 1,
         "avg_stock_return": 0.760057453760876,
-        "avg_benchmark_return": 0.10219612543798795,
-        "avg_excess_return": 0.657861328322888,
+        "avg_benchmark_return": 0.10219632371598819,
+        "avg_excess_return": 0.6578611300448878,
         "hit_rate": 1.0,
         "avg_max_drawdown": -0.17196340208679117
       },
@@ -491,8 +491,8 @@
         "trading_days": 120,
         "sample_size": 1,
         "avg_stock_return": 0.054414421915884637,
-        "avg_benchmark_return": 0.00958826299202764,
-        "avg_excess_return": 0.044826158923856996,
+        "avg_benchmark_return": 0.009588327520230866,
+        "avg_excess_return": 0.04482609439565377,
         "hit_rate": 1.0,
         "avg_max_drawdown": -0.5370524722253526
       },
@@ -500,8 +500,8 @@
         "trading_days": 252,
         "sample_size": 1,
         "avg_stock_return": 0.6658786329515345,
-        "avg_benchmark_return": 0.26007294915897283,
-        "avg_excess_return": 0.40580568379256166,
+        "avg_benchmark_return": 0.2600730296969964,
+        "avg_excess_return": 0.40580560325453807,
         "hit_rate": 1.0,
         "avg_max_drawdown": -0.537656801185852
       },
@@ -528,65 +528,65 @@
       "5": {
         "trading_days": 5,
         "sample_size": 2,
-        "avg_stock_return": -0.0008880081470180046,
-        "avg_benchmark_return": -0.011792066209304841,
-        "avg_excess_return": 0.010904058062286837,
+        "avg_stock_return": -0.0008879023272414521,
+        "avg_benchmark_return": -0.011791767881849768,
+        "avg_excess_return": 0.010903865554608316,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.04155556999362542
+        "avg_max_drawdown": -0.04155557289341649
       },
       "20": {
         "trading_days": 20,
         "sample_size": 2,
-        "avg_stock_return": -0.022429651306790865,
-        "avg_benchmark_return": -0.046645356123548254,
-        "avg_excess_return": 0.02421570481675739,
+        "avg_stock_return": -0.022429589524980198,
+        "avg_benchmark_return": -0.04664518426045694,
+        "avg_excess_return": 0.024215594735476742,
         "hit_rate": 0.5,
-        "avg_max_drawdown": -0.07870139488747213
+        "avg_max_drawdown": -0.07870139291270273
       },
       "60": {
         "trading_days": 60,
         "sample_size": 2,
-        "avg_stock_return": 0.1851596822052255,
-        "avg_benchmark_return": 0.00045368430110515057,
-        "avg_excess_return": 0.18470599790412034,
+        "avg_stock_return": 0.18515970890176647,
+        "avg_benchmark_return": 0.0004539247454784512,
+        "avg_excess_return": 0.18470578415628802,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.07954604238976398
+        "avg_max_drawdown": -0.0795460850841988
       },
       "120": {
         "trading_days": 120,
         "sample_size": 2,
-        "avg_stock_return": 0.2394938254056873,
-        "avg_benchmark_return": 0.021574461191304017,
-        "avg_excess_return": 0.2179193642143833,
+        "avg_stock_return": 0.23949398558401003,
+        "avg_benchmark_return": 0.0215746453525143,
+        "avg_excess_return": 0.21791934023149573,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.11439439527228779
+        "avg_max_drawdown": -0.1143944828862099
       },
       "252": {
         "trading_days": 252,
         "sample_size": 2,
-        "avg_stock_return": 0.8121123102255551,
-        "avg_benchmark_return": 0.07740226738794664,
-        "avg_excess_return": 0.7347100428376084,
+        "avg_stock_return": 0.8121122262492007,
+        "avg_benchmark_return": 0.0774025817946371,
+        "avg_excess_return": 0.7347096444545635,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.12191866010043129
+        "avg_max_drawdown": -0.12191853720594675
       },
       "504": {
         "trading_days": 504,
         "sample_size": 2,
-        "avg_stock_return": 0.8806276550684071,
-        "avg_benchmark_return": 0.14430766213294843,
-        "avg_excess_return": 0.7363199929354587,
+        "avg_stock_return": 0.8806277904431146,
+        "avg_benchmark_return": 0.1443079886008043,
+        "avg_excess_return": 0.7363198018423103,
         "hit_rate": 1.0,
-        "avg_max_drawdown": -0.35258335918422223
+        "avg_max_drawdown": -0.35258331486329786
       },
       "756": {
         "trading_days": 756,
         "sample_size": 2,
-        "avg_stock_return": 0.9420168960368753,
-        "avg_benchmark_return": 0.2370699373278704,
-        "avg_excess_return": 0.7049469587090049,
+        "avg_stock_return": 0.9420169391699927,
+        "avg_benchmark_return": 0.23707016033686812,
+        "avg_excess_return": 0.7049467788331246,
         "hit_rate": 0.5,
-        "avg_max_drawdown": -0.5202365688878565
+        "avg_max_drawdown": -0.5202365588936456
       }
     }
   },
