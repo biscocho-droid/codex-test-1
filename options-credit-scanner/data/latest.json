@@ -1,8 +1,8 @@
 {
   "scan": {
     "mode": "Live Yahoo Finance",
-    "generated_at": "2026-06-17T12:26:10-05:00",
-    "local_time": "12:26 PM",
+    "generated_at": "2026-06-17T14:25:29-05:00",
+    "local_time": "2:25 PM",
     "timezone": "America/Chicago",
     "market_status": "open",
     "data_source": "Yahoo Finance via yfinance"
