@@ -1,114 +1,73 @@
 const APP_DATA = {
-  "generatedAt": "2026-06-22T10:17:35.968302+00:00",
-  "signalCount": 8,
-  "exposureCount": 19,
+  "generatedAt": "2026-06-23T10:16:13.724802+00:00",
+  "signalCount": 7,
+  "exposureCount": 17,
   "windows": {
     "5": {
-      "sampleSize": 19,
-      "avgExcessReturn": -0.010868374491928573,
-      "hitRate": 0.47368421052631576,
-      "avgMaxDrawdown": -0.03623545974587111
+      "sampleSize": 17,
+      "avgExcessReturn": -0.005375000998745255,
+      "hitRate": 0.6470588235294118,
+      "avgMaxDrawdown": -0.04141615344103493
     },
     "20": {
-      "sampleSize": 19,
-      "avgExcessReturn": 0.016362386071715942,
-      "hitRate": 0.631578947368421,
-      "avgMaxDrawdown": -0.07058123955233804
+      "sampleSize": 17,
+      "avgExcessReturn": 0.008534035603618532,
+      "hitRate": 0.5294117647058824,
+      "avgMaxDrawdown": -0.07973404434337462
     },
     "60": {
-      "sampleSize": 19,
-      "avgExcessReturn": 0.12357067934328077,
-      "hitRate": 0.7894736842105263,
-      "avgMaxDrawdown": -0.12385646538888333
+      "sampleSize": 17,
+      "avgExcessReturn": 0.11410946852691108,
+      "hitRate": 0.7647058823529411,
+      "avgMaxDrawdown": -0.13663981779173015
     },
     "120": {
-      "sampleSize": 16,
-      "avgExcessReturn": 0.22927986683902296,
-      "hitRate": 0.9375,
-      "avgMaxDrawdown": -0.15560942294720276
+      "sampleSize": 14,
+      "avgExcessReturn": 0.1831840244283008,
+      "hitRate": 0.9285714285714286,
+      "avgMaxDrawdown": -0.17269193500869337
     },
     "252": {
-      "sampleSize": 13,
-      "avgExcessReturn": 0.554317701259299,
-      "hitRate": 0.7692307692307693,
-      "avgMaxDrawdown": -0.2030343930470035
+      "sampleSize": 11,
+      "avgExcessReturn": 0.5633261381416078,
+      "hitRate": 0.8181818181818182,
+      "avgMaxDrawdown": -0.19936846733072036
     },
     "504": {
-      "sampleSize": 9,
-      "avgExcessReturn": 1.008911825300579,
-      "hitRate": 0.8888888888888888,
-      "avgMaxDrawdown": -0.2637338273321804
+      "sampleSize": 7,
+      "avgExcessReturn": 1.0792956329192038,
+      "hitRate": 0.8571428571428571,
+      "avgMaxDrawdown": -0.251804582061735
     },
     "756": {
-      "sampleSize": 9,
-      "avgExcessReturn": 1.2130276476946404,
-      "hitRate": 0.5555555555555556,
-      "avgMaxDrawdown": -0.4095770137472501
+      "sampleSize": 7,
+      "avgExcessReturn": 1.3504583826893406,
+      "hitRate": 0.5714285714285714,
+      "avgMaxDrawdown": -0.43211874331231875
     }
   },
   "categories": [
-    {
-      "slug": "beauty",
-      "label": "Beauty",
-      "windows": {
-        "5": {
-          "excess": -0.04396859585226026,
-          "hitRate": 0.0,
-          "samples": 2
-        },
-        "20": {
-          "excess": 0.0275540205148897,
-          "hitRate": 1.0,
-          "samples": 2
-        },
-        "60": {
-          "excess": 0.14424597666465733,
-          "hitRate": 1.0,
-          "samples": 2
-        },
-        "120": {
-          "excess": 0.2862654740353072,
-          "hitRate": 1.0,
-          "samples": 2
-        },
-        "252": {
-          "excess": 0.27544111422391365,
-          "hitRate": 0.5,
-          "samples": 2
-        },
-        "504": {
-          "excess": 0.5635775180085932,
-          "hitRate": 1.0,
-          "samples": 2
-        },
-        "756": {
-          "excess": 0.8054382561890978,
-          "hitRate": 0.5,
-          "samples": 2
-        }
-      }
-    },
     {
       "slug": "food",
       "label": "Food",
       "windows": {
         "5": {
-          "excess": -0.036749355121257765,
+          "excess": -0.03674932283008505,
           "hitRate": 0.3333333333333333,
           "samples": 6
         },
         "20": {
-          "excess": -0.02364009052761094,
+          "excess": -0.023640087730052734,
           "hitRate": 0.3333333333333333,
           "samples": 6
         },
         "60": {
-          "excess": -0.07609049564307467,
+          "excess": -0.07609050609804634,
           "hitRate": 0.5,
           "samples": 6
         },
         "120": {
-          "excess": -0.015602630363423168,
+          "excess": -0.015602693180244246,
           "hitRate": 0.6666666666666666,
           "samples": 3
         },
@@ -134,37 +93,37 @@ const APP_DATA = {
       "label": "Health",
       "windows": {
         "5": {
-          "excess": 0.01072311327425024,
-          "hitRate": 0.5,
+          "excess": 0.017519699828464547,
+          "hitRate": 1.0,
           "samples": 4
         },
         "20": {
-          "excess": 0.04962137285707624,
-          "hitRate": 0.75,
+          "excess": 0.02194647509025749,
+          "hitRate": 0.5,
           "samples": 4
         },
         "60": {
-          "excess": 0.18470506932667424,
+          "excess": 0.15483247255845506,
           "hitRate": 1.0,
           "samples": 4
         },
         "120": {
-          "excess": 0.3624469468165232,
+          "excess": 0.22960407497903207,
           "hitRate": 1.0,
           "samples": 4
         },
         "252": {
-          "excess": 0.8133080687168874,
+          "excess": 0.6986427587476345,
           "hitRate": 1.0,
           "samples": 4
         },
         "504": {
-          "excess": 1.1109802827838529,
+          "excess": 1.0114847314948607,
           "hitRate": 1.0,
           "samples": 4
         },
         "756": {
-          "excess": 0.6814811740448842,
+          "excess": 0.7181902218415732,
           "hitRate": 0.5,
           "samples": 4
         }
@@ -175,37 +134,37 @@ const APP_DATA = {
       "label": "Internet",
       "windows": {
         "5": {
-          "excess": 0.008434536284060466,
+          "excess": 0.008434588669711822,
           "hitRate": 0.7142857142857143,
           "samples": 7
         },
         "20": {
-          "excess": 0.028447478010026308,
+          "excess": 0.02844760446868593,
           "hitRate": 0.7142857142857143,
           "samples": 7
         },
         "60": {
-          "excess": 0.2538676643921101,
+          "excess": 0.25386773018742087,
           "hitRate": 0.8571428571428571,
           "samples": 7
         },
         "120": {
-          "excess": 0.24185243216827565,
+          "excess": 0.24185258880297375,
           "hitRate": 1.0,
           "samples": 7
         },
         "252": {
-          "excess": 0.48600223043650154,
+          "excess": 0.48600235493816385,
           "hitRate": 0.7142857142857143,
           "samples": 7
         },
         "504": {
-          "excess": 1.1697100868508714,
+          "excess": 1.169710168151661,
           "hitRate": 0.6666666666666666,
           "samples": 3
         },
         "756": {
-          "excess": 2.1934825402313436,
+          "excess": 2.19348259715303,
           "hitRate": 0.6666666666666666,
           "samples": 3
         }
@@ -222,31 +181,31 @@ const APP_DATA = {
       "why": "The best outcomes are showing up after the market has time to reprice infrastructure and platform beneficiaries, not in the first few weeks.",
       "windows": {
         "5": {
-          "excess": 0.02135428848222476,
+          "excess": 0.02135435561884345,
           "hitRate": 0.8333333333333334
         },
         "20": {
-          "excess": 0.03876152355306347,
+          "excess": 0.038761651080653714,
           "hitRate": 0.8333333333333334
         },
         "60": {
-          "excess": 0.18653539881152525,
+          "excess": 0.1865354992438156,
           "hitRate": 0.8333333333333334
         },
         "120": {
-          "excess": 0.2746901551303793,
+          "excess": 0.2746903451174986,
           "hitRate": 1.0
         },
         "252": {
-          "excess": 0.49936833496682875,
+          "excess": 0.4993684775983982,
           "hitRate": 0.6666666666666666
         },
         "504": {
-          "excess": 1.1697100868508714,
+          "excess": 1.169710168151661,
           "hitRate": 0.6666666666666666
         },
         "756": {
-          "excess": 2.1934825402313436,
+          "excess": 2.19348259715303,
           "hitRate": 0.6666666666666666
         }
       }
@@ -260,31 +219,31 @@ const APP_DATA = {
       "why": "This family compounds well over longer holds, which makes it more useful as a medium- and long-horizon healthcare signal than a fast trade.",
       "windows": {
         "5": {
-          "excess": 0.024135435494025637,
+          "excess": 0.024135497920397153,
           "hitRate": 1.0
         },
         "20": {
-          "excess": 0.019676903042473715,
+          "excess": 0.019677231180437404,
           "hitRate": 0.5
         },
         "60": {
-          "excess": 0.12495891670247372,
+          "excess": 0.12495913964145722,
           "hitRate": 1.0
         },
         "120": {
-          "excess": 0.2412888997400422,
+          "excess": 0.24128879430352113,
           "hitRate": 1.0
         },
         "252": {
-          "excess": 0.6625758552391646,
+          "excess": 0.6625756586950543,
           "hitRate": 1.0
         },
         "504": {
-          "excess": 1.2866495320801594,
+          "excess": 1.2866496495697444,
           "hitRate": 1.0
         },
         "756": {
-          "excess": 0.731433539526725,
+          "excess": 0.731433604400148,
           "hitRate": 0.5
         }
       }
@@ -298,19 +257,19 @@ const APP_DATA = {
       "why": "The theme is still too new and too noisy. It stays in the app as an emerging watchlist signal, not a promoted high-confidence family.",
       "windows": {
         "5": {
-          "excess": -0.036749355121257765,
+          "excess": -0.03674932283008505,
           "hitRate": 0.3333333333333333
         },
         "20": {
-          "excess": -0.02364009052761094,
+          "excess": -0.023640087730052734,
           "hitRate": 0.3333333333333333
         },
         "60": {
-          "excess": -0.07609049564307467,
+          "excess": -0.07609050609804634,
           "hitRate": 0.5
         },
         "120": {
-          "excess": -0.015602630363423168,
+          "excess": -0.015602693180244246,
           "hitRate": 0.6666666666666666
         },
         "252": {
@@ -336,23 +295,23 @@ const APP_DATA = {
       "why": "The payoff is lumpy because the theme is narrative-driven, but when it hits the mapped winner can outrun the benchmark hard.",
       "windows": {
         "5": {
-          "excess": -0.06908397690492529,
+          "excess": -0.06908401302507794,
           "hitRate": 0.0
         },
         "20": {
-          "excess": -0.03343679524819665,
+          "excess": -0.03343667520312077,
           "hitRate": 0.0
         },
         "60": {
-          "excess": 0.6578612578756193,
+          "excess": 0.6578611158490526,
           "hitRate": 1.0
         },
         "120": {
-          "excess": 0.04482609439565377,
+          "excess": 0.0448260509158247,
           "hitRate": 1.0
         },
         "252": {
-          "excess": 0.40580560325453807,
+          "excess": 0.40580561897675826,
           "hitRate": 1.0
         },
         "504": {
@@ -362,44 +321,6 @@ const APP_DATA = {
         "756": {
           "excess": null,
           "hitRate": null
-        }
-      }
-    },
-    {
-      "slug": "ulta-beauty",
-      "label": "Ulta Beauty",
-      "category": "beauty",
-      "benchmark": "XRT",
-      "thesis": "Beauty demand attention can surface category resilience and premium consumer spending.",
-      "why": "This family is still under review.",
-      "windows": {
-        "5": {
-          "excess": -0.04396859585226026,
-          "hitRate": 0.0
-        },
-        "20": {
-          "excess": 0.0275540205148897,
-          "hitRate": 1.0
-        },
-        "60": {
-          "excess": 0.14424597666465733,
-          "hitRate": 1.0
-        },
-        "120": {
-          "excess": 0.2862654740353072,
-          "hitRate": 1.0
-        },
-        "252": {
-          "excess": 0.27544111422391365,
-          "hitRate": 0.5
-        },
-        "504": {
-          "excess": 0.5635775180085932,
-          "hitRate": 1.0
-        },
-        "756": {
-          "excess": 0.8054382561890978,
-          "hitRate": 0.5
         }
       }
     },
@@ -412,31 +333,31 @@ const APP_DATA = {
       "why": "This is one of the cleanest families in the model. Both the signal and the exposure mapping stay strong as the horizon extends.",
       "windows": {
         "5": {
-          "excess": -0.0026892089455251567,
-          "hitRate": 0.0
-        },
-        "20": {
-          "excess": 0.07956584267167877,
+          "excess": 0.01090390173653194,
           "hitRate": 1.0
         },
+        "20": {
+          "excess": 0.024215719000077573,
+          "hitRate": 0.5
+        },
         "60": {
-          "excess": 0.24445122195087476,
+          "excess": 0.1847058054754529,
           "hitRate": 1.0
         },
         "120": {
-          "excess": 0.48360499389300415,
+          "excess": 0.217919355654543,
           "hitRate": 1.0
         },
         "252": {
-          "excess": 0.9640402821946102,
+          "excess": 0.7347098588002149,
           "hitRate": 1.0
         },
         "504": {
-          "excess": 0.9353110334875464,
+          "excess": 0.7363198134199772,
           "hitRate": 1.0
         },
         "756": {
-          "excess": 0.6315288085630435,
+          "excess": 0.7049468392829985,
           "hitRate": 0.5
         }
       }
@@ -447,13 +368,13 @@ const APP_DATA = {
       "date": "2026-02-01",
       "trend": "protein soda",
       "category": "food",
-      "score": 51.5
+      "score": 57.2
     },
     {
       "date": "2025-09-01",
       "trend": "protein soda",
       "category": "food",
-      "score": 53.4
+      "score": 52.9
     },
     {
       "date": "2025-03-01",
@@ -474,22 +395,16 @@ const APP_DATA = {
       "score": 81.2
     },
     {
-      "date": "2023-03-01",
+      "date": "2023-02-01",
       "trend": "weight loss drugs",
       "category": "health",
-      "score": 61.5
+      "score": 57.1
     },
     {
       "date": "2022-10-01",
       "trend": "ozempic",
       "category": "health",
-      "score": 64.5
-    },
-    {
-      "date": "2016-12-01",
-      "trend": "ulta beauty",
-      "category": "beauty",
-      "score": 58.0
+      "score": 64.2
     }
   ],
   "exposures": [
@@ -502,9 +417,9 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Health-oriented beverage brand read-through.",
       "windows": {
-        "5": -0.10326386577273872,
-        "20": -0.12037744799446115,
-        "60": -0.3504262124646931,
+        "5": -0.10326382240811127,
+        "20": -0.12037744250085625,
+        "60": -0.3504262256297602,
         "120": null,
         "252": null,
         "504": null,
@@ -520,9 +435,9 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Functional beverage adjacency and innovation leverage.",
       "windows": {
-        "5": -0.03714066614781808,
-        "20": -0.06436044137838448,
-        "60": -0.03873648837091637,
+        "5": -0.037140622783190635,
+        "20": -0.06436043588477958,
+        "60": -0.038736501535983514,
         "120": null,
         "252": null,
         "504": null,
@@ -538,9 +453,9 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Better-for-you beverage adjacency and distribution scale.",
       "windows": {
-        "5": 0.03794139681897124,
-        "20": 0.024221276661879454,
-        "60": 0.022693914835803186,
+        "5": 0.037941440183598685,
+        "20": 0.024221282155484358,
+        "60": 0.02269390167073604,
         "120": null,
         "252": null,
         "504": null,
@@ -556,10 +471,10 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Health-oriented beverage brand read-through.",
       "windows": {
-        "5": -0.08843700508102781,
-        "20": -0.04223104109473608,
-        "60": -0.31665427005510915,
-        "120": -0.303408752985422,
+        "5": -0.08843698521662346,
+        "20": -0.04223097260490316,
+        "60": -0.31665427844167293,
+        "120": -0.3034087753272635,
         "252": null,
         "504": null,
         "756": null
@@ -574,10 +489,10 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Functional beverage adjacency and innovation leverage.",
       "windows": {
-        "5": 0.009858511130082404,
-        "20": 0.09564078855173097,
-        "60": 0.21934508928692986,
-        "120": 0.23559456045825722,
+        "5": 0.009858530994486747,
+        "20": 0.09564085704156389,
+        "60": 0.21934508090036609,
+        "120": 0.23559453811641573,
         "252": null,
         "504": null,
         "756": null
@@ -592,10 +507,10 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Better-for-you beverage adjacency and distribution scale.",
       "windows": {
-        "5": -0.03945450167501563,
-        "20": -0.03473367791169435,
-        "60": 0.007234992909537552,
-        "120": 0.021006301436895303,
+        "5": -0.03945447775067035,
+        "20": -0.03473381458682567,
+        "60": 0.007234986448036551,
+        "120": 0.021006157670115044,
         "252": null,
         "504": null,
         "756": null
@@ -610,11 +525,11 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Search and model platform response to generative AI adoption.",
       "windows": {
-        "5": 0.04324625169832352,
-        "20": -0.01781411986081538,
-        "60": -0.012313646261410405,
-        "120": 0.08317496002846547,
-        "252": 0.5871680350273039,
+        "5": 0.04324657185528524,
+        "20": -0.017814102086597283,
+        "60": -0.01231360838791784,
+        "120": 0.0831751858415759,
+        "252": 0.5871684839894693,
         "504": null,
         "756": null
       }
@@ -628,11 +543,11 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Platform distribution and enterprise AI monetization.",
       "windows": {
-        "5": 0.027486523845624666,
-        "20": 0.0214667699765696,
-        "60": 0.13390113721070063,
-        "120": 0.1564525435693993,
-        "252": -0.1839839319524117,
+        "5": 0.027486660840966293,
+        "20": 0.021466715128158786,
+        "60": 0.13390126387471146,
+        "120": 0.15645273510928237,
+        "252": -0.18398365033964126,
         "504": null,
         "756": null
       }
@@ -646,11 +561,11 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "AI compute demand and infrastructure bottleneck exposure.",
       "windows": {
-        "5": -0.013144037792708785,
-        "20": 0.005475974796388505,
-        "60": 0.1364942274113239,
-        "120": 0.4070066807084376,
-        "252": 0.3702267842464444,
+        "5": -0.013143967786578004,
+        "20": 0.0054759992751499675,
+        "60": 0.13649435407533472,
+        "120": 0.4070066589427268,
+        "252": 0.37022706585921483,
         "504": null,
         "756": null
       }
@@ -664,11 +579,11 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Direct robotaxi narrative and autonomy optionality exposure.",
       "windows": {
-        "5": -0.06908397690492529,
-        "20": -0.03343679524819665,
-        "60": 0.6578612578756193,
-        "120": 0.04482609439565377,
-        "252": 0.40580560325453807,
+        "5": -0.06908401302507794,
+        "20": -0.03343667520312077,
+        "60": 0.6578611158490526,
+        "120": 0.0448260509158247,
+        "252": 0.40580561897675826,
         "504": null,
         "756": null
       }
@@ -682,13 +597,13 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Search and model platform response to generative AI adoption.",
       "windows": {
-        "5": 0.02031654940951433,
-        "20": 0.04650381030825357,
-        "60": 0.19810690714385237,
-        "120": 0.17699095404383147,
-        "252": -0.023119793888516593,
-        "504": 0.17556468370139133,
-        "756": 1.2319207253350446
+        "5": 0.020316508520793253,
+        "20": 0.046504065146318,
+        "60": 0.19810697303252578,
+        "120": 0.1769913873849922,
+        "252": -0.023119963746151884,
+        "504": 0.17556491750899217,
+        "756": 1.2319209663851631
       }
     },
     {
@@ -700,13 +615,13 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Platform distribution and enterprise AI monetization.",
       "windows": {
-        "5": 0.00743674132688521,
-        "20": 0.0634709330446479,
-        "60": 0.15789147117462066,
-        "120": 0.06349945230186171,
-        "252": 0.160192857691696,
-        "504": -0.09188808067043941,
-        "756": -0.39677206569984347
+        "5": 0.007436787537911549,
+        "20": 0.06347130223120434,
+        "60": 0.15789170655179197,
+        "120": 0.06349958655652066,
+        "252": 0.16019283919359184,
+        "504": -0.09188786883867772,
+        "756": -0.39677171659405897
       }
     },
     {
@@ -718,17 +633,17 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "AI compute demand and infrastructure bottleneck exposure.",
       "windows": {
-        "5": 0.04278370240570961,
-        "20": 0.1134657730533366,
-        "60": 0.5051322961900644,
-        "120": 0.7610163401302803,
-        "252": 2.0857260586764568,
-        "504": 3.425453657521662,
-        "756": 5.745298961058829
+        "5": 0.04278357274468236,
+        "20": 0.11346592678968848,
+        "60": 0.5051323063164475,
+        "120": 0.7610165168698937,
+        "252": 2.085726090633906,
+        "504": 3.4254534557846688,
+        "756": 5.745298541667986
       }
     },
     {
-      "date": "2023-03-01",
+      "date": "2023-02-01",
       "trend": "weight loss drugs",
       "category": "health",
       "benchmark": "XLV",
@@ -736,17 +651,17 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Large-cap anti-obesity leadership and prescribing leverage.",
       "windows": {
-        "5": -0.0003832812742082803,
-        "20": 0.0616911335607615,
-        "60": 0.35319774289697836,
-        "120": 0.7130886896311248,
-        "252": 1.3384250117483103,
-        "504": 1.7857735444229732,
-        "756": 1.958843172620202
+        "5": 0.0064208025235382715,
+        "20": -0.030713232927104706,
+        "60": 0.15884428444380538,
+        "120": 0.31024445758861163,
+        "252": 0.8907658326462213,
+        "504": 1.3545616860747949,
+        "756": 1.9261217896359248
       }
     },
     {
-      "date": "2023-03-01",
+      "date": "2023-02-01",
       "trend": "weight loss drugs",
       "category": "health",
       "benchmark": "XLV",
@@ -754,13 +669,13 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Large-cap anti-obesity leadership and prescribing leverage.",
       "windows": {
-        "5": -0.004995136616842033,
-        "20": 0.09744055178259603,
-        "60": 0.13570470100477117,
-        "120": 0.2541212981548835,
-        "252": 0.5896555526409102,
-        "504": 0.08484852255211961,
-        "756": -0.6957855554941149
+        "5": 0.015387000949525609,
+        "20": 0.07914467092725985,
+        "60": 0.21056732650710042,
+        "120": 0.1255942537204744,
+        "252": 0.5786538849542084,
+        "504": 0.11807794076515954,
+        "756": -0.5162281110699278
       }
     },
     {
@@ -772,13 +687,13 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Direct obesity and diabetes drug exposure.",
       "windows": {
-        "5": 0.021435679670503305,
-        "20": 0.05204725418477163,
-        "60": 0.043302752317669224,
-        "120": 0.0044108913502725056,
-        "252": 0.618490113257913,
-        "504": 1.5409402452236147,
-        "756": 1.4682597259784373
+        "5": 0.02143561153500617,
+        "20": 0.05204764536796813,
+        "60": 0.04330287351941253,
+        "120": 0.004410675317623403,
+        "252": 0.6184898287079705,
+        "504": 1.5409403505809323,
+        "756": 1.4682597412170606
       }
     },
     {
@@ -790,49 +705,13 @@ const APP_DATA = {
       "role": "beneficiary",
       "rationale": "Direct obesity and diabetes drug exposure.",
       "windows": {
-        "5": 0.02683519131754797,
-        "20": -0.0126934480998242,
-        "60": 0.20661508108727822,
-        "120": 0.4781669081298119,
-        "252": 0.7066615972204162,
-        "504": 1.0323588189367041,
-        "756": -0.005392646924987421
-      }
-    },
-    {
-      "date": "2016-12-01",
-      "trend": "ulta beauty",
-      "category": "beauty",
-      "benchmark": "XRT",
-      "ticker": "EL",
-      "role": "beneficiary",
-      "rationale": "Prestige beauty demand and category read-through.",
-      "windows": {
-        "5": -0.013702813487660004,
-        "20": 0.03617186528825078,
-        "60": 0.1662743241421767,
-        "120": 0.3360149090473774,
-        "252": 0.6958890496196246,
-        "504": 0.9990782563480085,
-        "756": 1.689943287494941
-      }
-    },
-    {
-      "date": "2016-12-01",
-      "trend": "ulta beauty",
-      "category": "beauty",
-      "benchmark": "XRT",
-      "ticker": "ULTA",
-      "role": "beneficiary",
-      "rationale": "Direct prestige beauty retail exposure.",
-      "windows": {
-        "5": -0.07423437821686052,
-        "20": 0.018936175741528616,
-        "60": 0.12221762918713797,
-        "120": 0.23651603902323703,
-        "252": -0.1450068211717973,
-        "504": 0.12807677966917796,
-        "756": -0.07906677511674542
+        "5": 0.026835384305788135,
+        "20": -0.012693183007093323,
+        "60": 0.2066154057635019,
+        "120": 0.47816691328941885,
+        "252": 0.7066614886821381,
+        "504": 1.0323589485585565,
+        "756": -0.005392532416764517
       }
     }
   ]
