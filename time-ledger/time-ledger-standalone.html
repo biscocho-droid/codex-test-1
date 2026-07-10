@@ -27,7 +27,7 @@
 }
 
 html {
-  min-width: 1120px;
+  min-width: 1180px;
   background: #edf3f6;
 }
 
@@ -67,9 +67,9 @@ button.primary {
 }
 
 .shell {
-  width: min(1440px, calc(100vw - 40px));
+  width: min(1720px, calc(100vw - 48px));
   margin: 0 auto;
-  padding: 26px 0 40px;
+  padding: 24px 0 42px;
 }
 
 .topbar {
@@ -179,7 +179,7 @@ h1 {
 
 .main-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
   gap: 16px;
 }
@@ -233,7 +233,7 @@ h2 {
 }
 
 .timeline-card {
-  padding: 18px;
+  padding: 18px 20px 20px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -252,7 +252,7 @@ h2 {
 
 .track {
   position: relative;
-  min-height: 84px;
+  min-height: 96px;
   border: 1px solid #cfd9e0;
   border-radius: 8px;
   overflow: hidden;
@@ -264,9 +264,9 @@ h2 {
 
 .time-block {
   position: absolute;
-  top: 12px;
+  top: 16px;
   min-width: 18px;
-  height: 58px;
+  height: 64px;
   border-radius: 7px;
   color: #fff;
   padding: 9px 10px;
@@ -321,10 +321,10 @@ h2 {
 
 table {
   width: 100%;
-  min-width: 960px;
+  min-width: 1180px;
   border-collapse: collapse;
   table-layout: fixed;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 th,
@@ -361,7 +361,7 @@ td select,
 .code-card input {
   width: 100%;
   min-width: 0;
-  height: 32px;
+  height: 34px;
   border: 1px solid #d4dee5;
   border-radius: 6px;
   padding: 0 8px;
@@ -373,14 +373,14 @@ td select {
   font-weight: 800;
 }
 
-.col-num { width: 44px; }
-.col-time { width: 86px; }
-.col-hours { width: 62px; }
-.col-code { width: 120px; }
-.col-extension { width: 90px; }
-.col-description { width: 180px; }
-.col-type { width: 100px; }
-.col-notes { width: 150px; }
+.col-num { width: 46px; }
+.col-time { width: 100px; }
+.col-hours { width: 72px; }
+.col-code { width: 142px; }
+.col-extension { width: 112px; }
+.col-description { width: 230px; }
+.col-type { width: 130px; }
+.col-notes { width: 230px; }
 .col-action { width: 44px; }
 
 .hours-cell {
@@ -396,6 +396,8 @@ td select {
 
 .side-stack {
   display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(320px, .75fr);
+  align-items: start;
   gap: 16px;
 }
 
@@ -404,11 +406,17 @@ td select {
   padding: 16px;
 }
 
+.code-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(210px, 1fr));
+  gap: 12px;
+}
+
 .code-card {
   border: 1px solid #e1e8ed;
   border-radius: 8px;
   padding: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
   background: #fff;
 }
 
@@ -486,6 +494,20 @@ td select {
   transform: translateY(0);
 }
 
+@media (max-width: 1280px) {
+  .shell {
+    width: calc(100vw - 32px);
+  }
+
+  .stats {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .code-list {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
 @media (max-width: 900px) {
   html {
     min-width: 0;
@@ -505,11 +527,16 @@ td select {
   .actions {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .stats,
-  .main-grid {
+  .main-grid,
+  .side-stack {
+    grid-template-columns: 1fr;
+  }
+
+  .code-list {
     grid-template-columns: 1fr;
   }
 
