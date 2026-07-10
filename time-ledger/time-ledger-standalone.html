@@ -540,6 +540,7 @@ td select {
         </div>
         <div class="actions">
           <button type="button" id="addEntryButton">Add Entry</button>
+          <button type="button" id="resetDayButton">Reset Day</button>
           <button type="button" id="copyButton">Copy Timesheet</button>
           <button type="button" class="primary" id="saveButton">Save Day</button>
         </div>
@@ -789,6 +790,7 @@ const els = {
   codeList: document.querySelector("#codeList"),
   weekList: document.querySelector("#weekList"),
   addEntryButton: document.querySelector("#addEntryButton"),
+  resetDayButton: document.querySelector("#resetDayButton"),
   copyButton: document.querySelector("#copyButton"),
   saveButton: document.querySelector("#saveButton"),
   addCodeButton: document.querySelector("#addCodeButton"),
@@ -1316,6 +1318,13 @@ function saveDay() {
   showToast("Day saved");
 }
 
+function resetDay() {
+  currentEntries().splice(0);
+  persistState();
+  renderAll();
+  showToast("Daily time allocation reset");
+}
+
 function clearWeek() {
   const base = dateFromValue(state.selectedDate);
   const monday = new Date(base);
@@ -1354,6 +1363,7 @@ els.workDate.addEventListener("change", () => {
 });
 
 els.addEntryButton.addEventListener("click", addEntry);
+els.resetDayButton.addEventListener("click", resetDay);
 els.addCodeButton.addEventListener("click", addCode);
 els.copyButton.addEventListener("click", copyTimesheet);
 els.saveButton.addEventListener("click", saveDay);
