@@ -7,6 +7,12 @@ stores evidence in SQLite, scores candidates, and generates an HTML report.
 
 This is a research tool, not a buy/sell recommendation engine.
 
+## Time Ledger
+
+The `time-ledger/` folder contains a standalone HTML time-reporting app for
+daily charge-code tracking. Open `time-ledger/index.html` in a browser to use
+the app locally.
+
 ## Setup
 
 ```powershell

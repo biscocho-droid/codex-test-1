@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#102a43">
+    <title>Time Ledger</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="mark" aria-hidden="true">TL</div>
+          <div>
+            <h1>Time Ledger</h1>
+            <p>Daily charge-code tracker with exact minutes, extensions, notes, and weekly review.</p>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="button" id="addEntryButton">Add Entry</button>
+          <button type="button" id="copyButton">Copy Timesheet</button>
+          <button type="button" class="primary" id="saveButton">Save Day</button>
+        </div>
+      </header>
+
+      <section class="stats" aria-label="Daily status">
+        <article class="stat">
+          <span>Selected Day</span>
+          <strong id="selectedDayLabel">-</strong>
+          <small>Core window: 6:00 AM to 6:00 PM</small>
+        </article>
+        <article class="stat good">
+          <span>Logged</span>
+          <strong id="loggedHours">0.00h</strong>
+          <small id="loggedMinutes">0 minutes entered</small>
+        </article>
+        <article class="stat">
+          <span>Remaining</span>
+          <strong id="remainingHours">9.00h</strong>
+          <small>Target: 9.00 hours</small>
+        </article>
+        <article class="stat">
+          <span>Charge Codes</span>
+          <strong id="chargeCount">0</strong>
+          <small id="extensionCount">0 extensions used</small>
+        </article>
+        <article class="stat">
+          <span>Status</span>
+          <strong id="statusLabel">Open</strong>
+          <small id="statusDetail">Start entering time.</small>
+        </article>
+      </section>
+
+      <section class="main-grid">
+        <section class="workspace panel">
+          <div class="panel-head">
+            <div>
+              <h2>Daily Time Allocation</h2>
+              <p>Edit rows or drag the blocks. Times snap to five-minute increments.</p>
+            </div>
+            <label class="date-control">
+              <span>Date</span>
+              <input id="workDate" type="date">
+            </label>
+          </div>
+
+          <section class="timeline-card" aria-label="Visual timeline">
+            <div class="time-scale" aria-hidden="true">
+              <span>6 AM</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12 PM</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6 PM</span>
+            </div>
+            <div class="track-wrap">
+              <div class="track" id="timelineTrack"></div>
+            </div>
+          </section>
+
+          <div class="table-wrap">
+            <table>
+              <colgroup>
+                <col class="col-num">
+                <col class="col-time">
+                <col class="col-time">
+                <col class="col-hours">
+                <col class="col-code">
+                <col class="col-extension">
+                <col class="col-description">
+                <col class="col-type">
+                <col class="col-notes">
+                <col class="col-action">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>Hours</th>
+                  <th>Charge Code</th>
+                  <th>Extension</th>
+                  <th>Description</th>
+                  <th>Work Type</th>
+                  <th>Notes</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="entryRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="side-stack">
+          <section class="panel">
+            <div class="panel-head compact">
+              <h2>Charge Code Library</h2>
+              <button type="button" id="addCodeButton">Add Code</button>
+            </div>
+            <div class="code-list" id="codeList"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head compact">
+              <h2>Week Review</h2>
+              <button type="button" id="clearWeekButton">Clear</button>
+            </div>
+            <div class="week-list" id="weekList"></div>
+          </section>
+        </aside>
+      </section>
+
+      <section class="panel submit-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Submit View</h2>
+            <p>Clean rollup for copying into a time-reporting system.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Charge Code</th>
+                <th>Extension</th>
+                <th>Hours</th>
+                <th>Description</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody id="submitRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <template id="codeCardTemplate">
+      <article class="code-card">
+        <div class="code-topline">
+          <input class="code-name" aria-label="Charge code">
+          <input class="code-extension" aria-label="Extension">
+        </div>
+        <input class="code-description" aria-label="Description">
+        <div class="code-bottomline">
+          <input class="code-type" aria-label="Work type">
+          <input class="code-color" type="color" aria-label="Color">
+          <button type="button" class="remove-code">Remove</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
