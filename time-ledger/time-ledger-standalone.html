@@ -1,0 +1,1366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#102a43">
+    <title>Time Ledger</title>
+    <style>
+:root {
+  --ink: #16202a;
+  --muted: #607080;
+  --line: #d8e2e8;
+  --soft-line: #e8eef2;
+  --paper: #f5f8f8;
+  --panel: #ffffff;
+  --navy: #102a43;
+  --teal: #168a8f;
+  --green: #2f9d63;
+  --gold: #d89a26;
+  --rose: #c8566d;
+  --violet: #7c5cc4;
+  --shadow: 0 16px 34px rgba(38, 51, 61, .08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 1120px;
+  background: #edf3f6;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #edf3f6 0%, #f9faf9 44%, #f2f5f3 100%);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  min-height: 40px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 8px;
+  font-weight: 800;
+  padding: 0 14px;
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(16, 42, 67, .05);
+}
+
+button:hover {
+  border-color: #b9c8d0;
+}
+
+button.primary {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+
+.shell {
+  width: min(1440px, calc(100vw - 40px));
+  margin: 0 auto;
+  padding: 26px 0 40px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mark {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 0;
+  box-shadow: 0 12px 30px rgba(16, 42, 67, .18);
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 29px;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.brand p,
+.panel-head p {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1.18fr .78fr .78fr .78fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px 16px;
+  min-height: 92px;
+  box-shadow: 0 10px 24px rgba(42, 52, 61, .06);
+}
+
+.stat span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 8px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.stat small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.stat.good strong,
+.stat.ready strong {
+  color: var(--green);
+}
+
+.stat.warn strong {
+  color: var(--gold);
+}
+
+.stat.danger strong {
+  color: var(--rose);
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  align-items: start;
+  gap: 16px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  background: #fbfcfd;
+}
+
+.panel-head.compact {
+  min-height: 52px;
+}
+
+h2 {
+  font-size: 16px;
+  letter-spacing: 0;
+}
+
+.date-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.date-control input {
+  height: 40px;
+  border: 1px solid #c8d6dd;
+  border-radius: 8px;
+  padding: 0 12px;
+  color: var(--navy);
+  font-weight: 800;
+  background: #fff;
+}
+
+.timeline-card {
+  padding: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.time-scale {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  color: #536575;
+  font-size: 12px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.track-wrap {
+  padding-bottom: 2px;
+}
+
+.track {
+  position: relative;
+  min-height: 84px;
+  border: 1px solid #cfd9e0;
+  border-radius: 8px;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(90deg, #e6edf1 0, #e6edf1 1px, transparent 1px, transparent calc(100% / 12)),
+    linear-gradient(180deg, #fbfdfd, #f4f7f7);
+  touch-action: none;
+}
+
+.time-block {
+  position: absolute;
+  top: 12px;
+  min-width: 18px;
+  height: 58px;
+  border-radius: 7px;
+  color: #fff;
+  padding: 9px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: grab;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .14), 0 8px 18px rgba(16, 42, 67, .13);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.time-block:active {
+  cursor: grabbing;
+}
+
+.time-block strong {
+  font-size: 13px;
+  line-height: 1.08;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.time-block span {
+  margin-top: 5px;
+  font-size: 11px;
+  opacity: .92;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resize-handle {
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 100%;
+}
+
+.resize-handle.left {
+  left: 0;
+  cursor: w-resize;
+}
+
+.resize-handle.right {
+  right: 0;
+  cursor: e-resize;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 960px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 13px;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--soft-line);
+  padding: 10px 9px;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+th:last-child,
+td:last-child {
+  overflow: visible;
+  text-overflow: clip;
+}
+
+th {
+  color: #526271;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  background: #fbfcfd;
+}
+
+tbody tr:hover {
+  background: #f8fbfb;
+}
+
+td input,
+td select,
+.code-card input {
+  width: 100%;
+  min-width: 0;
+  height: 32px;
+  border: 1px solid #d4dee5;
+  border-radius: 6px;
+  padding: 0 8px;
+  color: var(--ink);
+  background: #fff;
+}
+
+td select {
+  font-weight: 800;
+}
+
+.col-num { width: 44px; }
+.col-time { width: 86px; }
+.col-hours { width: 62px; }
+.col-code { width: 120px; }
+.col-extension { width: 90px; }
+.col-description { width: 180px; }
+.col-type { width: 100px; }
+.col-notes { width: 150px; }
+.col-action { width: 44px; }
+
+.hours-cell {
+  font-weight: 800;
+}
+
+.delete-entry {
+  width: 30px;
+  min-height: 32px;
+  padding: 0;
+  color: var(--rose);
+}
+
+.side-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.code-list,
+.week-list {
+  padding: 16px;
+}
+
+.code-card {
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+
+.code-topline,
+.code-bottomline {
+  display: grid;
+  grid-template-columns: 1fr 74px;
+  gap: 8px;
+  align-items: center;
+}
+
+.code-description {
+  margin: 8px 0;
+}
+
+.code-bottomline {
+  grid-template-columns: 1fr 42px 82px;
+}
+
+.code-color {
+  padding: 2px;
+}
+
+.remove-code {
+  min-height: 32px;
+  padding: 0 8px;
+  color: var(--rose);
+  font-size: 12px;
+}
+
+.week-row {
+  display: grid;
+  grid-template-columns: 38px 1fr 48px;
+  align-items: center;
+  gap: 10px;
+  min-height: 25px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.mini-track {
+  height: 11px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #e9eef2;
+  display: flex;
+}
+
+.mini-segment {
+  height: 100%;
+}
+
+.submit-panel {
+  margin-top: 16px;
+}
+
+.toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 10;
+  background: var(--navy);
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 16px 34px rgba(16, 42, 67, .24);
+  font-weight: 800;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  html {
+    min-width: 0;
+  }
+
+  .shell {
+    width: calc(100vw - 24px);
+    padding: 16px 0 28px;
+  }
+
+  .topbar,
+  .panel-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .stats,
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .track {
+    min-width: 760px;
+  }
+
+  .timeline-card {
+    overflow-x: auto;
+  }
+
+  .time-scale {
+    min-width: 760px;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="mark" aria-hidden="true">TL</div>
+          <div>
+            <h1>Time Ledger</h1>
+            <p>Daily charge-code tracker with exact minutes, extensions, notes, and weekly review.</p>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="button" id="addEntryButton">Add Entry</button>
+          <button type="button" id="copyButton">Copy Timesheet</button>
+          <button type="button" class="primary" id="saveButton">Save Day</button>
+        </div>
+      </header>
+
+      <section class="stats" aria-label="Daily status">
+        <article class="stat">
+          <span>Selected Day</span>
+          <strong id="selectedDayLabel">-</strong>
+          <small>Core window: 6:00 AM to 6:00 PM</small>
+        </article>
+        <article class="stat good">
+          <span>Logged</span>
+          <strong id="loggedHours">0.00h</strong>
+          <small id="loggedMinutes">0 minutes entered</small>
+        </article>
+        <article class="stat">
+          <span>Remaining</span>
+          <strong id="remainingHours">9.00h</strong>
+          <small>Target: 9.00 hours</small>
+        </article>
+        <article class="stat">
+          <span>Charge Codes</span>
+          <strong id="chargeCount">0</strong>
+          <small id="extensionCount">0 extensions used</small>
+        </article>
+        <article class="stat">
+          <span>Status</span>
+          <strong id="statusLabel">Open</strong>
+          <small id="statusDetail">Start entering time.</small>
+        </article>
+      </section>
+
+      <section class="main-grid">
+        <section class="workspace panel">
+          <div class="panel-head">
+            <div>
+              <h2>Daily Time Allocation</h2>
+              <p>Edit rows or drag the blocks. Times snap to five-minute increments.</p>
+            </div>
+            <label class="date-control">
+              <span>Date</span>
+              <input id="workDate" type="date">
+            </label>
+          </div>
+
+          <section class="timeline-card" aria-label="Visual timeline">
+            <div class="time-scale" aria-hidden="true">
+              <span>6 AM</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12 PM</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6 PM</span>
+            </div>
+            <div class="track-wrap">
+              <div class="track" id="timelineTrack"></div>
+            </div>
+          </section>
+
+          <div class="table-wrap">
+            <table>
+              <colgroup>
+                <col class="col-num">
+                <col class="col-time">
+                <col class="col-time">
+                <col class="col-hours">
+                <col class="col-code">
+                <col class="col-extension">
+                <col class="col-description">
+                <col class="col-type">
+                <col class="col-notes">
+                <col class="col-action">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>Hours</th>
+                  <th>Charge Code</th>
+                  <th>Extension</th>
+                  <th>Description</th>
+                  <th>Work Type</th>
+                  <th>Notes</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="entryRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="side-stack">
+          <section class="panel">
+            <div class="panel-head compact">
+              <h2>Charge Code Library</h2>
+              <button type="button" id="addCodeButton">Add Code</button>
+            </div>
+            <div class="code-list" id="codeList"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head compact">
+              <h2>Week Review</h2>
+              <button type="button" id="clearWeekButton">Clear</button>
+            </div>
+            <div class="week-list" id="weekList"></div>
+          </section>
+        </aside>
+      </section>
+
+      <section class="panel submit-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Submit View</h2>
+            <p>Clean rollup for copying into a time-reporting system.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Charge Code</th>
+                <th>Extension</th>
+                <th>Hours</th>
+                <th>Description</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody id="submitRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <template id="codeCardTemplate">
+      <article class="code-card">
+        <div class="code-topline">
+          <input class="code-name" aria-label="Charge code">
+          <input class="code-extension" aria-label="Extension">
+        </div>
+        <input class="code-description" aria-label="Description">
+        <div class="code-bottomline">
+          <input class="code-type" aria-label="Work type">
+          <input class="code-color" type="color" aria-label="Color">
+          <button type="button" class="remove-code">Remove</button>
+        </div>
+      </article>
+    </template>
+    <script>
+const DAY_START = 6 * 60;
+const DAY_END = 18 * 60;
+const DAY_MINUTES = DAY_END - DAY_START;
+const TARGET_MINUTES = 9 * 60;
+const SNAP_MINUTES = 5;
+const STORAGE_KEY = "time-ledger-state-v1";
+
+const defaultCodes = [
+  {
+    code: "PRG-A",
+    extension: "01",
+    description: "Program A support",
+    type: "Admin",
+    color: "#168a8f"
+  },
+  {
+    code: "ENG-204",
+    extension: "EXT-17",
+    description: "Engineering execution",
+    type: "Build",
+    color: "#7c5cc4"
+  },
+  {
+    code: "OPS-711",
+    extension: "",
+    description: "Operations sync",
+    type: "Meeting",
+    color: "#d89a26"
+  },
+  {
+    code: "QA-332",
+    extension: "R2",
+    description: "Quality review",
+    type: "Review",
+    color: "#c8566d"
+  }
+];
+
+const demoEntries = [
+  {
+    start: "6:00 AM",
+    end: "6:45 AM",
+    code: "PRG-A",
+    extension: "01",
+    description: "Program A support",
+    type: "Admin",
+    notes: "Morning planning"
+  },
+  {
+    start: "6:45 AM",
+    end: "9:45 AM",
+    code: "ENG-204",
+    extension: "EXT-17",
+    description: "Engineering execution",
+    type: "Build",
+    notes: "Design review and implementation"
+  },
+  {
+    start: "9:45 AM",
+    end: "10:15 AM",
+    code: "OPS-711",
+    extension: "",
+    description: "Operations sync",
+    type: "Meeting",
+    notes: "Daily coordination"
+  },
+  {
+    start: "10:15 AM",
+    end: "10:35 AM",
+    code: "QA-332",
+    extension: "R2",
+    description: "Quality review",
+    type: "Review",
+    notes: "Ticket validation"
+  },
+  {
+    start: "10:35 AM",
+    end: "3:00 PM",
+    code: "ENG-204",
+    extension: "EXT-17",
+    description: "Engineering execution",
+    type: "Build",
+    notes: "Feature completion"
+  }
+];
+
+const els = {
+  selectedDayLabel: document.querySelector("#selectedDayLabel"),
+  loggedHours: document.querySelector("#loggedHours"),
+  loggedMinutes: document.querySelector("#loggedMinutes"),
+  remainingHours: document.querySelector("#remainingHours"),
+  chargeCount: document.querySelector("#chargeCount"),
+  extensionCount: document.querySelector("#extensionCount"),
+  statusLabel: document.querySelector("#statusLabel"),
+  statusDetail: document.querySelector("#statusDetail"),
+  workDate: document.querySelector("#workDate"),
+  timelineTrack: document.querySelector("#timelineTrack"),
+  entryRows: document.querySelector("#entryRows"),
+  submitRows: document.querySelector("#submitRows"),
+  codeList: document.querySelector("#codeList"),
+  weekList: document.querySelector("#weekList"),
+  addEntryButton: document.querySelector("#addEntryButton"),
+  copyButton: document.querySelector("#copyButton"),
+  saveButton: document.querySelector("#saveButton"),
+  addCodeButton: document.querySelector("#addCodeButton"),
+  clearWeekButton: document.querySelector("#clearWeekButton"),
+  codeCardTemplate: document.querySelector("#codeCardTemplate")
+};
+
+let state = loadState();
+let toastTimer = 0;
+
+function loadState() {
+  const today = new Date().toISOString().slice(0, 10);
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (saved && Array.isArray(saved.codes) && saved.days) {
+      return {
+        selectedDate: saved.selectedDate || today,
+        codes: saved.codes.length ? saved.codes : defaultCodes,
+        days: saved.days
+      };
+    }
+  } catch {
+    localStorage.removeItem(STORAGE_KEY);
+  }
+
+  return {
+    selectedDate: today,
+    codes: structuredClone(defaultCodes),
+    days: {
+      [today]: structuredClone(demoEntries)
+    }
+  };
+}
+
+function persistState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function currentEntries() {
+  if (!state.days[state.selectedDate]) {
+    state.days[state.selectedDate] = [];
+  }
+  return state.days[state.selectedDate];
+}
+
+function parseTime(value) {
+  if (!value || !String(value).trim()) return null;
+  const cleaned = String(value).trim().toUpperCase().replace(/\s+/g, " ");
+  const match = cleaned.match(/^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)$/);
+  if (!match) return null;
+
+  let hours = Number(match[1]);
+  const minutes = Number(match[2] || 0);
+  const period = match[3];
+
+  if (hours < 1 || hours > 12 || minutes < 0 || minutes > 59) return null;
+  if (period === "AM" && hours === 12) hours = 0;
+  if (period === "PM" && hours !== 12) hours += 12;
+  return hours * 60 + minutes;
+}
+
+function formatTime(totalMinutes) {
+  const clamped = Math.max(0, Math.min(24 * 60 - 1, Math.round(totalMinutes)));
+  const hours24 = Math.floor(clamped / 60);
+  const minutes = clamped % 60;
+  const period = hours24 >= 12 ? "PM" : "AM";
+  const hours12 = hours24 % 12 || 12;
+  return `${hours12}:${String(minutes).padStart(2, "0")} ${period}`;
+}
+
+function formatDateLabel(dateValue) {
+  const [year, month, day] = dateValue.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+  return date.toLocaleDateString(undefined, {
+    weekday: "short",
+    month: "short",
+    day: "numeric"
+  });
+}
+
+function hoursFromMinutes(minutes) {
+  return `${(minutes / 60).toFixed(2)}h`;
+}
+
+function roundToSnap(minutes) {
+  return Math.round(minutes / SNAP_MINUTES) * SNAP_MINUTES;
+}
+
+function codeByName(name) {
+  return state.codes.find((item) => item.code === name);
+}
+
+function normalizeEntry(entry) {
+  const code = codeByName(entry.code);
+  if (!code) return entry;
+  return {
+    ...entry,
+    extension: entry.extension || code.extension,
+    description: entry.description || code.description,
+    type: entry.type || code.type
+  };
+}
+
+function entryBounds(entry) {
+  const start = parseTime(entry.start);
+  const end = parseTime(entry.end);
+  if (start === null || end === null || end <= start) return null;
+  return { start, end, duration: end - start };
+}
+
+function validEntries() {
+  return currentEntries()
+    .map((entry, index) => ({ ...normalizeEntry(entry), index, bounds: entryBounds(entry) }))
+    .filter((entry) => entry.bounds);
+}
+
+function renderAll() {
+  persistState();
+  renderHeader();
+  renderCodes();
+  renderEntries();
+  renderTimeline();
+  renderSubmit();
+  renderWeek();
+}
+
+function renderHeader() {
+  const entries = validEntries();
+  const totalMinutes = entries.reduce((sum, entry) => sum + entry.bounds.duration, 0);
+  const remaining = TARGET_MINUTES - totalMinutes;
+  const codes = new Set(entries.map((entry) => entry.code).filter(Boolean));
+  const extensions = new Set(entries.map((entry) => entry.extension).filter(Boolean));
+  const issues = findIssues(entries);
+
+  els.selectedDayLabel.textContent = formatDateLabel(state.selectedDate);
+  els.loggedHours.textContent = hoursFromMinutes(totalMinutes);
+  els.loggedMinutes.textContent = `${totalMinutes} minutes entered`;
+  els.remainingHours.textContent = hoursFromMinutes(Math.abs(remaining));
+  els.chargeCount.textContent = codes.size;
+  els.extensionCount.textContent = `${extensions.size} extensions used`;
+
+  const remainingStat = els.remainingHours.closest(".stat");
+  remainingStat.className = "stat";
+  if (remaining === 0) remainingStat.classList.add("good");
+  if (remaining < 0) remainingStat.classList.add("danger");
+  if (remaining > 0) remainingStat.classList.add("warn");
+
+  const statusStat = els.statusLabel.closest(".stat");
+  statusStat.className = "stat";
+
+  if (issues.length) {
+    statusStat.classList.add("danger");
+    els.statusLabel.textContent = "Review";
+    els.statusDetail.textContent = issues[0];
+  } else if (totalMinutes === TARGET_MINUTES) {
+    statusStat.classList.add("ready");
+    els.statusLabel.textContent = "Ready";
+    els.statusDetail.textContent = "No gaps or overlaps found.";
+  } else {
+    statusStat.classList.add("warn");
+    els.statusLabel.textContent = totalMinutes > TARGET_MINUTES ? "Over" : "Short";
+    els.statusDetail.textContent = totalMinutes > TARGET_MINUTES
+      ? `Over target by ${hoursFromMinutes(totalMinutes - TARGET_MINUTES)}.`
+      : `Short by ${hoursFromMinutes(TARGET_MINUTES - totalMinutes)}.`;
+  }
+}
+
+function findIssues(entries) {
+  const issues = [];
+  const ordered = [...entries].sort((a, b) => a.bounds.start - b.bounds.start);
+
+  for (const entry of ordered) {
+    if (entry.bounds.start < DAY_START || entry.bounds.end > DAY_END) {
+      issues.push("One or more entries are outside the 6 AM to 6 PM window.");
+      break;
+    }
+  }
+
+  for (let index = 1; index < ordered.length; index += 1) {
+    if (ordered[index].bounds.start < ordered[index - 1].bounds.end) {
+      issues.push("Entries overlap. Adjust the highlighted time range.");
+      break;
+    }
+  }
+
+  return issues;
+}
+
+function renderCodes() {
+  els.codeList.replaceChildren();
+
+  state.codes.forEach((code, index) => {
+    const card = els.codeCardTemplate.content.firstElementChild.cloneNode(true);
+    const codeInput = card.querySelector(".code-name");
+    const extensionInput = card.querySelector(".code-extension");
+    const descriptionInput = card.querySelector(".code-description");
+    const typeInput = card.querySelector(".code-type");
+    const colorInput = card.querySelector(".code-color");
+    const removeButton = card.querySelector(".remove-code");
+
+    codeInput.value = code.code;
+    extensionInput.value = code.extension;
+    descriptionInput.value = code.description;
+    typeInput.value = code.type;
+    colorInput.value = code.color;
+
+    codeInput.addEventListener("change", () => {
+      const previousCode = state.codes[index].code;
+      const nextCode = codeInput.value.trim().toUpperCase() || previousCode;
+      state.codes[index].code = nextCode;
+      currentEntries().forEach((entry) => {
+        if (entry.code === previousCode) entry.code = nextCode;
+      });
+      renderAll();
+    });
+
+    extensionInput.addEventListener("input", () => {
+      state.codes[index].extension = extensionInput.value.trim();
+      syncEntriesForCode(state.codes[index]);
+      renderAll();
+    });
+
+    descriptionInput.addEventListener("input", () => {
+      state.codes[index].description = descriptionInput.value;
+      syncEntriesForCode(state.codes[index]);
+      renderAll();
+    });
+
+    typeInput.addEventListener("input", () => {
+      state.codes[index].type = typeInput.value;
+      syncEntriesForCode(state.codes[index]);
+      renderAll();
+    });
+
+    colorInput.addEventListener("input", () => {
+      state.codes[index].color = colorInput.value;
+      renderAll();
+    });
+
+    removeButton.addEventListener("click", () => {
+      state.codes.splice(index, 1);
+      renderAll();
+    });
+
+    els.codeList.append(card);
+  });
+}
+
+function syncEntriesForCode(code) {
+  currentEntries().forEach((entry) => {
+    if (entry.code === code.code) {
+      entry.extension = code.extension;
+      entry.description = code.description;
+      entry.type = code.type;
+    }
+  });
+}
+
+function renderEntries() {
+  els.entryRows.replaceChildren();
+  const entries = currentEntries();
+
+  entries.forEach((entry, index) => {
+    const row = document.createElement("tr");
+    const bounds = entryBounds(entry);
+    const hours = bounds ? (bounds.duration / 60).toFixed(2) : "";
+
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td><input data-field="start" aria-label="Entry ${index + 1} start"></td>
+      <td><input data-field="end" aria-label="Entry ${index + 1} end"></td>
+      <td class="hours-cell">${hours}</td>
+      <td><select data-field="code" aria-label="Entry ${index + 1} charge code"></select></td>
+      <td><input data-field="extension" aria-label="Entry ${index + 1} extension"></td>
+      <td><input data-field="description" aria-label="Entry ${index + 1} description"></td>
+      <td><input data-field="type" aria-label="Entry ${index + 1} work type"></td>
+      <td><input data-field="notes" aria-label="Entry ${index + 1} notes"></td>
+      <td><button type="button" class="delete-entry" aria-label="Delete entry ${index + 1}">X</button></td>
+    `;
+
+    row.querySelectorAll("input").forEach((input) => {
+      const field = input.dataset.field;
+      input.value = entry[field] || "";
+      input.addEventListener("change", () => {
+        entry[field] = input.value.trim();
+        renderAll();
+      });
+    });
+
+    const select = row.querySelector("select");
+    select.append(new Option("Select", ""));
+    state.codes.forEach((code) => select.append(new Option(code.code, code.code)));
+    select.value = entry.code || "";
+    select.addEventListener("change", () => {
+      entry.code = select.value;
+      const code = codeByName(entry.code);
+      if (code) {
+        entry.extension = code.extension;
+        entry.description = code.description;
+        entry.type = code.type;
+      }
+      renderAll();
+    });
+
+    row.querySelector(".delete-entry").addEventListener("click", () => {
+      entries.splice(index, 1);
+      renderAll();
+    });
+
+    els.entryRows.append(row);
+  });
+}
+
+function renderTimeline() {
+  els.timelineTrack.replaceChildren();
+
+  validEntries().forEach((entry) => {
+    const code = codeByName(entry.code);
+    const left = ((entry.bounds.start - DAY_START) / DAY_MINUTES) * 100;
+    const width = (entry.bounds.duration / DAY_MINUTES) * 100;
+    const block = document.createElement("div");
+
+    block.className = "time-block";
+    block.style.left = `${Math.max(0, left)}%`;
+    block.style.width = `${Math.max(1.2, width)}%`;
+    block.style.background = code?.color || "#607080";
+    block.dataset.index = entry.index;
+    block.innerHTML = `
+      <strong>${entry.code || "No code"}${entry.extension ? ` / ${entry.extension}` : ""}</strong>
+      <span>${formatTime(entry.bounds.start)} - ${formatTime(entry.bounds.end)}</span>
+      <i class="resize-handle left" data-mode="resize-left"></i>
+      <i class="resize-handle right" data-mode="resize-right"></i>
+    `;
+
+    block.addEventListener("pointerdown", startBlockDrag);
+    els.timelineTrack.append(block);
+  });
+}
+
+function startBlockDrag(event) {
+  const block = event.currentTarget;
+  const index = Number(block.dataset.index);
+  const entry = currentEntries()[index];
+  const bounds = entryBounds(entry);
+  if (!bounds) return;
+
+  const mode = event.target.dataset.mode || "move";
+  const trackRect = els.timelineTrack.getBoundingClientRect();
+  const startX = event.clientX;
+  const start = bounds.start;
+  const end = bounds.end;
+
+  block.setPointerCapture(event.pointerId);
+
+  const onMove = (moveEvent) => {
+    const deltaPx = moveEvent.clientX - startX;
+    const deltaMinutes = roundToSnap((deltaPx / trackRect.width) * DAY_MINUTES);
+    let nextStart = start;
+    let nextEnd = end;
+
+    if (mode === "move") {
+      const duration = end - start;
+      nextStart = Math.max(DAY_START, Math.min(DAY_END - duration, start + deltaMinutes));
+      nextEnd = nextStart + duration;
+    }
+
+    if (mode === "resize-left") {
+      nextStart = Math.max(DAY_START, Math.min(end - SNAP_MINUTES, start + deltaMinutes));
+    }
+
+    if (mode === "resize-right") {
+      nextEnd = Math.min(DAY_END, Math.max(start + SNAP_MINUTES, end + deltaMinutes));
+    }
+
+    entry.start = formatTime(nextStart);
+    entry.end = formatTime(nextEnd);
+    renderAll();
+  };
+
+  const onUp = () => {
+    block.releasePointerCapture(event.pointerId);
+    block.removeEventListener("pointermove", onMove);
+    block.removeEventListener("pointerup", onUp);
+    showToast("Timeline updated");
+  };
+
+  block.addEventListener("pointermove", onMove);
+  block.addEventListener("pointerup", onUp);
+}
+
+function renderSubmit() {
+  els.submitRows.replaceChildren();
+  const rollup = new Map();
+
+  validEntries().forEach((entry) => {
+    const key = [state.selectedDate, entry.code, entry.extension, entry.description].join("|");
+    if (!rollup.has(key)) {
+      rollup.set(key, {
+        date: state.selectedDate,
+        code: entry.code,
+        extension: entry.extension,
+        description: entry.description,
+        minutes: 0,
+        notes: []
+      });
+    }
+
+    const item = rollup.get(key);
+    item.minutes += entry.bounds.duration;
+    if (entry.notes) item.notes.push(entry.notes);
+  });
+
+  [...rollup.values()].forEach((item) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${item.date}</td>
+      <td>${item.code}</td>
+      <td>${item.extension || ""}</td>
+      <td>${(item.minutes / 60).toFixed(2)}</td>
+      <td>${item.description || ""}</td>
+      <td>${item.notes.join("; ")}</td>
+    `;
+    els.submitRows.append(row);
+  });
+}
+
+function renderWeek() {
+  els.weekList.replaceChildren();
+  const base = dateFromValue(state.selectedDate);
+  const monday = new Date(base);
+  monday.setDate(base.getDate() - ((base.getDay() + 6) % 7));
+
+  for (let index = 0; index < 5; index += 1) {
+    const date = new Date(monday);
+    date.setDate(monday.getDate() + index);
+    const dateKey = valueFromDate(date);
+    const label = date.toLocaleDateString(undefined, { weekday: "short" });
+    const entries = state.days[dateKey] || [];
+    const valid = entries
+      .map((entry) => ({ ...entry, bounds: entryBounds(entry) }))
+      .filter((entry) => entry.bounds);
+    const total = valid.reduce((sum, entry) => sum + entry.bounds.duration, 0);
+    const row = document.createElement("div");
+
+    row.className = "week-row";
+    row.innerHTML = `<b>${label}</b><div class="mini-track"></div><b>${(total / 60).toFixed(1)}h</b>`;
+    const track = row.querySelector(".mini-track");
+
+    if (valid.length) {
+      valid.forEach((entry) => {
+        const code = codeByName(entry.code);
+        const segment = document.createElement("span");
+        segment.className = "mini-segment";
+        segment.style.width = `${Math.max(2, (entry.bounds.duration / Math.max(total, 1)) * 100)}%`;
+        segment.style.background = code?.color || "#607080";
+        track.append(segment);
+      });
+    }
+
+    els.weekList.append(row);
+  }
+}
+
+function dateFromValue(value) {
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+
+function valueFromDate(date) {
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0")
+  ].join("-");
+}
+
+function addEntry() {
+  const entries = currentEntries();
+  const lastBounds = entries.length ? entryBounds(entries[entries.length - 1]) : null;
+  const start = lastBounds ? lastBounds.end : DAY_START;
+  const end = Math.min(DAY_END, start + 30);
+  const code = state.codes[0] || {};
+
+  entries.push({
+    start: formatTime(start),
+    end: formatTime(end),
+    code: code.code || "",
+    extension: code.extension || "",
+    description: code.description || "",
+    type: code.type || "",
+    notes: ""
+  });
+
+  renderAll();
+}
+
+function addCode() {
+  state.codes.push({
+    code: `CODE-${state.codes.length + 1}`,
+    extension: "",
+    description: "New charge code",
+    type: "Work",
+    color: "#607080"
+  });
+  renderAll();
+}
+
+async function copyTimesheet() {
+  const rows = [...els.submitRows.querySelectorAll("tr")].map((row) =>
+    [...row.children].map((cell) => cell.textContent).join("\t")
+  );
+  const header = ["Date", "Charge Code", "Extension", "Hours", "Description", "Notes"].join("\t");
+  const text = [header, ...rows].join("\n");
+
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast("Timesheet copied");
+  } catch {
+    showToast("Copy blocked by browser");
+  }
+}
+
+function saveDay() {
+  persistState();
+  showToast("Day saved");
+}
+
+function clearWeek() {
+  const base = dateFromValue(state.selectedDate);
+  const monday = new Date(base);
+  monday.setDate(base.getDate() - ((base.getDay() + 6) % 7));
+
+  for (let index = 0; index < 5; index += 1) {
+    const date = new Date(monday);
+    date.setDate(monday.getDate() + index);
+    delete state.days[valueFromDate(date)];
+  }
+
+  state.days[state.selectedDate] = [];
+  renderAll();
+  showToast("Week cleared");
+}
+
+function showToast(message) {
+  let toast = document.querySelector(".toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.className = "toast";
+    document.body.append(toast);
+  }
+
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+}
+
+els.workDate.value = state.selectedDate;
+els.workDate.addEventListener("change", () => {
+  state.selectedDate = els.workDate.value;
+  if (!state.days[state.selectedDate]) state.days[state.selectedDate] = [];
+  renderAll();
+});
+
+els.addEntryButton.addEventListener("click", addEntry);
+els.addCodeButton.addEventListener("click", addCode);
+els.copyButton.addEventListener("click", copyTimesheet);
+els.saveButton.addEventListener("click", saveDay);
+els.clearWeekButton.addEventListener("click", clearWeek);
+
+renderAll();
+
+    </script>
+  </body>
+</html>
