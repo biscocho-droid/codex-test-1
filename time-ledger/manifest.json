@@ -1,0 +1,9 @@
+{
+  "name": "Time Ledger",
+  "short_name": "Time Ledger",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#edf3f6",
+  "theme_color": "#102a43",
+  "description": "Daily charge-code time tracker with exact minutes, extensions, notes, and weekly review."
+}
