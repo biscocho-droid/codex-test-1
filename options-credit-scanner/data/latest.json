@@ -1,8 +1,8 @@
 {
   "scan": {
     "mode": "Live Yahoo Finance",
-    "generated_at": "2026-08-31T16:44:32-05:00",
-    "local_time": "4:44 PM",
+    "generated_at": "2026-08-31T18:15:19-05:00",
+    "local_time": "6:15 PM",
     "timezone": "America/Chicago",
     "market_status": "closed",
     "data_source": "Yahoo Finance via yfinance"
@@ -68,7 +68,7 @@
       "minimum_acceptable_credit": 1.55,
       "short_mid": 10.925,
       "long_mid": 9.275,
-      "earnings_date": "2026-07-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -111,7 +111,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -432,7 +432,7 @@
       "minimum_acceptable_credit": 1.28,
       "short_mid": 9.275,
       "long_mid": 7.9,
-      "earnings_date": "2026-07-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -475,7 +475,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -2252,7 +2252,7 @@
       "minimum_acceptable_credit": 1.1,
       "short_mid": 7.9,
       "long_mid": 6.7,
-      "earnings_date": "2026-07-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -2295,7 +2295,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -5528,7 +5528,7 @@
       "minimum_acceptable_credit": 1.0,
       "short_mid": 6.7,
       "long_mid": 5.6,
-      "earnings_date": "2026-07-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -5571,7 +5571,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -9532,7 +9532,7 @@
       "minimum_acceptable_credit": 0.9,
       "short_mid": 8.6,
       "long_mid": 7.6,
-      "earnings_date": "2026-07-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -9575,7 +9575,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -16084,7 +16084,7 @@
       "minimum_acceptable_credit": 0.75,
       "short_mid": 5.6,
       "long_mid": 4.75,
-      "earnings_date": "2026-07-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -16127,7 +16127,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -18086,7 +18086,7 @@
       "minimum_acceptable_credit": 0.7,
       "short_mid": 7.6,
       "long_mid": 6.8,
-      "earnings_date": "2026-07-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -18129,7 +18129,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -19906,7 +19906,7 @@
       "minimum_acceptable_credit": 0.67,
       "short_mid": 6.8,
       "long_mid": 6.025,
-      "earnings_date": "2026-07-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -19949,7 +19949,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -25002,7 +25002,7 @@
       "minimum_acceptable_credit": 0.6,
       "short_mid": 6.025,
       "long_mid": 5.35,
-      "earnings_date": "2026-07-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -25045,7 +25045,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
@@ -29370,7 +29370,7 @@
       "minimum_acceptable_credit": 0.6,
       "short_mid": 5.35,
       "long_mid": 4.75,
-      "earnings_date": "2026-07-22",
+      "earnings_date": null,
       "rules_pass": true,
       "status": "Valid",
       "legs": {
@@ -29413,7 +29413,7 @@
         "bid_ask": "tight",
         "open_interest": "strong",
         "volume": "strong",
-        "earnings": "clear"
+        "earnings": "unknown"
       },
       "nearby_spreads": [
         {
