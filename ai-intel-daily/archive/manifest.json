@@ -1,6 +1,13 @@
 {
   "archives": [
     {
+      "date": "2026-09-09",
+      "path": "2026-09-09.json",
+      "generatedAt": "2026-09-09T13:22:31+00:00",
+      "itemCount": 80,
+      "sourceCount": 10
+    },
+    {
       "date": "2026-09-08",
       "path": "2026-09-08.json",
       "generatedAt": "2026-09-08T13:18:36+00:00",
@@ -307,13 +314,6 @@
       "generatedAt": "2026-07-27T12:19:44+00:00",
       "itemCount": 80,
       "sourceCount": 13
-    },
-    {
-      "date": "2026-07-26",
-      "path": "2026-07-26.json",
-      "generatedAt": "2026-07-26T10:42:27+00:00",
-      "itemCount": 80,
-      "sourceCount": 10
     }
   ]
 }
